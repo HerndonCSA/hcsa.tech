@@ -62,6 +62,16 @@ body {
   text-align: center;
 } 
 
+a {
+color: #98A8F8;
+text-decoration: none;
+
+}
+
+a:hover {
+  color: #BCCEF8;
+}
+
 
 #particles-js {
   background-color: rgb(0, 0, 0);
