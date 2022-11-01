@@ -11,6 +11,10 @@ body {
   color: white;
 }
 
+.grey {
+  color: grey !important;
+}
+
 .content {
   position: absolute;
   top: 50%;
