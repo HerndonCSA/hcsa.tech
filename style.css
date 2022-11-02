@@ -78,9 +78,19 @@ a:hover {
   width: 100vw;
 }
 
+.email_icon {
+  color: white !important;
+}
+
 /*# sourceMappingURL=style.scss.map */
 .flipdown.flipdown__theme-dark .rotor-group-heading:before {
   color: white !important;
 }
 
+.email_icon {
+  position: absolute;
+  width: 2em;
+  padding-top: 2em;
+  margin-left: 9.5em;
+}
 /*# sourceMappingURL=style.css.map */
