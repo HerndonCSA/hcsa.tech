@@ -59,8 +59,16 @@ body {
   padding: 1%;
   padding-left: 2%;
   margin-top: 2em;
-  text-align: center;
-} 
+  display: flex;
+  /* center the text in the div */
+  align-items: center;
+  justify-content: center;
+}
+.information img {
+  width: 2em;
+  height: 2em;
+  margin-right: 0.5em;
+}
 
 a {
 color: #98A8F8;
