@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: #B50000;
+  background-color: #e00000;
   overflow: hidden;
 }
 
@@ -61,13 +61,13 @@ body {
       margin-top: -1rem;
 
       h3 {
-        font-weight: 200;
+        font-weight: 400;
       }
 
       .shortcut {
         // center the text vertically and horizontally
         position: absolute;
-        margin-left: 28.3rem;
+        margin-left: 28.9rem;
         margin-top: 0.5rem;
         font-size: .5rem;
         display: flex;
@@ -129,7 +129,7 @@ body {
         margin-top: 0.14rem;
         width: 2rem;
         height: 0.25rem;
-        background: #ff000082;
+        background: #e00000;
         border-radius: 5px;
 
         // move the first line to the left
