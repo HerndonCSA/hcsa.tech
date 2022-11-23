@@ -3,10 +3,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  user-select: none;
 }
 
 body {
-  background-color: #e00000;
+  background-image: linear-gradient(#cb0000, black);
   overflow: hidden;
 }
 
@@ -139,20 +140,20 @@ body {
   top: -193px;
   width: 6400px;
   height: 200px;
-  animation: wave 50s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+  animation: wave 100s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
   transform: translate3d(0, 0, 0);
 }
 
 .wave:nth-of-type(2) {
   top: -175px;
-  animation: wave 53s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite, swell 7s ease -1.25s infinite;
+  animation: wave 105s cubic-bezier(0.36, 0.45, 0.63, 0.53) -100s infinite, swell 20s ease -1.25s infinite;
   opacity: 1;
 }
 
 .wave:nth-of-type(3) {
   top: -160px;
   left: 700px;
-  animation: wave 51s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite, swell 7s ease -1.25s infinite;
+  animation: wave 110s cubic-bezier(0.36, 0.45, 0.63, 0.53) -100s infinite, swell 20s ease -1.25s infinite;
   opacity: 1;
 }
 
