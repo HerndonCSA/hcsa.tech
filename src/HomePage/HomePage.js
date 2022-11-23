@@ -14,9 +14,21 @@ export default function HomePage() {
           <h3 className="info">A place for students to explore the countless fields of computer science.</h3>
         </div>
       </div>
+      <div className="secondary">
+        <div className="buttons">
+          <div className="view">View what we're working on</div>
+          <div className="or">
+            <div className="line"></div>
+            <p>or</p>
+            <div className="line"></div>
+          </div>
+          <div className="join">Join us</div>
+        </div>
       <div class="ocean">
         <div class="wave"></div>
         <div class="wave"></div>
+        <div class="wave"></div>
+      </div>
       </div>
     </>
   );
