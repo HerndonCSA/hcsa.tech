@@ -309,3 +309,21 @@ body {
         }
     }
 }
+
+
+// responsive on larger screens
+@media(min-width: 1600px) {
+    // change size of the image in the content and the margin-top for the buttons
+    .content {
+        .join_and_view {
+            margin-top: 15em;
+            img {
+                margin-top: 0em;
+            }
+            height: 100vh;
+            .buttons {
+                margin-top: 2em;
+            }
+        }
+    }
+}

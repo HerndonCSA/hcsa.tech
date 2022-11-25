@@ -240,5 +240,17 @@ body {
     margin-left: 3.5rem;
   }
 }
+@media (min-width: 1600px) {
+  .content .join_and_view {
+    margin-top: 15em;
+    height: 100vh;
+  }
+  .content .join_and_view img {
+    margin-top: 0em;
+  }
+  .content .join_and_view .buttons {
+    margin-top: 2em;
+  }
+}
 
 /*# sourceMappingURL=style.css.map */
