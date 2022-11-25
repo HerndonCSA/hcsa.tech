@@ -20,10 +20,10 @@ export default function HomePage() {
         <div className="selector"/>
       </div>
       <div className="welcome">
-        <h1>We are the <span>Herndon</span></h1>
-        <div className="name">
-          <h1>Computer Science Association</h1>
-          <div className="shortcut">Just call us the "HCSA"</div>
+        <h1 className="name_top">We are the <span>Herndon</span></h1>
+        <div name="flex">
+          <h1 className="name_bottom">Computer Science Association</h1>
+          <p className="shortcut">Just call us the "HCSA"</p>
         </div>
         <h3 className="info">A place for students to explore the countless fields of computer science.</h3>
       </div>
