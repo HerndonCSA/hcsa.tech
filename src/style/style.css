@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   user-select: none;
+  z-index: 1;
 }
 
 body {
@@ -31,6 +32,7 @@ body {
 }
 
 .nav {
+  z-index: 1000;
   z-index: 0;
   display: flex;
   background-image: linear-gradient(to bottom, #B20000, #EF0000);
@@ -59,6 +61,7 @@ body {
   background-color: white;
   margin-top: 4em;
   margin-right: 39.3em;
+  border-radius: 5em;
 }
 
 .welcome {
@@ -109,7 +112,7 @@ body {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-size: 20px;
-  z-index: 1000;
+  z-index: 1;
 }
 
 .content {
