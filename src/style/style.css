@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Poppins:wght@200;400;600&family=Quicksand:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Poppins&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,171 +7,57 @@
 }
 
 body {
-  background-image: linear-gradient(#cb0000, black);
-  overflow: hidden;
+  background-color: #EF0000;
 }
 
-.login {
+.main .login {
+  background-color: #FF0000;
   position: absolute;
   top: 0;
   right: 0;
-  padding: 1rem;
-}
-.login a {
-  text-decoration: none;
-  font-family: "Quicksand", sans-serif;
+  text-align: center;
   color: white;
-}
-
-.main {
-  font-family: "Poppins", sans-serif;
-  color: white;
-  font-weight: 400;
-  display: flex;
-  justify-content: center;
-}
-.main .welcome {
-  margin-top: 5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* We are the Herndon */
-  font-family: "Poppins";
-  font-style: normal;
-}
-.main .welcome h1 {
-  font-weight: 200;
-  font-size: 70px;
-  text-shadow: 0px 4px 13px rgba(0, 0, 0, 0.25);
-}
-.main .welcome h1 strong {
-  font-weight: 400;
-}
-.main .welcome .name {
-  display: flex;
-  font-size: 25px;
-  margin-top: -1rem;
-}
-.main .welcome .name h3 {
-  font-weight: 400;
-}
-.main .welcome .name .shortcut {
-  position: absolute;
-  margin-left: 28.9rem;
-  margin-top: 0.5rem;
-  font-size: 0.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: inset 0px 0px 37px -15px rgba(0, 0, 0, 0.31);
-  border-radius: 5px;
-  padding: 1em 1em 1em 1em;
-}
-.main .welcome .info {
-  margin-top: 2em;
-  font-size: 30px;
-  font-weight: 400;
-}
-
-.secondary {
-  display: flex;
-  justify-content: center;
-}
-.secondary .buttons {
-  z-index: 5;
-  margin-top: 15em;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
-.secondary .buttons .view, .secondary .buttons .join {
-  color: white;
-  font-family: "Poppins", sans-serif;
-  font-size: 35px;
-  transition: 0.5s;
-}
-.secondary .buttons .view:hover, .secondary .buttons .join:hover {
-  color: #B50000;
-  border-radius: 5px;
-  transition: 0.5s;
+  padding: 1em 2em;
+  margin-right: 2em;
+  margin-top: -0.45em;
+  box-shadow: 0px 1px 27px -3px rgba(0, 0, 0, 0.46);
+  border-radius: 0 0 0.5em 0.5em;
   cursor: pointer;
 }
-.secondary .buttons .or {
+.main .login h1 {
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 27px;
+}
+.main .nav {
+  z-index: 0;
   display: flex;
+  background-image: linear-gradient(to bottom, #B20000, #EF0000);
+  padding: 1em 2em;
   justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
 }
-.secondary .buttons .or .line {
-  position: absolute;
-  margin-top: 0.14rem;
-  width: 2rem;
-  height: 0.25rem;
-  background: #e00000;
-  border-radius: 5px;
+.main .nav ul {
+  margin-top: 1.5em;
+  display: flex;
+  list-style: none;
 }
-.secondary .buttons .or .line:first-child {
-  margin-left: -5rem;
+.main .nav ul li {
+  margin: 0 4em;
 }
-.secondary .buttons .or .line:last-child {
-  margin-left: 5rem;
-}
-.secondary .buttons .or p {
-  font-family: "Courgette", cursive !important;
+.main .nav ul li a {
   color: white;
-  font-size: 30px !important;
+  text-decoration: none;
+  font-size: 30px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
 }
-
-.ocean {
-  height: 15em;
-  width: 100%;
+.main .nav .selector {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  background: #000000;
-  max-width: 100% !important;
-}
-
-.wave {
-  background: url(/src/images/wave.svg) repeat-x;
-  position: absolute;
-  top: -193px;
-  width: 6400px;
-  height: 200px;
-  animation: wave 100s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
-  transform: translate3d(0, 0, 0);
-}
-
-.wave:nth-of-type(2) {
-  top: -175px;
-  animation: wave 105s cubic-bezier(0.36, 0.45, 0.63, 0.53) -100s infinite, swell 20s ease -1.25s infinite;
-  opacity: 1;
-}
-
-.wave:nth-of-type(3) {
-  top: -160px;
-  left: 700px;
-  animation: wave 110s cubic-bezier(0.36, 0.45, 0.63, 0.53) -100s infinite, swell 20s ease -1.25s infinite;
-  opacity: 1;
-}
-
-@keyframes wave {
-  0% {
-    margin-left: 0;
-  }
-  100% {
-    margin-left: -1600px;
-  }
-}
-@keyframes swell {
-  0%, 100% {
-    transform: translate3d(0, -25px, 0);
-  }
-  50% {
-    transform: translate3d(0, 5px, 0);
-  }
+  width: 5.5em;
+  height: 0.2em;
+  background-color: white;
+  margin-top: 4.5em;
+  margin-right: 44em;
 }
 
 /*# sourceMappingURL=style.css.map */
