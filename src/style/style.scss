@@ -54,23 +54,27 @@ body {
         li {
             margin: 0 4em;
             a {
-                color: white;
+                color: rgb(255, 255, 255);
                 text-decoration: none;
-                font-size: 25px;
+                font-size: 20px;
                 font-family: 'Poppins', sans-serif;
                 font-weight: 400;
             }
+            background-color: hsla(0, 0%, 11%, 0.255);
+            padding: 0.5em 1em;
+            border-radius: 0.5em 0.5em 0 0;
         }
     }
 
     .selector {
         position: absolute;
-        width: 4.7em;
-        height: 0.2em;
-        background-color: white;
-        margin-top: 4em;
-        margin-right: 39.3em;
-        border-radius: 5em;
+        width: 5.71em;
+        height: 0.4em;
+        background-color: hsla(0, 0%, 100%, 0.255);
+        margin-top: 4.37em;
+        margin-right: 38.65em;
+        // border radius on bottom only
+        border-radius: 0 0 0.3em 0.3em;
     }
 }
 
@@ -143,11 +147,11 @@ body {
     .join_and_view {
         margin-top: 10em;
         img {
-            margin-top: -15em;
+            margin-top:-10000em !important;
             width: 100%;
         }
         background-color: #1B1B1B;
-        height: 40vh;
+        height: 45vh;
 
         .buttons {
             display: flex;
@@ -213,7 +217,7 @@ body {
                 p {
                   font-family: 'Courgette', cursive !important;
                   color: white;
-                  font-size: 30px !important;
+                  font-size: 30px;
                 }
               }
         }
@@ -221,4 +225,87 @@ body {
 
 
 
+}
+
+// responsive design
+
+// hide the nav bar on mobile
+@media only screen and (max-width: 1000px) {
+    body {
+        overflow: hidden;
+    }
+
+    .login {
+        h1 {
+            font-size: 16px;
+        }
+    }
+
+    .nav ul, .nav .selector {
+        visibility: hidden;
+    }
+
+    // change font size of welcome
+    .welcome {
+        .name_top {
+            font-size: 30px;
+        }
+        .flex {
+            .name_bottom {
+                margin-top: 0.5em;
+                font-size: 17px;
+            }
+            // hide shortcut on mobile
+            .shortcut {
+                visibility: hidden;
+            }
+        }
+        .info {
+            font-size: 14px;
+            // align text in the center
+            text-align: center;
+            // bold the text
+            font-weight: 600;
+        }
+    }
+
+    // change the join and view buttons on mobile
+    .content {
+        .join_and_view {
+            img {
+                margin-top: -20em;
+            }
+            // make the height 50% of the screen
+            height: 60vh;
+            .buttons {
+                margin-top: 1em;
+                .join, .view {
+                    font-size: 15px;
+                }
+
+                .view {
+                    font-weight: 600;
+                }
+
+                .or {
+                    p {
+                        font-size: 20px;
+                    }
+                    .line {
+                        width: 1.5rem;
+                        height: 0.2rem;
+                        &:first-child {
+                            margin-left: -3.5rem;
+                        }
+                        &:last-child {
+                            margin-left: 3.5rem;
+                        }
+                    }
+                }
+            }
+
+
+
+        }
+    }
 }

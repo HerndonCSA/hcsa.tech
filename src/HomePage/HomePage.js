@@ -3,23 +3,6 @@ import wave from '../images/waves.png';
 export default function HomePage() {
   return (
     <>
-      <div className="login">
-        <h1>Login</h1>
-      </div>
-      <div className="nav">
-        <ul className="items">
-          <li className="home">
-            <a href="/">Home</a>
-          </li>
-          <li className="members">
-            <a href="/members">View Our Members</a>
-          </li>
-          <li className="contact">
-            <a href="/contact">Contact Us</a>
-          </li>
-        </ul>
-        <div className="selector"/>
-      </div>
       <div className="welcome">
         <h1 className="name_top">We are the <span>Herndon</span></h1>
         <div className="flex">
@@ -32,7 +15,7 @@ export default function HomePage() {
         <div className="join_and_view">
           <img src={wave} alt="waves" />
           <div className="buttons">
-          <button className="view">View what we're working on</button>
+          <button className="view">View our ongoing projects</button>
           <div className="or">
             <div className="line"/>
             <p>or</p>

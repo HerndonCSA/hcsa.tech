@@ -46,22 +46,25 @@ body {
 }
 .nav ul li {
   margin: 0 4em;
+  background-color: hsla(0deg, 0%, 11%, 0.255);
+  padding: 0.5em 1em;
+  border-radius: 0.5em 0.5em 0 0;
 }
 .nav ul li a {
-  color: white;
+  color: rgb(255, 255, 255);
   text-decoration: none;
-  font-size: 25px;
+  font-size: 20px;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
 }
 .nav .selector {
   position: absolute;
-  width: 4.7em;
-  height: 0.2em;
-  background-color: white;
-  margin-top: 4em;
-  margin-right: 39.3em;
-  border-radius: 5em;
+  width: 5.71em;
+  height: 0.4em;
+  background-color: hsla(0deg, 0%, 100%, 0.255);
+  margin-top: 4.37em;
+  margin-right: 38.65em;
+  border-radius: 0 0 0.3em 0.3em;
 }
 
 .welcome {
@@ -122,10 +125,10 @@ body {
 .content .join_and_view {
   margin-top: 10em;
   background-color: #1B1B1B;
-  height: 40vh;
+  height: 45vh;
 }
 .content .join_and_view img {
-  margin-top: -15em;
+  margin-top: -10000em !important;
   width: 100%;
 }
 .content .join_and_view .buttons {
@@ -180,7 +183,62 @@ body {
 .content .join_and_view .buttons .or p {
   font-family: "Courgette", cursive !important;
   color: white;
-  font-size: 30px !important;
+  font-size: 30px;
+}
+
+@media only screen and (max-width: 1000px) {
+  body {
+    overflow: hidden;
+  }
+  .login h1 {
+    font-size: 16px;
+  }
+  .nav ul, .nav .selector {
+    visibility: hidden;
+  }
+  .welcome .name_top {
+    font-size: 30px;
+  }
+  .welcome .flex .name_bottom {
+    margin-top: 0.5em;
+    font-size: 17px;
+  }
+  .welcome .flex .shortcut {
+    visibility: hidden;
+  }
+  .welcome .info {
+    font-size: 14px;
+    text-align: center;
+    font-weight: 600;
+  }
+  .content .join_and_view {
+    height: 60vh;
+  }
+  .content .join_and_view img {
+    margin-top: -20em;
+  }
+  .content .join_and_view .buttons {
+    margin-top: 1em;
+  }
+  .content .join_and_view .buttons .join, .content .join_and_view .buttons .view {
+    font-size: 15px;
+  }
+  .content .join_and_view .buttons .view {
+    font-weight: 600;
+  }
+  .content .join_and_view .buttons .or p {
+    font-size: 20px;
+  }
+  .content .join_and_view .buttons .or .line {
+    width: 1.5rem;
+    height: 0.2rem;
+  }
+  .content .join_and_view .buttons .or .line:first-child {
+    margin-left: -3.5rem;
+  }
+  .content .join_and_view .buttons .or .line:last-child {
+    margin-left: 3.5rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
