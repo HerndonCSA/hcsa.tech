@@ -1,7 +1,8 @@
+import wave from '../images/waves.png';
+
 export default function HomePage() {
   return (
     <>
-    <div className="main">
       <div className="login">
         <h1>Login</h1>
       </div>
@@ -21,7 +22,7 @@ export default function HomePage() {
       </div>
       <div className="welcome">
         <h1 className="name_top">We are the <span>Herndon</span></h1>
-        <div name="flex">
+        <div className="flex">
           <h1 className="name_bottom">Computer Science Association</h1>
           <p className="shortcut">Just call us the "HCSA"</p>
         </div>
@@ -29,17 +30,17 @@ export default function HomePage() {
       </div>
       <div className="content">
         <div className="join_and_view">
-          <img src="/" alt="waves" />
+          <img src={wave} alt="waves" />
+          <div className="buttons">
           <button className="view">View what we're working on</button>
           <div className="or">
             <div className="line"/>
-            <div className="text">or</div>
+            <p>or</p>
             <div className="line"/>
           </div>
-          <button className="join">Join us</button>
+          <button className="join">Join us</button></div>
         </div>
       </div>
-    </div>
     </>
   );
 }

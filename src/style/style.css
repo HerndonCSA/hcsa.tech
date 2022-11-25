@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Poppins:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Nunito:wght@700&family=Poppins:ital,wght@0,400;0,500;0,600;1,600&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
@@ -10,86 +10,174 @@ body {
   background-color: #EF0000;
 }
 
-.main .login {
+.login {
   background-color: #FF0000;
   position: absolute;
   top: 0;
   right: 0;
   text-align: center;
   color: white;
-  padding: 1em 2em;
+  padding: 0.7em 1.5em;
   margin-right: 2em;
-  margin-top: -0.45em;
+  margin-top: -0.4em;
   box-shadow: 0px 1px 27px -3px rgba(0, 0, 0, 0.46);
   border-radius: 0 0 0.5em 0.5em;
   cursor: pointer;
 }
-.main .login h1 {
+.login h1 {
   font-family: "Nunito", sans-serif;
-  font-weight: 700;
-  font-size: 27px;
+  font-weight: 600;
+  font-size: 20px;
 }
-.main .nav {
+
+.nav {
   z-index: 0;
   display: flex;
   background-image: linear-gradient(to bottom, #B20000, #EF0000);
   padding: 1em 2em;
   justify-content: center;
 }
-.main .nav ul {
+.nav ul {
   margin-top: 1.5em;
   display: flex;
   list-style: none;
 }
-.main .nav ul li {
+.nav ul li {
   margin: 0 4em;
 }
-.main .nav ul li a {
+.nav ul li a {
   color: white;
   text-decoration: none;
-  font-size: 30px;
+  font-size: 25px;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
 }
-.main .nav .selector {
+.nav .selector {
   position: absolute;
-  width: 5.5em;
+  width: 4.7em;
   height: 0.2em;
   background-color: white;
-  margin-top: 4.5em;
-  margin-right: 44em;
+  margin-top: 4em;
+  margin-right: 39.3em;
 }
-.main .welcome {
+
+.welcome {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   margin-top: 6em;
-}
-.main .welcome .name_top {
   font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  font-size: 70px;
   color: white;
+}
+.welcome .name_top {
+  font-weight: 500;
+  font-size: 60px;
   /* We are the */
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.main .welcome .name_top span {
+.welcome .name_top span {
   color: black;
   text-shadow: none !important;
 }
-.main .welcome .flex {
+.welcome .flex {
   display: flex;
   flex-direction: row;
-  margin-top: 0.5em;
+  margin-top: -1em;
 }
-.main .welcome .flex .name_bottom {
+.welcome .flex .name_bottom {
   font-family: "Poppins", sans-serif;
   font-weight: 500;
-  font-size: 70px;
-  color: white;
+  font-size: 28px;
   /* We are the */
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.welcome .flex .shortcut {
+  position: absolute;
+  margin-left: 27.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0px 0px 37px -15px rgba(0, 0, 0, 0.31);
+  border-radius: 2px;
+  padding: 1em 1em 1em 1em;
+}
+.welcome .info {
+  margin-top: 1em;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  z-index: 1000;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+}
+.content .join_and_view {
+  margin-top: 10em;
+  background-color: #1B1B1B;
+  height: 40vh;
+}
+.content .join_and_view img {
+  margin-top: -15em;
+  width: 100%;
+}
+.content .join_and_view .buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.content .join_and_view .buttons .join, .content .join_and_view .buttons .view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 1em 2em;
+  height: 3em;
+  background-color: #de0000;
+  color: white;
+  font-size: 22px;
+  border: none;
+  border-radius: 0.3em;
+  cursor: pointer;
+}
+.content .join_and_view .buttons .view {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}
+.content .join_and_view .buttons .join {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+.content .join_and_view .buttons .or {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.content .join_and_view .buttons .or .line {
+  position: absolute;
+  margin-top: 0.14rem;
+  width: 2rem;
+  height: 0.25rem;
+  background: #e00000;
+  border-radius: 5px;
+}
+.content .join_and_view .buttons .or .line:first-child {
+  margin-left: -5rem;
+}
+.content .join_and_view .buttons .or .line:last-child {
+  margin-left: 5rem;
+}
+.content .join_and_view .buttons .or p {
+  font-family: "Courgette", cursive !important;
+  color: white;
+  font-size: 30px !important;
 }
 
 /*# sourceMappingURL=style.css.map */
