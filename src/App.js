@@ -2,9 +2,9 @@ import { useCallback } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import "./style/style.css"
-import HomePage from './HomePage/HomePage';
-import MembersPage from './MembersPage/MembersPage';
-import ContactPage from "./ContactPage/ContactPage";
+import HomePage from "./HomePage";
+import MembersPage from './MembersPage';
+import ContactPage from "./ContactPage";
 import particlesOptions from "./particles.json";
 import { Route, Routes, Link } from "react-router-dom";
 import LinkButton from "./LinkButton";
