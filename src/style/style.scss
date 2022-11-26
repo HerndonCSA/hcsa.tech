@@ -66,6 +66,10 @@ body {
             background-color: hsla(0, 0%, 11%, 0.255);
             padding: 0.5em 1em;
             border-radius: 0.5em 0.5em 0 0;
+            &.unselected {
+                border-radius: 0.5em !important;
+            }
+            transition: all 0.3s ease-in-out;
         }
     }
 

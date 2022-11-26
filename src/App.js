@@ -60,17 +60,18 @@ const App = () => {
       </div>
       <div className="nav">
         <ul>
-          <li className="selected">
+          {/* Use a ternary operator to add the selected class if location.pathname is the current path*/}
+          <li className={location.pathname === "/" ? "" : "unselected"}>
             <LinkButton to="/">Home</LinkButton>
           </li>
-          <li className="">
+          <li className={location.pathname === "/members" ? "" : "unselected"}>
             <LinkButton to="/members">Members</LinkButton>
           </li>
-          <li className="">
+          <li className={location.pathname === "/contact" ? "" : "unselected"}>
             <LinkButton to="/contact">Contact Us</LinkButton>
           </li>
         </ul>
-        <motion.div className="selector" style={selectorStyles[location.pathname]} animate={{...selectorStyles[location.pathname]}} transition={{type: "spring", duration: 0.5}} initial={false}/>
+        <motion.div className="selector" style={selectorStyles[location.pathname]} animate={{...selectorStyles[location.pathname]}} transition={{duration: 0.5, type: "spring", stiffness: 60, damping: 15}} initial={false}/>
 
       </div>
       <AnimatePresence initial={false} exitBeforeEnter>
