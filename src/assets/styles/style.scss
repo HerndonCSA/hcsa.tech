@@ -11,9 +11,9 @@ body {
     background-color: #EF0000;
 }
 
-.tsparticles {
+// .tsparticles {
 
-}
+// }
 
 .container {
     position: absolute;
@@ -220,11 +220,12 @@ body {
                     margin-left: -5rem;
                   }
           
-                  // move the second line to the right
+                  // move the second line to the right  
                   &:last-child {
                     margin-left: 5rem;
                   }
                 }
+                
                 p {
                   font-family: 'Courgette', cursive !important;
                   color: white;
@@ -233,10 +234,8 @@ body {
               }
         }
     }
-
-
-
 }
+
 
 // responsive design
 

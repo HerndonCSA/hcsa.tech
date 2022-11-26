@@ -10,7 +10,9 @@ export default function MembersPage({enterAnimation, exitAnimation, animationVar
         exit={animationVariants[exitAnimation]}
         transition={{ duration: 0.25 }}
       >
-            <h1>Members Page</h1>
+            <div className="members">
+                <h1>Members</h1>
+            </div>
         </motion.div>
     );
 }

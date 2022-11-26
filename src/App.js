@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import "./assets/styles/style.css"
@@ -53,7 +53,7 @@ const App = () => {
       transition: { duration: 0.4, ease: 'easeInOut' }
     },
     exitRight:{
-      x:'100vw',
+      x:'10vw',
       opacity: 0,
       transition: { duration: 0.4, ease: 'easeInOut' }
     },
@@ -63,8 +63,8 @@ const App = () => {
     }
   };
 
-  const [exitAnimation, setExitAnimation] = useState("initial");
-  const [enterAnimation, setEnterAnimation] = useState("initial");
+  const [exitAnimation, setExitAnimation] = useState("");
+  const [enterAnimation, setEnterAnimation] = useState("");
   
 
   const selectorStyles = {
@@ -82,6 +82,7 @@ const App = () => {
     }
   }
 
+
   return (
     <>
       <Particles id="tsparticles" options={particlesOptions} init={particlesInit} loaded={particlesLoaded} />
@@ -95,12 +96,12 @@ const App = () => {
           onClick={() => {
             if(location.pathname === "/") return;
             if(location.pathname === "/members") {
-              setExitAnimation("exitLeft");
+              setExitAnimation("exitRight");  
               setEnterAnimation("enterLeft");
             }
             if(location.pathname === "/contact") {
               setExitAnimation("exitRight");
-              setEnterAnimation("enterRight");
+              setEnterAnimation("enterLeft");
             }
             navigate("/");
           }}
@@ -112,10 +113,10 @@ const App = () => {
             if(location.pathname === "/members") return;
             if(location.pathname === "/") {
               setExitAnimation("exitRight");
-              setEnterAnimation("enterRight");
+              setEnterAnimation("enterLeft");
             }
             if(location.pathname === "/contact") {
-              setExitAnimation("exitLeft");
+              setExitAnimation("exitRight");
               setEnterAnimation("enterLeft");
             }
             navigate("/members");
@@ -127,11 +128,11 @@ const App = () => {
           onClick={() => {
             if(location.pathname === "/contact") return;
             if(location.pathname === "/") {
-              setExitAnimation("exitLeft");
+              setExitAnimation("exitRight");
               setEnterAnimation("enterLeft");
             }
             if(location.pathname === "/members") {
-              setExitAnimation("exitRight");
+              setExitAnimation("exitLeft");
               setEnterAnimation("enterRight");
             }
             navigate("/contact");
