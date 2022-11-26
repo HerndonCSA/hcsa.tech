@@ -53,12 +53,15 @@ body {
         list-style: none;
         li {
             margin: 0 4em;
-            a {
+            button {
                 color: rgb(255, 255, 255);
                 text-decoration: none;
                 font-size: 20px;
                 font-family: 'Poppins', sans-serif;
                 font-weight: 400;
+                background: none;
+                border: none;
+                cursor: pointer;
             }
             background-color: hsla(0, 0%, 11%, 0.255);
             padding: 0.5em 1em;
@@ -72,7 +75,7 @@ body {
         height: 0.4em;
         background-color: hsla(0, 0%, 100%, 0.255);
         margin-top: 4.37em;
-        margin-right: 38.65em;
+        margin-right: 32.85em;
         // border radius on bottom only
         border-radius: 0 0 0.3em 0.3em;
     }

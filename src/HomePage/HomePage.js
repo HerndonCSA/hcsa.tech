@@ -1,8 +1,17 @@
 import wave from '../images/waves.png';
+import { motion } from "framer-motion";
+
 
 export default function HomePage() {
   return (
-    <>
+    <motion.div
+      key="home"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 3 }}
+
+    >
       <div className="welcome">
         <h1 className="name_top">We are the <span>Herndon</span></h1>
         <div className="flex">
@@ -15,15 +24,15 @@ export default function HomePage() {
         <div className="join_and_view">
           <img src={wave} alt="waves" />
           <div className="buttons">
-          <button className="view">View our ongoing projects</button>
-          <div className="or">
-            <div className="line"/>
-            <p>or</p>
-            <div className="line"/>
-          </div>
-          <button className="join">Join us</button></div>
+            <button className="view">View our ongoing projects</button>
+            <div className="or">
+              <div className="line" />
+              <p>or</p>
+              <div className="line" />
+            </div>
+            <button className="join">Join us</button></div>
         </div>
       </div>
-    </>
+    </motion.div>
   );
 }
