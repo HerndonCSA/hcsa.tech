@@ -9,9 +9,10 @@ We are an unoffical club @ herndon highschool
 
 ## Project Details
 
-- Reactjs with create-react-app
 
-Major Dependencies:
+### Reactjs with create-react-app
+
+#### Major Dependencies:
 * framer-motion
 * react-tsparticles
 * react-router-dom
