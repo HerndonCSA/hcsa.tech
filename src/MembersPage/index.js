@@ -1,14 +1,15 @@
 import { motion } from "framer-motion";
 
-export default function MembersPage() {
+export default function MembersPage({enterAnimation, exitAnimation, animationVariants}) {
     return (
-        <motion.div
-            key="members"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-        >
+      <motion.div className="container"
+        key="members"
+        variants={animationVariants}
+        initial={animationVariants[enterAnimation]}
+        animate="visible"
+        exit={animationVariants[exitAnimation]}
+        transition={{ duration: 0.25 }}
+      >
             <h1>Members Page</h1>
         </motion.div>
     );

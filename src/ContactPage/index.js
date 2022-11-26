@@ -1,14 +1,15 @@
 import { motion } from "framer-motion";
 
-export default function ContactPage() {
+export default function ContactPage({enterAnimation, exitAnimation, animationVariants}) {
     return (
-        <motion.div
-            key="contact"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-        >
+      <motion.div className="container"
+        key="contact"
+        variants={animationVariants}
+        initial={animationVariants[enterAnimation]}
+        animate="visible"
+        exit={animationVariants[exitAnimation]}
+        transition={{ duration: 0.25 }}
+      >
             <h1>Contact Page</h1>
         </motion.div>
     );

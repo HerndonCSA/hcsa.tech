@@ -11,6 +11,10 @@ body {
   background-color: #EF0000;
 }
 
+.container {
+  position: absolute;
+}
+
 .login {
   background-color: #FF0000;
   position: absolute;

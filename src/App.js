@@ -1,15 +1,13 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-import "./style/style.css"
+import "./assets/styles/style.css"
 import HomePage from "./HomePage";
 import MembersPage from './MembersPage';
 import ContactPage from "./ContactPage";
 import particlesOptions from "./particles.json";
-import { Route, Routes, Link } from "react-router-dom";
-import LinkButton from "./LinkButton";
-import { useNavigate, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion} from "framer-motion";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
+import { AnimatePresence, motion, useCycle } from "framer-motion";
 
 
 
@@ -18,10 +16,6 @@ import { AnimatePresence, motion} from "framer-motion";
 const App = () => {
   
   const particlesInit = useCallback(async engine => {
-    console.log(engine);
-    // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-    // starting from v2 you can add only the features you need reducing the bundle size
     await loadFull(engine);
   }, []);
 
@@ -36,6 +30,42 @@ const App = () => {
     e.preventDefault();
     navigate(e.target.href);
   }
+
+  const animationVariants = {
+    visible: { 
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.4, ease: "easeInOut" }
+    },
+    enterLeft:{
+      x:'-10vw',
+      opacity: 0,
+      transition: { duration: 0.4, ease: 'easeInOut' }
+    },
+    enterRight:{
+      x:'10vw',
+      opacity: 0,
+      transition: { duration: 0.4, ease: 'easeInOut' }
+    },
+    exitLeft:{
+      x:'-10vw',
+      opacity: 0,
+      transition: { duration: 0.4, ease: 'easeInOut' }
+    },
+    exitRight:{
+      x:'100vw',
+      opacity: 0,
+      transition: { duration: 0.4, ease: 'easeInOut' }
+    },
+    "initial": {
+      x: 0,
+      transition: { duration: 0.4, ease: "easeInOut" }
+    }
+  };
+
+  const [exitAnimation, setExitAnimation] = useState("initial");
+  const [enterAnimation, setEnterAnimation] = useState("initial");
+  
 
   const selectorStyles = {
     "/": {
@@ -61,24 +91,63 @@ const App = () => {
       <div className="nav">
         <ul>
           {/* Use a ternary operator to add the selected class if location.pathname is the current path*/}
-          <li className={location.pathname === "/" ? "" : "unselected"}>
-            <LinkButton to="/">Home</LinkButton>
+          <li className={location.pathname === "/" ? "" : "unselected"}
+          onClick={() => {
+            if(location.pathname === "/") return;
+            if(location.pathname === "/members") {
+              setExitAnimation("exitLeft");
+              setEnterAnimation("enterLeft");
+            }
+            if(location.pathname === "/contact") {
+              setExitAnimation("exitRight");
+              setEnterAnimation("enterRight");
+            }
+            navigate("/");
+          }}
+          >
+            <button>Home</button>
           </li>
-          <li className={location.pathname === "/members" ? "" : "unselected"}>
-            <LinkButton to="/members">Members</LinkButton>
+          <li className={location.pathname === "/members" ? "" : "unselected"}
+          onClick={() => {
+            if(location.pathname === "/members") return;
+            if(location.pathname === "/") {
+              setExitAnimation("exitRight");
+              setEnterAnimation("enterRight");
+            }
+            if(location.pathname === "/contact") {
+              setExitAnimation("exitLeft");
+              setEnterAnimation("enterLeft");
+            }
+            navigate("/members");
+          }}
+          >
+            <button to="/members">Members</button>
           </li>
-          <li className={location.pathname === "/contact" ? "" : "unselected"}>
-            <LinkButton to="/contact">Contact Us</LinkButton>
+          <li className={location.pathname === "/contact" ? "" : "unselected"}
+          onClick={() => {
+            if(location.pathname === "/contact") return;
+            if(location.pathname === "/") {
+              setExitAnimation("exitLeft");
+              setEnterAnimation("enterLeft");
+            }
+            if(location.pathname === "/members") {
+              setExitAnimation("exitRight");
+              setEnterAnimation("enterRight");
+            }
+            navigate("/contact");
+          }}
+          >
+            <button to="/contact">Contact Us</button>
           </li>
         </ul>
         <motion.div className="selector" style={selectorStyles[location.pathname]} animate={{...selectorStyles[location.pathname]}} transition={{duration: 0.5, type: "spring", stiffness: 60, damping: 15}} initial={false}/>
 
       </div>
-      <AnimatePresence initial={false} exitBeforeEnter>
+      <AnimatePresence initial={false} >
         <Routes key={location.pathname} location={location}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/members" element={<MembersPage />} /> 
-          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/" element={<HomePage enterAnimation={enterAnimation} exitAnimation={exitAnimation} animationVariants={animationVariants} />} />
+          <Route path="/members" element={<MembersPage enterAnimation={enterAnimation} exitAnimation={exitAnimation} animationVariants={animationVariants} />} /> 
+          <Route path="/contact" element={<ContactPage enterAnimation={enterAnimation} exitAnimation={exitAnimation} animationVariants={animationVariants} />} />
         </Routes>
       </AnimatePresence>
 
