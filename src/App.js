@@ -8,8 +8,8 @@ import ContactPage from "./ContactPage/ContactPage";
 import particlesOptions from "./particles.json";
 import { Route, Routes, Link } from "react-router-dom";
 import LinkButton from "./LinkButton";
-import { useNavigate } from 'react-router-dom';
-import { AnimatePresence } from "framer-motion";
+import { useNavigate, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion} from "framer-motion";
 
 
 
@@ -30,10 +30,26 @@ const App = () => {
   }, []);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const navLinkClick = (e) => {
     e.preventDefault();
     navigate(e.target.href);
+  }
+
+  const selectorStyles = {
+    "/": {
+      marginRight: "32.85em",
+      width: "5.71em"
+    },
+    "/members": {
+      marginRight: "3.154em",
+      width: "7.86em"
+    },
+    "/contact": {
+      marginRight: "-29.6em",
+      width: "8.9em"
+    }
   }
 
   return (
@@ -54,10 +70,11 @@ const App = () => {
             <LinkButton to="/contact">Contact Us</LinkButton>
           </li>
         </ul>
-        <div className="selector" />
+        <motion.div className="selector" style={selectorStyles[location.pathname]} animate={{...selectorStyles[location.pathname]}} transition={{type: "spring", duration: 0.5}} initial={false}/>
+
       </div>
-      <AnimatePresence exitBeforeEnter initial={false}>
-        <Routes>
+      <AnimatePresence initial={false} exitBeforeEnter>
+        <Routes key={location.pathname} location={location}>
           <Route path="/" element={<HomePage />} />
           <Route path="/members" element={<MembersPage />} /> 
           <Route path="/contact" element={<ContactPage />} />
