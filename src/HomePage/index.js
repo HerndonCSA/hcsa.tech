@@ -2,14 +2,13 @@ import wave from '../assets/images/waves.png';
 import { motion } from "framer-motion";
 
 
-export default function HomePage({enterAnimation, exitAnimation, animationVariants}) {
+export default function HomePage({ enterAnimation, exitAnimation, animationVariants }) {
   return (
-    <motion.div className="container"
+    <motion.div
       key="home"
-      variants={animationVariants}
-      initial={animationVariants[enterAnimation]}
-      animate="visible"
-      exit={animationVariants[exitAnimation]}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
     >
       <div className="welcome">

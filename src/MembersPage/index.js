@@ -2,18 +2,13 @@ import { motion } from "framer-motion";
 
 export default function MembersPage({ enterAnimation, exitAnimation, animationVariants }) {
   return (
-    <motion.div className="container"
+    <motion.div
       key="members"
-      variants={animationVariants}
-      initial={animationVariants[enterAnimation]}
-      animate="visible"
-      exit={animationVariants[exitAnimation]}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
     >
-      <div className="members">
-        <h1>Members</h1>
-      </div>
-
       <div className="user-card">
         <div className="card-content">
 
