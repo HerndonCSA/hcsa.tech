@@ -5,16 +5,17 @@ import "./assets/styles/style.css"
 import HomePage from "./HomePage";
 import MembersPage from './MembersPage';
 import ContactPage from "./ContactPage";
+import LoginModal from "./LoginModal";
 import particlesOptions from "./particles.json";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
-import { AnimatePresence, motion, useCycle } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 
 
 
 
 const App = () => {
-  
+
   const particlesInit = useCallback(async engine => {
     await loadFull(engine);
   }, []);
@@ -30,7 +31,9 @@ const App = () => {
     e.preventDefault();
     navigate(e.target.href);
   }
-  
+
+  const [loginShown, setLoginShown] = useState(false);
+
 
   const selectorStyles = {
     "/": {
@@ -51,33 +54,34 @@ const App = () => {
   return (
     <>
       <Particles id="tsparticles" options={particlesOptions} init={particlesInit} loaded={particlesLoaded} />
-      <div className="login">
+      <LoginModal loginShown={loginShown} setLoginShown={setLoginShown} key="hi"/>
+      <div className="login" onClick={() => setLoginShown(true)}>
         <h1>Login</h1>
       </div>
       <div className="nav">
         <ul>
           {/* Use a ternary operator to add the selected class if location.pathname is the current path*/}
           <li className={location.pathname === "/" ? "" : "unselected"}
-          onClick={() => navigate("/")}>
+            onClick={() => navigate("/")}>
             <button>Home</button>
           </li>
           <li className={location.pathname === "/members" ? "" : "unselected"}
-          onClick={() => navigate("/members")}>
+            onClick={() => navigate("/members")}>
             <button to="/members">Members</button>
           </li>
           <li className={location.pathname === "/contact" ? "" : "unselected"}
-          onClick={() => navigate("/contact")}
+            onClick={() => navigate("/contact")}
           >
             <button to="/contact">Contact Us</button>
           </li>
         </ul>
-        <motion.div className="selector" style={selectorStyles[location.pathname]} animate={{...selectorStyles[location.pathname]}} transition={{duration: 0.5, type: "spring", stiffness: 60, damping: 15}} initial={false}/>
+        <motion.div className="selector" style={selectorStyles[location.pathname]} animate={{ ...selectorStyles[location.pathname] }} transition={{ duration: 0.5, type: "spring", stiffness: 60, damping: 15 }} initial={false} />
 
       </div>
       <AnimatePresence initial={false} exitBeforeEnter>
         <Routes key={location.pathname} location={location}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/members" element={<MembersPage />} /> 
+          <Route path="/members" element={<MembersPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </AnimatePresence>

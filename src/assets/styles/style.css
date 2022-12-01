@@ -1,17 +1,87 @@
 @import url("https://fonts.googleapis.com/css2?family=Courgette&family=Nunito:wght@700&family=Poppins:ital,wght@0,400;0,500;0,600;1,600&display=swap");
+@import url(https://fonts.googleapis.com/css?family=Roboto:500);
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
   z-index: 1;
 }
 
 body {
-  background-color: #EF0000;
+  background-color: #A70000;
+}
+
+.tsparticles {
+  z-index: 0 !important;
+}
+.tsparticles canvas {
+  z-index: 1;
+}
+
+.login-modal {
+  z-index: 100 !important;
+  background-color: #A70000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  color: #fff;
+}
+.login-modal .signin {
+  display: flex;
+  margin-top: 1em;
+  display: flex;
+}
+.login-modal .flex {
+  display: flex;
+}
+.login-modal h3 {
+  margin-right: 0.5em;
+  font-weight: 400;
+}
+.login-modal span {
+  background-color: #e01111;
+  color: rgb(76, 0, 0);
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+}
+.login-modal .exit {
+  position: fixed;
+  right: 0;
+  top: 0;
+  margin: 2em;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.137254902);
+  height: 3.3em;
+  width: 3.3em;
+  border-radius: 0.5em;
+  border: none;
+  transition: 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-modal .exit:hover {
+  background-color: rgba(0, 0, 0, 0.3607843137);
+  transition: 0.2s;
+}
+.login-modal .exit:active {
+  background-color: rgba(0, 0, 0, 0.0941176471);
+  margin-top: 2.2em;
+  transition: 0.2s;
+}
+.login-modal .exit img {
+  width: 1em;
+  height: 1em;
+  margin-left: -1px;
 }
 
 .container {
@@ -19,7 +89,7 @@ body {
 }
 
 .login {
-  background-color: #FF0000;
+  background-color: #B90000;
   position: absolute;
   top: 0;
   right: 0;
@@ -30,19 +100,31 @@ body {
   margin-top: -0.4em;
   box-shadow: 0px 1px 27px -3px rgba(0, 0, 0, 0.46);
   border-radius: 0 0 0.5em 0.5em;
+  z-index: 3;
   cursor: pointer;
+  transition: 0.2s;
 }
 .login h1 {
   font-family: "Nunito", sans-serif;
   font-weight: 600;
   font-size: 20px;
 }
+.login:hover {
+  background-color: #A70000;
+  transition: 0.2s;
+  margin-top: 0.1em;
+}
+.login:active {
+  background-color: #A70000;
+  margin-top: -1em;
+  transition: 5s;
+}
 
 .nav {
   z-index: 1000;
   z-index: 0;
   display: flex;
-  background-image: linear-gradient(to bottom, #B20000, #EF0000);
+  background-image: linear-gradient(to bottom, #780000, #A70000);
   padding: 1em 2em;
   justify-content: center;
 }
@@ -150,7 +232,8 @@ body {
   justify-content: center;
   flex-direction: column;
 }
-.content .join_and_view .buttons .join, .content .join_and_view .buttons .view {
+.content .join_and_view .buttons .join,
+.content .join_and_view .buttons .view {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -207,7 +290,8 @@ body {
   .login h1 {
     font-size: 16px;
   }
-  .nav ul, .nav .selector {
+  .nav ul,
+.nav .selector {
     visibility: hidden;
   }
   .welcome .name_top {
@@ -234,7 +318,8 @@ body {
   .content .join_and_view .buttons {
     margin-top: 1em;
   }
-  .content .join_and_view .buttons .join, .content .join_and_view .buttons .view {
+  .content .join_and_view .buttons .join,
+.content .join_and_view .buttons .view {
     font-size: 15px;
   }
   .content .join_and_view .buttons .view {
@@ -290,4 +375,55 @@ body {
 }
 .user-card .card-content .connections .connection .connection-id {
   margin-left: 10px;
-}/*# sourceMappingURL=style.css.map */
+}
+.google-btn {
+  width: 184px;
+  height: 42px;
+  background-color: #4285f4;
+  border-radius: 2px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  transition: 0.2s;
+  transform: translateY(-0.5em);
+  cursor: pointer;
+}
+.google-btn .google-icon-wrapper {
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 1px;
+  width: 40px;
+  height: 40px;
+  border-radius: 2px;
+  background-color: #fff;
+  transition: 0.2s;
+}
+.google-btn .google-icon {
+  position: absolute;
+  margin-top: 11px;
+  margin-left: 11px;
+  width: 18px;
+  height: 18px;
+}
+.google-btn .btn-text {
+  float: right;
+  margin: 11px 11px 0 0;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-family: "Roboto";
+}
+.google-btn:hover {
+  background-color: #356abf;
+  transition: 0.2s;
+}
+.google-btn:hover .google-icon-wrapper {
+  background-color: #cfd8dc;
+  transition: 0.2s;
+}
+.google-btn:active {
+  background-color: #2f5bb7;
+}
+.google-btn:active .google-icon-wrapper {
+  background-color: #cfd8dc;
+}
+
+/*# sourceMappingURL=style.css.map */
