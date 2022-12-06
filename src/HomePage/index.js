@@ -15,7 +15,7 @@ export default function HomePage({ enterAnimation, exitAnimation, animationVaria
         <h1 className="name_top">We are the <span>Herndon</span></h1>
         <div className="flex">
           <h1 className="name_bottom">Computer Science Association</h1>
-          <p className="shortcut">Just call us the "HCSA"</p>
+          <p className="shortcut">Just call us the HCSA</p>
         </div>
         <h3 className="info">A place for students to explore the countless fields of computer science.</h3>
       </div>
