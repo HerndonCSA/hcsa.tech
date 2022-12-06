@@ -5,7 +5,12 @@ export default function LoginModal({ loginShown, setLoginShown }) {
     return (
         <AnimatePresence key="loginPrompt">
             {loginShown ?
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} key="loginPrompt" className="login-modal">
+                <motion.div key="loginPrompt" className="login-modal"
+                initial={{ opacity: 0, scale: 1.5}}
+                animate={{ opacity: 1, scale: 1}}
+                exit={{ opacity: 0, scale: 0.95, duration: 1}}
+                transition={{delay: 0.1, type: "spring", duration: 0.3}}
+                >
                     <div>
                         <h2>Please prove that you teach or attend at a fairfax county public school.</h2>
                         <div className="signin">
