@@ -37,7 +37,7 @@ const App = () => {
 
   const selectorStyles = {
     "/": {
-      marginRight: "32.85em",
+      marginRight: "32.8501em",
       width: "5.71em"
     },
     "/members": {
