@@ -15,10 +15,10 @@ export default function MembersPage({ enterAnimation, exitAnimation, animationVa
           {/* user name area */}
           <div className="user-name">
             <div className="username-F">
-              Sudarshan
+              soos
             </div>
             <div className="username-L">
-              Lamichhane
+              lastname
             </div>
           </div>
 
