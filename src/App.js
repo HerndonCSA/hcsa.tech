@@ -1,12 +1,9 @@
 import { useCallback, useState, useEffect } from "react";
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
 import "./assets/styles/style.css"
 import HomePage from "./HomePage";
 import MembersPage from './MembersPage';
 import ContactPage from "./ContactPage";
 import LoginModal from "./LoginModal";
-import particlesOptions from "./particles.json";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -15,14 +12,6 @@ import { AnimatePresence, motion } from "framer-motion";
 
 
 const App = () => {
-
-  const particlesInit = useCallback(async engine => {
-    await loadFull(engine);
-  }, []);
-
-  const particlesLoaded = useCallback(async container => {
-    await console.log(container);
-  }, []);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -53,7 +42,6 @@ const App = () => {
 
   return (
     <>
-      <Particles id="tsparticles" options={particlesOptions} init={particlesInit} loaded={particlesLoaded} />
       <LoginModal loginShown={loginShown} setLoginShown={setLoginShown} key="hi"/>
       <div className="login" onClick={() => setLoginShown(true)}>
         <h1>Login</h1>
