@@ -1,13 +1,11 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, lazy } from "react";
 import "./assets/styles/style.css"
-import HomePage from "./HomePage";
-import MembersPage from './MembersPage';
-import ContactPage from "./ContactPage";
-import LoginModal from "./LoginModal";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-
-
+const HomePage = lazy(() => import("./HomePage"));
+const MembersPage = lazy(() => import("./MembersPage"));
+const ContactPage = lazy(() => import("./ContactPage"));
+const LoginModal = lazy(() => import("./LoginModal"));
 
 
 
