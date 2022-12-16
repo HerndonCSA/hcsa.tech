@@ -7,8 +7,6 @@ const MembersPage = lazy(() => import("./MembersPage"));
 const ContactPage = lazy(() => import("./ContactPage"));
 const LoginModal = lazy(() => import("./LoginModal"));
 
-
-
 const App = () => {
 
   const navigate = useNavigate();
