@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import loginClose from "../assets/images/loginClose.svg";
+import "./assets/style.css";
 export default function LoginModal({ loginShown, setLoginShown }) {
 	console.log(loginShown);
 	return (
@@ -8,20 +9,17 @@ export default function LoginModal({ loginShown, setLoginShown }) {
 				<motion.div
 					key="loginPrompt"
 					className="login-modal"
-					initial={{ opacity: 0, scale: 1.5 }}
+					initial={{ opacity: 0 }}
 					animate={{ opacity: 1, scale: 1 }}
-					exit={{ opacity: 0, scale: 0.95, duration: 1 }}
-					transition={{ delay: 0.1, type: "spring", duration: 0.3 }}
+					exit={{ opacity: 0, duration: 1 }}
+					transition={{ delay: 0.1, type: "spring", duration: 0.5 }}
 				>
-					<div>
+					<div class="login-container">
 						<h2>
-							Please prove that you teach or attend at a fairfax
-							county public school.
+							Students & Teachers Only <br />
 						</h2>
 						<div className="signin">
 							<h3>
-								Sign in into a <span>@fcps.edu</span> or{" "}
-								<span>@fcpsschools.net</span> google account
 							</h3>
 							<div class="google-btn">
 								<div class="google-icon-wrapper">
@@ -35,13 +33,13 @@ export default function LoginModal({ loginShown, setLoginShown }) {
 								</p>
 							</div>
 						</div>
-						<button
+					</div>
+					<button
 							className="exit"
 							onClick={() => setLoginShown(false)}
 						>
 							<img src={loginClose} alt="x" />
 						</button>
-					</div>
 				</motion.div>
 			) : null}
 		</AnimatePresence>
