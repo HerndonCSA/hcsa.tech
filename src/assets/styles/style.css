@@ -3,7 +3,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   z-index: 1;
 }
 
@@ -189,7 +192,8 @@ body {
   /* Rectangle 35 */
   background: #727272;
   border: 2px solid #ffffff;
-  backdrop-filter: blur(17px);
+  -webkit-backdrop-filter: blur(17px);
+          backdrop-filter: blur(17px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 4px;
 }
@@ -231,10 +235,23 @@ body {
   background: rgba(255, 39, 39, 0.725);
 }
 .content .join_and_view .buttons .join:before {
-  animation: beforeMove 5s infinite ease-in-out;
+  -webkit-animation: beforeMove 5s infinite ease-in-out;
+          animation: beforeMove 5s infinite ease-in-out;
 }
 .content .join_and_view .buttons .join:after {
-  animation: afterMove 5s infinite ease-in-out;
+  -webkit-animation: afterMove 5s infinite ease-in-out;
+          animation: afterMove 5s infinite ease-in-out;
+}
+@-webkit-keyframes beforeMove {
+  0% {
+    transform: translateX(-500) skewX(-45deg);
+  }
+  40% {
+    transform: translateX(1000%) skewX(-45deg);
+  }
+  100% {
+    transform: translateX(1000%) skewX(-45deg);
+  }
 }
 @keyframes beforeMove {
   0% {
@@ -245,6 +262,17 @@ body {
   }
   100% {
     transform: translateX(1000%) skewX(-45deg);
+  }
+}
+@-webkit-keyframes afterMove {
+  0% {
+    transform: translateX(-450%) skewX(-45deg);
+  }
+  40% {
+    transform: translateX(1050%) skewX(-45deg);
+  }
+  100% {
+    transform: translateX(1050%) skewX(-45deg);
   }
 }
 @keyframes afterMove {
@@ -354,6 +382,11 @@ body {
   }
 }
 .user-card {
+  padding: 2em;
+  display: inline-block;
+  margin-top: 5%;
+  margin-left: 15%;
+  width: 300px;
   border: none;
   box-shadow: inset 0 0 10px black;
   color: white;
@@ -364,7 +397,7 @@ body {
   background-color: red;
 }
 .user-card .card-content {
-  padding: 10px;
+  padding: 5%;
 }
 .user-card .card-content > * {
   margin: 15px;
@@ -426,6 +459,4 @@ body {
 }
 .google-btn:active .google-icon-wrapper {
   background-color: #cfd8dc;
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */
