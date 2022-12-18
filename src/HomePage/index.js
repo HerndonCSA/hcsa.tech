@@ -21,7 +21,6 @@ export default function HomePage({ enterAnimation, exitAnimation, animationVaria
       </div>
       <div className="content">
         <div className="join_and_view">
-          <img src={wave} alt="waves" />
           <div className="buttons">
             <button className="view">View our ongoing projects</button>
             <div className="or">

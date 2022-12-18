@@ -3,17 +3,59 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
   z-index: 1;
 }
 
 body {
-  background-color: #a70000;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #1B1B1B;
+  font-family: Roboto;
+  overflow: hidden;
 }
 
+body:before, body:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  min-width: 300vw;
+  min-height: 300vw;
+  background-color: #a70000;
+  animation-name: rotate;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+body:before {
+  bottom: 55vh;
+  border-radius: 45%;
+  animation-duration: 70s;
+}
+
+body:after {
+  bottom: 50vh;
+  filter: blur(2px);
+  opacity: 0.2;
+  border-radius: 47%;
+  animation-duration: 70s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, 0) rotateZ(0deg);
+  }
+  50% {
+    transform: translate(-50%, -2%) rotateZ(180deg);
+  }
+  100% {
+    transform: translate(-50%, 0%) rotateZ(360deg);
+  }
+}
 .tsparticles {
   z-index: 0 !important;
 }
@@ -60,6 +102,10 @@ body {
 
 .nav {
   z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: absolute;
   z-index: 0;
   display: flex;
   background-image: linear-gradient(to bottom, #780000, #a70000);
@@ -109,6 +155,7 @@ body {
   margin-top: 6em;
   font-family: "Poppins", sans-serif;
   color: white;
+  margin-bottom: 10em;
 }
 .welcome .name_top {
   font-weight: 500;
@@ -157,8 +204,7 @@ body {
   justify-content: center;
 }
 .content .join_and_view {
-  margin-top: 10em;
-  background-color: #1b1b1b;
+  margin-bottom: -10em;
   height: 45vh;
 }
 .content .join_and_view img {
@@ -192,8 +238,7 @@ body {
   /* Rectangle 35 */
   background: #727272;
   border: 2px solid #ffffff;
-  -webkit-backdrop-filter: blur(17px);
-          backdrop-filter: blur(17px);
+  backdrop-filter: blur(17px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 4px;
 }
@@ -235,23 +280,10 @@ body {
   background: rgba(255, 39, 39, 0.725);
 }
 .content .join_and_view .buttons .join:before {
-  -webkit-animation: beforeMove 5s infinite ease-in-out;
-          animation: beforeMove 5s infinite ease-in-out;
+  animation: beforeMove 5s infinite ease-in-out;
 }
 .content .join_and_view .buttons .join:after {
-  -webkit-animation: afterMove 5s infinite ease-in-out;
-          animation: afterMove 5s infinite ease-in-out;
-}
-@-webkit-keyframes beforeMove {
-  0% {
-    transform: translateX(-500) skewX(-45deg);
-  }
-  40% {
-    transform: translateX(1000%) skewX(-45deg);
-  }
-  100% {
-    transform: translateX(1000%) skewX(-45deg);
-  }
+  animation: afterMove 5s infinite ease-in-out;
 }
 @keyframes beforeMove {
   0% {
@@ -262,17 +294,6 @@ body {
   }
   100% {
     transform: translateX(1000%) skewX(-45deg);
-  }
-}
-@-webkit-keyframes afterMove {
-  0% {
-    transform: translateX(-450%) skewX(-45deg);
-  }
-  40% {
-    transform: translateX(1050%) skewX(-45deg);
-  }
-  100% {
-    transform: translateX(1050%) skewX(-45deg);
   }
 }
 @keyframes afterMove {
@@ -429,4 +450,6 @@ body {
 }
 .google-btn:active .google-icon-wrapper {
   background-color: #cfd8dc;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */

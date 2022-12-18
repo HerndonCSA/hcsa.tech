@@ -22,12 +22,6 @@ const users = [
         userNameL: "Recinos-Monjaras",
         discord: "brn#5538",
         email: "bairon@hcsa.tech"
-    },
-    {
-        userNameF: "Bairon",
-        userNameL: "Recinos-Monjaras",
-        discord: "brn#5538",
-        email: "bairon@hcsa.tech"
     }
 ]
 
