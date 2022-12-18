@@ -1,0 +1,50 @@
+// For members.html
+.user-card {
+    padding: 2em;
+    display: inline-block;
+    margin-top: 5%;
+    margin-left: 15%;
+    width: 300px;
+    border: none;
+    box-shadow: inset 0 0 10px black;
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+        sans-serif;
+    border-radius: 5%;
+    background-image: url("/src/assets/images/waves.png");
+    background-size: cover;
+    background-color: red;
+
+    .card-content {
+        padding: 5%;
+
+        >* {
+            margin: 15px;
+        }
+
+        .user-name {
+            .username-F {}
+
+            .username-L {
+                color: gray;
+            }
+        }
+
+        .connections {
+            .connection {
+                display: flex;
+
+                .connection-icon {
+                    img {}
+                }
+
+                .connection-id {
+                    margin-left: 10px;
+                }
+            }
+        }
+
+        .email {}
+    }
+}
