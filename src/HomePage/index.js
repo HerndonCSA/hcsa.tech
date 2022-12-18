@@ -29,7 +29,8 @@ export default function HomePage({ enterAnimation, exitAnimation, animationVaria
               <p>or</p>
               <div className="line" />
             </div>
-            <button className="join">Join us</button></div>
+            <button className="join">Join us</button>
+          </div>
         </div>
       </div>
     </motion.div>

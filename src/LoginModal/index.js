@@ -15,18 +15,11 @@ export default function LoginModal({ loginShown, setLoginShown }) {
 					transition={{ delay: 0.1, type: "spring", duration: 0.5 }}
 				>
 					<div class="login-container">
-						<h2>
-							Students & Teachers Only <br />
-						</h2>
+						<h2> Students & Teachers Only <br /> </h2>
 						<div className="signin">
-							<h3>
-							</h3>
 							<div class="google-btn">
 								<div class="google-icon-wrapper">
-									<img
-										class="google-icon"
-										src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-									/>
+									<img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
 								</div>
 								<p class="btn-text">
 									<b>Sign in with google</b>
@@ -34,12 +27,9 @@ export default function LoginModal({ loginShown, setLoginShown }) {
 							</div>
 						</div>
 					</div>
-					<button
-							className="exit"
-							onClick={() => setLoginShown(false)}
-						>
-							<img src={loginClose} alt="x" />
-						</button>
+					<button className="exit" onClick={() => setLoginShown(false)}>
+						<img src={loginClose} alt="x" />
+					</button>
 				</motion.div>
 			) : null}
 		</AnimatePresence>
