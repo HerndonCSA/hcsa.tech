@@ -47,7 +47,7 @@ export default function MembersPage({ enterAnimation, exitAnimation, animationVa
 
       <div className="user-card">
         <div className="card-content">
-
+          
           {/* user name area */}
           <div className="user-name">
             <div className="username-F">
