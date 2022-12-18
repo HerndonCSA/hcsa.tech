@@ -2,10 +2,12 @@ import { useCallback, useState, useEffect, lazy } from "react";
 import "./assets/styles/style.css"
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import wave from './assets/images/waves.png';
 const HomePage = lazy(() => import("./HomePage"));
 const MembersPage = lazy(() => import("./MembersPage"));
 const ContactPage = lazy(() => import("./ContactPage"));
 const LoginModal = lazy(() => import("./LoginModal"));
+
 
 const App = () => {
 
@@ -60,7 +62,6 @@ const App = () => {
           </li>
         </ul>
         <motion.div className="selector" style={selectorStyles[location.pathname]} animate={{ ...selectorStyles[location.pathname] }} transition={{ duration: 0.5, type: "spring", stiffness: 60, damping: 15 }} initial={false} />
-
       </div>
       <AnimatePresence initial={false} exitBeforeEnter>
         <Routes key={location.pathname} location={location}>
@@ -69,7 +70,6 @@ const App = () => {
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </AnimatePresence>
-
     </>
   );
 };

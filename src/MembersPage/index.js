@@ -16,7 +16,6 @@ export default function MembersPage({ enterAnimation, exitAnimation, animationVa
       </div>
 
       <div className="contains-all-cards">
-
         {/*  map through the users array and return a div for each user */}
         {users.map((user) => (
           <div className="user-card">
