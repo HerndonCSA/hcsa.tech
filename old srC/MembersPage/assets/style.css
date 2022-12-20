@@ -11,7 +11,7 @@
   border-radius: 5%;
   background-image: url("/src/assets/images/waves.png");
   background-size: cover;
-  background-color: #b80000;
+  background-color: red;
 }
 .user-card .card-content {
   padding: 5%;
@@ -27,4 +27,6 @@
 }
 .user-card .card-content .connections .connection .connection-id {
   margin-left: 10px;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */

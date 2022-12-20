@@ -8,54 +8,9 @@
 }
 
 body {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: #1B1B1B;
-  font-family: Roboto;
-  overflow: hidden;
+  background-color: #b90000;
 }
 
-body:before, body:after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  min-width: 300vw;
-  min-height: 300vw;
-  background-color: #a70000;
-  animation-name: rotate;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-body:before {
-  bottom: 55vh;
-  border-radius: 45%;
-  animation-duration: 70s;
-}
-
-body:after {
-  bottom: 50vh;
-  filter: blur(2px);
-  opacity: 0.2;
-  border-radius: 47%;
-  animation-duration: 70s;
-}
-
-@keyframes rotate {
-  0% {
-    transform: translate(-50%, 0) rotateZ(0deg);
-  }
-  50% {
-    transform: translate(-50%, -2%) rotateZ(180deg);
-  }
-  100% {
-    transform: translate(-50%, 0%) rotateZ(360deg);
-  }
-}
 .tsparticles {
   z-index: 0 !important;
 }
