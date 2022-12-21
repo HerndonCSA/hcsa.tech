@@ -1,0 +1,76 @@
+.members-page {
+	position: absolute;
+	margin-top: 20vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.contains-all-cards {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 60px;
+
+	.user-card {
+		width: 18em;
+		height: 16em;
+
+		/* Rectangle 32 */
+		box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.585);
+
+		/* Note: backdrop-filter has minimal browser support */
+		background: rgba(0, 0, 0, 0.06);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		
+
+				
+		border-radius: 10px;
+		text-align: left;
+
+		.card-content {
+			padding: 15px;
+
+			> * {
+				margin: 15px;
+			}
+			
+			.user-name {
+				.username-F {
+					font-weight: bold;
+				}
+				.username-L {
+					color: #ccc;
+				}
+			}
+
+			.connections {
+				.connection {
+					display: flex;
+					font-size: 0.9em;
+					
+					.connection-icon {
+						img {
+							height: 25px;
+							width: 25px;
+							margin-right: 0.5vw;
+						}
+					}
+				}
+			}
+
+			.email {
+				position: absolute;
+				max-width: inherit;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				margin: 0 auto 1em ;
+
+				text-align: center;
+			}
+		}
+	}
+}

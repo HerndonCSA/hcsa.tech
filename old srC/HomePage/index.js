@@ -10,7 +10,7 @@ export default function HomePage({ enterAnimation, exitAnimation, animationVaria
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
-    >
+    > 
       <div className="welcome">
         <h1 className="name_top">We are the <span>Herndon</span></h1>
         <div className="flex">

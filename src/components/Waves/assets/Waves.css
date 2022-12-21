@@ -15,24 +15,24 @@
   animation-name: rotate;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-  transition: 0.5s ease-in-out;
+  transition: all 1.5s ease-in-out;
 }
 .waves:before {
-  bottom: 15vh;
+  bottom: 49vh;
   border-radius: 45%;
-  animation-duration: 40s;
+  animation-duration: 60s;
 }
 .waves:after {
-  bottom: 12vh;
+  bottom: 45vh;
   opacity: 0.5;
   border-radius: 47%;
-  animation-duration: 40s;
+  animation-duration: 60s;
 }
 .waves.high:before {
-  bottom: 30vh;
+  bottom: 66vh;
 }
 .waves.high:after {
-  bottom: 27vh;
+  bottom: 60vh;
 }
 
 @keyframes rotate {
@@ -40,10 +40,10 @@
     transform: translate(-50%, 0) rotateZ(0deg);
   }
   50% {
-    transform: translate(-50%, -0.2%) rotateZ(180deg);
+    transform: translate(-50%, -0.2%) rotateZ(100deg);
   }
   100% {
-    transform: translate(-50%, 0%) rotateZ(360deg);
+    transform: translate(-50%, 0%) rotateZ(200deg);
   }
 }
 
