@@ -3,11 +3,7 @@ import "./assets/Waves.css";
 import { useLocation } from "react-router-dom";
 
 const Waves = () => {
-	// const location = useLocation();
-	function location() {
-		return { pathname: "b" };
-	}
-	location.pathname = "b"
+	const location = useLocation();
 	// Ternary operator syntax: condition ? true : false
 	// Ternary turns className to "waves high" if on the members or contact page
 	return (
