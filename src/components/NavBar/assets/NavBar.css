@@ -1,0 +1,46 @@
+.navbar {
+  width: 100vw;
+  min-height: 10vh;
+  background: rgba(148, 0, 0, 0.5882352941);
+  box-shadow: 0px 0px 20px -2px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.nav-links ul {
+  display: flex;
+  list-style: none;
+}
+.nav-links ul li {
+  z-index: 1000;
+  padding: 0 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: 1em;
+  border-radius: 5px;
+  transition: all 0.25s ease-in-out;
+}
+.nav-links ul li:hover {
+  transition: all 0.25s ease-in-out;
+}
+.nav-links ul li p {
+  text-align: center;
+  font-size: 25px;
+}
+.nav-links .selector {
+  position: absolute;
+  height: 2.35em;
+  margin-top: 1em;
+  background: rgba(99, 0, 0, 0.3333333333);
+  border-radius: 5px;
+  z-index: 0;
+}/*# sourceMappingURL=NavBar.css.map */

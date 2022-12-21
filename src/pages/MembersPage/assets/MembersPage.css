@@ -1,0 +1,57 @@
+.members-page {
+  position: absolute;
+  margin-top: 20vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.contains-all-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 60px;
+}
+.contains-all-cards .user-card {
+  width: 18em;
+  height: 16em;
+  /* Rectangle 32 */
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.585);
+  /* Note: backdrop-filter has minimal browser support */
+  background: rgba(0, 0, 0, 0.06);
+  -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(20px);
+  border-radius: 10px;
+  text-align: left;
+}
+.contains-all-cards .user-card .card-content {
+  padding: 15px;
+}
+.contains-all-cards .user-card .card-content > * {
+  margin: 15px;
+}
+.contains-all-cards .user-card .card-content .user-name .username-F {
+  font-weight: bold;
+}
+.contains-all-cards .user-card .card-content .user-name .username-L {
+  color: #ccc;
+}
+.contains-all-cards .user-card .card-content .connections .connection {
+  display: flex;
+  font-size: 0.9em;
+}
+.contains-all-cards .user-card .card-content .connections .connection .connection-icon img {
+  height: 25px;
+  width: 25px;
+  margin-right: 0.5vw;
+}
+.contains-all-cards .user-card .card-content .email {
+  max-width: inherit;
+  top: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto 1em;
+  text-align: center;
+}/*# sourceMappingURL=MembersPage.css.map */

@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Nunito:wght@700&family=Poppins:ital,wght@0,400;0,500;0,600;1,600&display=swap");
+.homepage {
+  position: absolute;
+  margin-top: 16vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.homepage .welcome-message .wm-1 {
+  font-size: 60px;
+  font-weight: 500;
+}
+.homepage .welcome-message .wm-1 span {
+  color: black;
+}
+.homepage .welcome-message .wm-2 {
+  margin-top: -0.5em;
+  font-size: 27px;
+  font-weight: 500;
+}
+.homepage .welcome-message .wm-3 {
+  margin-top: 2em;
+  font-weight: 100;
+}
+.homepage .interactive-content {
+  margin-top: 12em;
+}
+.homepage .interactive-content .view-or-join button {
+  font-size: 15px;
+  background-color: none;
+}
+.homepage .interactive-content .view-or-join .join,
+.homepage .interactive-content .view-or-join .view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 1em 2em;
+  height: 3em;
+  background-color: #de0000;
+  color: white;
+  font-size: 22px;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+.homepage .interactive-content .view-or-join .view {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-size: 20px;
+  /* Rectangle 35 */
+  background: rgba(114, 114, 114, 0.5960784314);
+  border: 2px solid #ffffff;
+  -webkit-backdrop-filter: blur(17px);
+          backdrop-filter: blur(17px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 4px;
+}
+.homepage .interactive-content .view-or-join .join {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+  /* Rectangle 38 */
+  box-sizing: border-box;
+  background: rgba(255, 39, 39, 0.471);
+  border: 2px solid #ff0000;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  transition-duration: 0.2s;
+  transition: 0.2s;
+}
+.homepage .interactive-content .view-or-join .join:before, .homepage .interactive-content .view-or-join .join:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20%;
+  background-color: rgba(255, 255, 255, 0.292);
+  z-index: 1;
+  transform: skewX(-45deg);
+}
+.homepage .interactive-content .view-or-join .join:before {
+  transform: translateX(-500%) skewX(-45deg);
+}
+.homepage .interactive-content .view-or-join .join:after {
+  transform: translateX(-450%) skewX(-45deg);
+}
+.homepage .interactive-content .view-or-join .join:hover {
+  transition-duration: 0.2s;
+  transition: 0.2s;
+  transform: scale(1.05);
+  background: rgba(255, 39, 39, 0.725);
+}
+.homepage .interactive-content .view-or-join .join:before {
+  -webkit-animation: beforeMove 5s infinite ease-in-out;
+          animation: beforeMove 5s infinite ease-in-out;
+}
+.homepage .interactive-content .view-or-join .join:after {
+  -webkit-animation: afterMove 5s infinite ease-in-out;
+          animation: afterMove 5s infinite ease-in-out;
+}
+@-webkit-keyframes beforeMove {
+  0% {
+    transform: translateX(-500) skewX(-45deg);
+  }
+  40% {
+    transform: translateX(1000%) skewX(-45deg);
+  }
+  100% {
+    transform: translateX(1000%) skewX(-45deg);
+  }
+}
+@keyframes beforeMove {
+  0% {
+    transform: translateX(-500) skewX(-45deg);
+  }
+  40% {
+    transform: translateX(1000%) skewX(-45deg);
+  }
+  100% {
+    transform: translateX(1000%) skewX(-45deg);
+  }
+}
+@-webkit-keyframes afterMove {
+  0% {
+    transform: translateX(-450%) skewX(-45deg);
+  }
+  40% {
+    transform: translateX(1050%) skewX(-45deg);
+  }
+  100% {
+    transform: translateX(1050%) skewX(-45deg);
+  }
+}
+@keyframes afterMove {
+  0% {
+    transform: translateX(-450%) skewX(-45deg);
+  }
+  40% {
+    transform: translateX(1050%) skewX(-45deg);
+  }
+  100% {
+    transform: translateX(1050%) skewX(-45deg);
+  }
+}
+.homepage .interactive-content .view-or-join .or {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.homepage .interactive-content .view-or-join .or .line {
+  position: absolute;
+  margin-top: 0.14rem;
+  width: 2rem;
+  height: 0.25rem;
+  background: #e00000;
+  border-radius: 5px;
+}
+.homepage .interactive-content .view-or-join .or .line:first-child {
+  margin-left: -5rem;
+}
+.homepage .interactive-content .view-or-join .or .line:last-child {
+  margin-left: 5rem;
+}
+.homepage .interactive-content .view-or-join .or p {
+  font-family: "Courgette", cursive !important;
+  color: white;
+  font-size: 30px;
+}/*# sourceMappingURL=HomePage.css.map */

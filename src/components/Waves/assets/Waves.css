@@ -1,0 +1,65 @@
+.waves {
+  position: absolute;
+  background-color: #191919;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+.waves:before, .waves:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  min-width: 300vw;
+  min-height: 300vw;
+  background-color: #860d15;
+  -webkit-animation-name: rotate;
+          animation-name: rotate;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  transition: all 1.5s ease-in-out;
+}
+.waves:before {
+  bottom: 49vh;
+  border-radius: 45%;
+  -webkit-animation-duration: 60s;
+          animation-duration: 60s;
+}
+.waves:after {
+  bottom: 45vh;
+  opacity: 0.5;
+  border-radius: 47%;
+  -webkit-animation-duration: 60s;
+          animation-duration: 60s;
+}
+.waves.high:before {
+  bottom: 66vh;
+}
+.waves.high:after {
+  bottom: 60vh;
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    transform: translate(-50%, 0) rotateZ(0deg);
+  }
+  50% {
+    transform: translate(-50%, -0.2%) rotateZ(100deg);
+  }
+  100% {
+    transform: translate(-50%, 0%) rotateZ(200deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, 0) rotateZ(0deg);
+  }
+  50% {
+    transform: translate(-50%, -0.2%) rotateZ(100deg);
+  }
+  100% {
+    transform: translate(-50%, 0%) rotateZ(200deg);
+  }
+}/*# sourceMappingURL=Waves.css.map */
