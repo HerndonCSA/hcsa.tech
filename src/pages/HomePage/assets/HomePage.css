@@ -53,7 +53,8 @@
   /* Rectangle 35 */
   background: rgba(114, 114, 114, 0.5960784314);
   border: 2px solid #ffffff;
-  backdrop-filter: blur(17px);
+  -webkit-backdrop-filter: blur(17px);
+          backdrop-filter: blur(17px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 4px;
 }
@@ -95,10 +96,23 @@
   background: rgba(255, 39, 39, 0.725);
 }
 .homepage .interactive-content .view-or-join .join:before {
-  animation: beforeMove 5s infinite ease-in-out;
+  -webkit-animation: beforeMove 5s infinite ease-in-out;
+          animation: beforeMove 5s infinite ease-in-out;
 }
 .homepage .interactive-content .view-or-join .join:after {
-  animation: afterMove 5s infinite ease-in-out;
+  -webkit-animation: afterMove 5s infinite ease-in-out;
+          animation: afterMove 5s infinite ease-in-out;
+}
+@-webkit-keyframes beforeMove {
+  0% {
+    transform: translateX(-500) skewX(-45deg);
+  }
+  40% {
+    transform: translateX(1000%) skewX(-45deg);
+  }
+  100% {
+    transform: translateX(1000%) skewX(-45deg);
+  }
 }
 @keyframes beforeMove {
   0% {
@@ -109,6 +123,17 @@
   }
   100% {
     transform: translateX(1000%) skewX(-45deg);
+  }
+}
+@-webkit-keyframes afterMove {
+  0% {
+    transform: translateX(-450%) skewX(-45deg);
+  }
+  40% {
+    transform: translateX(1050%) skewX(-45deg);
+  }
+  100% {
+    transform: translateX(1050%) skewX(-45deg);
   }
 }
 @keyframes afterMove {
@@ -147,6 +172,4 @@
   font-family: "Courgette", cursive !important;
   color: white;
   font-size: 30px;
-}
-
-/*# sourceMappingURL=HomePage.css.map */
+}/*# sourceMappingURL=HomePage.css.map */

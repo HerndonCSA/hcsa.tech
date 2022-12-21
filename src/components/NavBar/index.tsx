@@ -5,12 +5,20 @@ import { motion } from "framer-motion";
 const NavBar = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
+	// copilot how do I make the navChange's parameter be a type of string?
+	// A: You can use a type annotation to specify the type of a parameter
 
-	const navLinkClickEvent = (location) => {
+
+	const navLinkClickEvent = (location: string) => {
 		navigate(location);
 	};
 
-	const selectorStyles = {
+	// copilot how do I make the selectorStyles object have a type of string?
+	// A: You can use a type annotation to specify the type of a parameter
+	// A: You can use a type annotation to specify the type of a parameter
+	// show me how
+
+	const selectorStyles: { [key: string]: { [key: string]: string } }  = {
 		"/": {
 			marginLeft: "1em",
 			width: "7.17em"

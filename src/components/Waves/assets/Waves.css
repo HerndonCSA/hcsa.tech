@@ -12,27 +12,44 @@
   min-width: 300vw;
   min-height: 300vw;
   background-color: #860d15;
-  animation-name: rotate;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
+  -webkit-animation-name: rotate;
+          animation-name: rotate;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
   transition: all 1.5s ease-in-out;
 }
 .waves:before {
   bottom: 49vh;
   border-radius: 45%;
-  animation-duration: 60s;
+  -webkit-animation-duration: 60s;
+          animation-duration: 60s;
 }
 .waves:after {
   bottom: 45vh;
   opacity: 0.5;
   border-radius: 47%;
-  animation-duration: 60s;
+  -webkit-animation-duration: 60s;
+          animation-duration: 60s;
 }
 .waves.high:before {
   bottom: 66vh;
 }
 .waves.high:after {
   bottom: 60vh;
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    transform: translate(-50%, 0) rotateZ(0deg);
+  }
+  50% {
+    transform: translate(-50%, -0.2%) rotateZ(100deg);
+  }
+  100% {
+    transform: translate(-50%, 0%) rotateZ(200deg);
+  }
 }
 
 @keyframes rotate {
@@ -45,6 +62,4 @@
   100% {
     transform: translate(-50%, 0%) rotateZ(200deg);
   }
-}
-
-/*# sourceMappingURL=Waves.css.map */
+}/*# sourceMappingURL=Waves.css.map */
