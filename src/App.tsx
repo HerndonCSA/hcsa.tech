@@ -13,7 +13,6 @@ const ContactPage = lazy(() => import("./pages/ContactPage"));
 
 const App = () => {
 	const location = useLocation();
-
 	return (
 		<>
 			<Waves />
@@ -28,7 +27,6 @@ const App = () => {
 				</AnimatePresence>
 				<Footer />
 			</div>
-
 		</>
 	);
 };

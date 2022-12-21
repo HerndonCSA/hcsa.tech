@@ -1,5 +1,7 @@
 const LoginModal = () => {
-    return null
+    return (
+        null
+    )
 }
 
 export default LoginModal

@@ -20,8 +20,7 @@
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.585);
   /* Note: backdrop-filter has minimal browser support */
   background: rgba(0, 0, 0, 0.06);
-  -webkit-backdrop-filter: blur(20px);
-          backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border-radius: 10px;
   text-align: left;
 }
@@ -54,4 +53,6 @@
   bottom: 0;
   margin: 0 auto 1em;
   text-align: center;
-}/*# sourceMappingURL=MembersPage.css.map */
+}
+
+/*# sourceMappingURL=MembersPage.css.map */
