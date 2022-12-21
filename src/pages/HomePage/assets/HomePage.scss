@@ -1,0 +1,194 @@
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Nunito:wght@700&family=Poppins:ital,wght@0,400;0,500;0,600;1,600&display=swap");
+
+.homepage {
+    position: absolute;
+    margin-top: 16vh;
+	width: 100vw;
+    display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+    
+	.welcome-message {
+
+		.wm-1 {
+            font-size: 60px;    
+            font-weight: 500;
+
+			span {
+                color: black;
+			}
+		}
+
+		.wm-2 {
+			//Copilot,c make this div closer to the top one
+			margin-top: -0.5em;
+			font-size: 27px;
+            font-weight: 500;
+
+			p {}
+		}
+
+		.wm-3 {
+			margin-top: 2em;
+			font-weight: 100;
+		}
+	}
+
+	.interactive-content {
+		margin-top: 12em;
+		.view-or-join {
+            button {
+                font-size: 15px;
+                background-color: none;
+            }
+			.join,
+			.view {
+				// vertical center the text
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				margin: 0 auto;
+				padding: 1em 2em;
+				height: 3em;
+				background-color: #de0000;
+				color: white;
+				font-size: 22px;
+				border: none;
+				border-radius: 0.5em;
+				cursor: pointer;
+			}
+
+			.view {
+				font-family: "Poppins", sans-serif;
+				font-weight: 200;
+				font-size: 20px;
+				/* Rectangle 35 */
+
+				background: #72727298;
+				border: 2px solid #ffffff;
+				backdrop-filter: blur(17px);
+				/* Note: backdrop-filter has minimal browser support */
+				border-radius: 4px;
+			}
+
+			.join {
+				// italicize the text with poppins
+				font-family: "Poppins", sans-serif;
+				font-weight: 600;
+				font-style: italic;
+
+				/* Rectangle 38 */
+
+				box-sizing: border-box;
+
+				background: rgba(255, 39, 39, 0.471);
+				border: 2px solid #ff0000;
+				box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+				border-radius: 5px;
+
+				// hide overflow
+				overflow: hidden;
+				position: relative;
+
+				&:before,
+				&:after {
+					content: "";
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					width: 20%;
+					background-color: rgba(255, 255, 255, 0.292);
+					z-index: 1;
+					transform: skewX(-45deg);
+				}
+				&:before {
+					transform: translateX(-500%) skewX(-45deg);
+				}
+
+				&:after {
+					transform: translateX(-450%) skewX(-45deg);
+				}
+
+				transition-duration: 0.2s;
+				transition: 0.2s;
+
+				&:hover {
+					transition-duration: 0.2s;
+					transition: 0.2s;
+					transform: scale(1.05);
+					background: rgba(255, 39, 39, 0.725);
+				}
+
+				&:before {
+					animation: beforeMove 5s infinite ease-in-out;
+				}
+
+				&:after {
+					animation: afterMove 5s infinite ease-in-out;
+				}
+
+				@keyframes beforeMove {
+					0% {
+						transform: translateX(-500) skewX(-45deg);
+					}
+					40% {
+						transform: translateX(1000%) skewX(-45deg);
+					}
+					100% {
+						transform: translateX(1000%) skewX(-45deg);
+					}
+				}
+
+				@keyframes afterMove {
+					0% {
+						transform: translateX(-450%) skewX(-45deg);
+					}
+					40% {
+						transform: translateX(1050%) skewX(-45deg);
+					}
+					100% {
+						transform: translateX(1050%) skewX(-45deg);
+					}
+				}
+			}
+
+			.or {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin-top: 1rem;
+				margin-bottom: 1rem;
+
+				.line {
+					// center the line vertically in the middle of the text
+					position: absolute;
+					margin-top: 0.14rem;
+					width: 2rem;
+					height: 0.25rem;
+					background: #e00000;
+					border-radius: 5px;
+
+					// move the first line to the left
+					&:first-child {
+						margin-left: -5rem;
+					}
+
+					// move the second line to the right
+					&:last-child {
+						margin-left: 5rem;
+					}
+				}
+
+				p {
+					font-family: "Courgette", cursive !important;
+					color: white;
+					font-size: 30px;
+				}
+			}
+		}
+	}
+}
+
+

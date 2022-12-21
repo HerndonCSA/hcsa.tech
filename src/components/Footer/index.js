@@ -1,7 +1,7 @@
 const Footer = () => {
     return (
         <footer>
-            fuhrer! heil hitler!
+            © 2021 Herndon Computer Science Association
         </footer>
     );
 }
