@@ -4,317 +4,320 @@
 // 3 values property: top, (right & left), bottom;
 // 4 values property: top, right, bottom, left;
 
+// LIST BOX SHADOW VALUES IN ORDER
+// 1. horizontal offset
+// 2. vertical offset
+// 3. blur radius
+// 4. spread radius
+// 5. color
+// 6. inset
+
 .nav-bar {
-	position: fixed;
-	top: 0;
+  position: fixed;
+  top: 0;
 
-	// dimension properties
-	$width: 100vw;
-	$height: 10vh;
-	min-width: $width;
-	width: $width;
-	max-width: $width;
-	min-height: $height;
-	height: $height;
-	max-height: $height;
+  // dimension properties
+  $width: 100vw;
+  $height: 10vh;
+  min-width: $width;
+  width: $width;
+  max-width: $width;
+  min-height: $height;
+  height: $height;
+  max-height: $height;
 
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), #b01515);
-	// LIST BOX SHADOW VALUES IN ORDER
-	// 1. horizontal offset
-	// 2. vertical offset
-	// 3. blur radius
-	// 4. spread radius
-	// 5. color
-	// 6. inset
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), #b01515);
 
-	// box-shadow: 0 0 5vh 0.5vh black;
+  // box-shadow: 0 0 5vh 0.5vh black;
 
-	// makes navbar go on top of every other element
-	z-index: 1000;
+  // makes navbar go on top of every other element
+  z-index: 1000;
 
-	// display all direct children of the navbar horizontally
-	display: flex;
+  // display all direct children of the navbar horizontally
+  display: flex;
 
-	// center all direct children of the navbar vertically
-	align-items: center;
+  // center all direct children of the navbar vertically
+  align-items: center;
 
-	// add even space between the direct children of the navbar
-	justify-content: space-between;
+  // add even space between the direct children of the navbar
+  justify-content: space-between;
 
-	overflow: visible;
+  overflow: visible;
 
-	// LOGO
-	.nav-logo {
-		margin-left: 1vw;
+  // LOGO
+  .nav-logo {
+    margin-left: 1vw;
 
-		// Lock aspect ratio
-		$width: 7.5vh;
-		$height: 7.5vh;
-		min-width: $width;
-		width: $width;
-		max-width: $width;
-		min-height: $height;
-		height: $height;
-		max-height: $height;
+    // Lock aspect ratio
+    $width: 7.5vh;
+    $height: 7.5vh;
+    min-width: $width;
+    width: $width;
+    max-width: $width;
+    min-height: $height;
+    height: $height;
+    max-height: $height;
 
-		img {
-			// Lock aspect ratio
-			$width: 7.5vh;
-			$height: 7.5vh;
-			min-width: $width;
-			width: $width;
-			max-width: $width;
-			min-height: $height;
-			height: $height;
-			max-height: $height;
+    img {
+      // Lock aspect ratio
+      $width: 7.5vh;
+      $height: 7.5vh;
+      min-width: $width;
+      width: $width;
+      max-width: $width;
+      min-height: $height;
+      height: $height;
+      max-height: $height;
 
-			// center the image inside of the div
-			display: flex;
-			align-items: center;
-			justify-content: center;
+      // center the image inside of the div
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-			// border properties
-			border-radius: 10%;
-			border: 0.01vw solid rgb(255, 255, 255);
-		}
-	}
+      // border properties
+      border-radius: 10%;
+      border: 0.01vw solid rgb(255, 255, 255);
+    }
+  }
 
-	// NAV LINKS
-	.nav-links {
-		width: 100vw;
-		height: 100%;
+  // NAV LINKS
+  .nav-links {
+    width: 100vw;
+    height: 100%;
 
-		// center the direct children of nav-links horizontally
-		display: flex;
-		align-items: center;
-		justify-content: center;
+    // center the direct children of nav-links horizontally
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-		ul {
-			display: flex;
+    ul {
+      display: flex;
 
-			li {
-				display: flex;
-				margin: 0 5vw;
-				transition: 0.5s ease;
+      li {
+        display: flex;
+        margin: 0 5vw;
+        transition: 0.5s ease;
 
-				// center all children vertically
-				align-items: center;
+        // center all children vertically
+        align-items: center;
 
-				cursor: pointer;
+        cursor: pointer;
 
-				&:hover {
-					transform: scale(1.1);
-					border-radius: 8px;
-					transition: 0.5s;
-				}
+        &:hover {
+          transform: scale(1.1);
+          border-radius: 8px;
+          transition: 0.5s;
+        }
 
-				img {
-					$width: 2.5vw;
-					$height: 4.5vh;
-					min-width: $width;
-					width: $width;
-					max-width: $width;
-					min-height: $height;
-					height: $height;
-					max-height: $height;
+        img {
+          $width: 2.5vw;
+          $height: 4.5vh;
+          min-width: $width;
+          width: $width;
+          max-width: $width;
+          min-height: $height;
+          height: $height;
+          max-height: $height;
 
-					padding: 0.5vw;
-					border-radius: 10%;
-					// make the border of the image have a bigger radius than the image itself
-					// so that the border is not visible on the corners of the image
-					margin: 0.25vw !important;
-					// &[alt="home icon"] {
-					// 	width: 3vw;
-					// 	max-width: 3vw;
-					// 	height: 3vh;
-					// 	max-height: 3vh;
-					// }
-				}
+          padding: 0.5vw;
+          border-radius: 10%;
+          // make the border of the image have a bigger radius than the image itself
+          // so that the border is not visible on the corners of the image
+          margin: 0.25vw !important;
+          // &[alt="home icon"] {
+          // 	width: 3vw;
+          // 	max-width: 3vw;
+          // 	height: 3vh;
+          // 	max-height: 3vh;
+          // }
+        }
 
-				p {
-					font-size: 1.5vw;
-					margin-left: 0.5vw;
-				}
-			}
-		}
-	}
+        p {
+          font-size: 1.5vw;
+          margin-left: 0.5vw;
+        }
+      }
+    }
+  }
 
-	// LOGIN BUTTON
-	.sign-in-button {
-		// Lock aspect ratio
-		margin-right: 1vw;
-		$width: fit-content !important;
-		$height: 5vh;
-		min-width: $width;
-		width: $width;
-		max-width: $width;
-		min-height: $height;
-		height: $height;
-		max-height: $height;
+  // LOGIN BUTTON
+  .sign-in-button {
+    // Lock aspect ratio
+    margin-right: 1vw;
+    $width: fit-content !important;
+    $height: 5vh;
+    min-width: $width;
+    width: $width;
+    max-width: $width;
+    min-height: $height;
+    height: $height;
+    max-height: $height;
 
-		ul {
-			li {
-				list-style: none;
-			}
-		}
+    ul {
+      li {
+        list-style: none;
+      }
+    }
 
-		button {
-			// Lock aspect ratio
-			$width: 7.5vw !important;
-			$height: 5vh;
-			min-width: $width;
-			width: $width;
-			max-width: $width;
-			min-height: $height;
-			height: $height;
-			max-height: $height;
+    button {
+      // Lock aspect ratio
+      $width: 7.5vw !important;
+      $height: 5vh;
+      min-width: $width;
+      width: $width;
+      max-width: $width;
+      min-height: $height;
+      height: $height;
+      max-height: $height;
 
-			white-space: no-wrap;
-			text-align: center;
+      white-space: no-wrap;
+      text-align: center;
 
-			border: none;
-			border-radius: 0.25vw;
+      border: none;
+      border-radius: 0.25vw;
 
-			// list box-shadow values in order
-			// 1. horizontal offset
-			// 2. vertical offset
-			// 3. blur radius
-			// 4. spread radius
-			// 5. color
-			// 6. inset
+      // list box-shadow values in order
+      // 1. horizontal offset
+      // 2. vertical offset
+      // 3. blur radius
+      // 4. spread radius
+      // 5. color
+      // 6. inset
 
-			box-shadow: 0px 0px 20px 0.2px rgba(0, 0, 0, 0.305);
+      box-shadow: 0px 0px 20px 0.2px rgba(0, 0, 0, 0.305);
 
-			background: rgb(175, 0, 0);
+      background: rgb(175, 0, 0);
 
-			padding: 1vw;
-			font-size: 2vh;
+      padding: 1vw;
+      font-size: 2vh;
 
-			// align the text vertically inside of the button
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			cursor: pointer;
-		}
-	}
+      // align the text vertically inside of the button
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+  }
 
-	/* LOGGED IN COMPONENT STYLING */
+  /* PROFILE COMPONENT STYLING */
+  .profile {
+    box-shadow: 0px 0px 20px 0.2px rgba(0, 0, 0, 0.305);
+    background: rgb(160, 0, 0);
+    transition: 0.5s ease;
+    &:hover {
+      background: rgb(150, 0, 0);
+    }
 
-	/* PROFILE COMPONENT STYLING */
-	.profile {
-		box-shadow: 0px 0px 20px 0.2px rgba(0, 0, 0, 0.305);
-		background: rgb(160, 0, 0);
-		transition: 0.5s ease;
-		&:hover {
-			background: rgb(150, 0, 0);
-		}
+    border-radius: 0.25vw;
+    cursor: pointer;
+    width: fit-content;
+    margin-right: 1vw;
 
-		border-radius: 0.25vw;
-		cursor: pointer;
-		width: fit-content;
-		margin-right: 1vw;
+    height: 6vh;
 
-		height: 6vh;
+    padding: 0.9vw !important;
 
-		padding: 0.9vw !important;
+    // display all direct children horizontally and center them vertically
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 
-		// display all direct children horizontally and center them vertically
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
+    user-select: none;
 
-		user-select: none;
+    img {
+      &[alt="profile"] {
+        // make a border with a box shadow so the image is not cut off
+        box-shadow: 0 0 0vw 0.05vw white;
+        $width: fit-content;
+        $height: 4vh;
+        min-width: $width;
+        width: $width;
+        max-width: $width;
+        min-height: $height;
+        height: $height;
+        max-height: $height;
 
+        border-radius: 50%;
+        background: #252525;
+        margin-right: 0.5vw;
+      }
 
-		img {
-			&[alt="profile"] {
-				// make a border with a box shadow so the image is not cut off
-				box-shadow: 0 0 0vw 0.05vw white;
-				$width: fit-content;
-				$height: 4vh;
-				min-width: $width;
-				width: $width;
-				max-width: $width;
-				min-height: $height;
-				height: $height;
-				max-height: $height;
+      &[alt="arrow icon"] {
+        $width: 2vw;
+        $height: 2vh;
+        min-width: $width;
+        width: $width;
+        max-width: $width;
+        min-height: $height;
+        height: $height;
+        max-height: $height;
 
-				border-radius: 50%;
-				background: #252525;
-				margin-right: 0.5vw;
-			}
+        // colors the image white
+        filter: invert(98%) sepia(100%) saturate(9%) hue-rotate(154deg)
+          brightness(103%) contrast(103%);
+      }
+    }
 
-			&[alt="arrow icon"] {
-				$width: 2vw;
-				$height: 2vh;
-				min-width: $width;
-				width: $width;
-				max-width: $width;
-				min-height: $height;
-				height: $height;
-				max-height: $height;
+    p {
+      font-size: 2vh;
+    }
+  }
 
-				// colors the image white
-				filter: invert(98%) sepia(100%) saturate(9%) hue-rotate(154deg)
-					brightness(103%) contrast(103%);
-			}
-		}
+  /* LOGGED IN COMPONENT STYLING */
 
-		p {
-			font-size: 2vh;
-		}
-	}
+  .userMenu {
+    background: rgb(154, 0, 0);
+    // add border radius only to bottom left and right
+    border-radius: 0 0 0.25vw 0.25vw;
 
-	.userMenu {
-		background: rgb(154, 0, 0);
-		border-radius: 0.25vw;
+    right: 1vw;
+    overflow: hidden;
+    position: absolute;
+    top: 8vh;
+    overflow: hidden;
 
-		
+    align-items: center;
+    justify-content: center;
 
-		right: 1vw;
-		overflow: hidden;
-		position: absolute;
-		top: 8vh;
-		overflow: hidden;
+    width: auto;
 
-		align-items: center;
-		justify-content: center;
+    .userMenuList {
+      display: flex;
+      flex-direction: column;
 
+      hr {
+        width: 90%;
+        border: 0.5px solid rgb(125, 0, 0);
 
-		.userMenuList {
-			display: flex;
-			flex-direction: column;
+        // center the hr
+        margin: 0 auto;
+      }
 
-			hr {
-				width: 90%;
-				border: 0.5px solid rgb(125, 0, 0);
+      .userMenuListItem {
+        height: 4vh;
+        padding: 0.5vw;
 
-				// center the hr
-				margin: 0 auto;
-			}
+        // align text vertically
+        display: flex;
+        align-items: center;
+        transition: 0.2s;
 
-			.userMenuListItem {
-				height: 4vh;
-				padding: 0.5vw;
+        // on hover
+        &:hover {
+          background: #700000;
+        }
 
-				// align text vertically
-				display: flex;
-				align-items: center;
-				transition: 0.2s;
-				&:hover {
-					background: #700000;
-				}
-				margin: 0.5vh;
-				cursor: pointer;
-				list-style: none !important;
-				font-size: 2vh;
+        margin: 0.5vh;
+        cursor: pointer;
+        list-style: none !important;
+        font-size: 2vh;
 
-				&[id="sign out"] {
-					// center the text
-					justify-content: center;
-
-				}
-			}
-		}
-	}
+        // selects only the sign out button
+        &[id="sign out"] {
+          // center the text
+          justify-content: center;
+        }
+      }
+    }
+  }
 }

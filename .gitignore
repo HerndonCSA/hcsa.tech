@@ -25,3 +25,5 @@ yarn-error.log*
 .idea
 backend/client_secret.json
 backend/config.json
+backend/client_secret.json
+backend/config.json
