@@ -18,7 +18,7 @@ const App = () => {
 	useEffect(() => {
 		let session = localStorage.getItem("session");
 		if (session) {
-			fetch("http://localhost:8000/user?session=" + session)
+			fetch("https://api.hcsa.tech/user?session=" + session)
 				.then((res) => res.json())
 				.then((data) => {
 					if (data.success) {
