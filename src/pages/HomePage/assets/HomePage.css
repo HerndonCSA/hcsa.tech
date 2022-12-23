@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Courgette&family=Nunito:wght@700&family=Poppins:ital,wght@0,400;0,500;0,600;1,600&display=swap");
 .homepage {
   position: absolute;
-  margin-top: 16vh;
+  margin-top: 20vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -9,26 +9,27 @@
   text-align: center;
 }
 .homepage .welcome-message .wm-1 {
-  font-size: 60px;
+  font-size: 7.5vh;
+  line-height: 7.5vh;
   font-weight: 500;
 }
 .homepage .welcome-message .wm-1 span {
   color: black;
 }
 .homepage .welcome-message .wm-2 {
-  margin-top: -0.5em;
-  font-size: 27px;
-  font-weight: 500;
+  font-size: 3vh;
+  font-weight: 400;
 }
 .homepage .welcome-message .wm-3 {
-  margin-top: 2em;
+  margin-top: 2.5vh;
+  font-size: 2vh;
   font-weight: 100;
 }
 .homepage .interactive-content {
-  margin-top: 12em;
+  margin-top: 30vh;
 }
 .homepage .interactive-content .view-or-join button {
-  font-size: 15px;
+  font-size: 1.25vh;
   background-color: none;
 }
 .homepage .interactive-content .view-or-join .join,
@@ -37,11 +38,10 @@
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  padding: 1em 2em;
-  height: 3em;
+  padding: 1vw 2vw;
+  height: 8vh;
   background-color: #de0000;
   color: white;
-  font-size: 22px;
   border: none;
   border-radius: 0.5em;
   cursor: pointer;
@@ -49,29 +49,63 @@
 .homepage .interactive-content .view-or-join .view {
   font-family: "Poppins", sans-serif;
   font-weight: 200;
-  font-size: 20px;
+  font-size: 1.5vw;
   /* Rectangle 35 */
   background: rgba(114, 114, 114, 0.5960784314);
-  border: 2px solid #ffffff;
+  border: 0.3vh solid #ffffff;
   -webkit-backdrop-filter: blur(17px);
           backdrop-filter: blur(17px);
   /* Note: backdrop-filter has minimal browser support */
-  border-radius: 4px;
+  border-radius: 0.7vh;
+  transition: 0.5s;
+}
+.homepage .interactive-content .view-or-join .view:hover {
+  transition-duration: 0.2s;
+  transform: scale(1.05);
+  background: rgba(114, 114, 114, 0.8274509804);
+}
+.homepage .interactive-content .view-or-join .or {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+.homepage .interactive-content .view-or-join .or .line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2vw;
+  height: 0.5vh;
+  background: #ff0000;
+  border-radius: 1vw;
+}
+.homepage .interactive-content .view-or-join .or .line:first-child {
+  margin-right: 1vw;
+}
+.homepage .interactive-content .view-or-join .or .line:last-child {
+  margin-left: 1vw;
+}
+.homepage .interactive-content .view-or-join .or p {
+  font-family: "Courgette", cursive !important;
+  color: white;
+  font-size: 1.5vw;
 }
 .homepage .interactive-content .view-or-join .join {
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-style: italic;
+  font-size: 1.5vw;
   /* Rectangle 38 */
   box-sizing: border-box;
   background: rgba(255, 39, 39, 0.471);
   border: 2px solid #ff0000;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
+  border-radius: 0.5vh;
   overflow: hidden;
   position: relative;
-  transition-duration: 0.2s;
-  transition: 0.2s;
+  padding: 1vw 6.25vh;
+  transition: 0.5s;
 }
 .homepage .interactive-content .view-or-join .join:before, .homepage .interactive-content .view-or-join .join:after {
   content: "";
@@ -146,30 +180,4 @@
   100% {
     transform: translateX(1050%) skewX(-45deg);
   }
-}
-.homepage .interactive-content .view-or-join .or {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-.homepage .interactive-content .view-or-join .or .line {
-  position: absolute;
-  margin-top: 0.14rem;
-  width: 2rem;
-  height: 0.25rem;
-  background: #e00000;
-  border-radius: 5px;
-}
-.homepage .interactive-content .view-or-join .or .line:first-child {
-  margin-left: -5rem;
-}
-.homepage .interactive-content .view-or-join .or .line:last-child {
-  margin-left: 5rem;
-}
-.homepage .interactive-content .view-or-join .or p {
-  font-family: "Courgette", cursive !important;
-  color: white;
-  font-size: 30px;
 }/*# sourceMappingURL=HomePage.css.map */

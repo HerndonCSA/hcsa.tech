@@ -1,13 +1,21 @@
 import "./assets/NavBar.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import { memo, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Profile from "./components/Profile";
+import Dropdown from "./components/Dropdown";
 import HomeIcon from "./assets/images/home.svg";
 import MembersIcon from "./assets/images/members.svg";
 import ContactIcon from "./assets/images/contact.svg";
 import Logo from "./assets/images/logo.png";
+import React from "react";
 
-const NavBar = () => {
+// userdata is like
+// {"firstName":"Sudarshan","lastName":"Lamichhane (Student)","email":"1559020@fcpsschools.net","picture":"https:\/\/lh3.googleusercontent.com\/a\/AEdFTp4QRSTIIf1H3O31JODtNiKM9nuQvxnswCg37bUA4A=s96-c"}
+
+const NavBar = ({ userData, setUserData }: any) => {
+	const profileRef = useRef<HTMLDivElement>(null);
+	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const navigate = useNavigate();
 	const location = useLocation();
 	// copilot how do I make the navChange's parameter be a type of string?
@@ -17,25 +25,41 @@ const NavBar = () => {
 		navigate(location);
 	};
 
+	const clickOutSideToCloseDropdown = useCallback((nativeEvent: any) => {
+		if (
+			profileRef.current &&
+			!profileRef.current.contains(nativeEvent.target)
+		) {
+			setDropdownOpen(false);
+		}
+
+	}, [profileRef]);
+
+
 	useEffect(() => {
-		// FOR TEST PURPOSES ONLY
-		// const elementArray = [
-		// 	".nav-bar",
-		// 	".nav-logo",
-		// 	".nav-links",
-		// 	"ul",
-		// 	"li",
-		// 	".login-button",
-		// ];
-		// let a = 0.25;
-		// for (let i = 0; i < elementArray.length; i++) {
-		// 	a += 0.05;
-		// 	let element = document.querySelector(
-		// 		elementArray[i]
-		// 	) as HTMLElement;
-		// 	element.style.backgroundColor = `rgba(0,0,0,${a})`;
-		// }
-	}, []);
+		document.addEventListener("click", clickOutSideToCloseDropdown)
+
+		return function cleanup() {
+			document.removeEventListener("click", clickOutSideToCloseDropdown)
+		}
+	}, [clickOutSideToCloseDropdown])
+
+
+	useEffect(() => {
+
+		// set width of userMenu to be the same width as the profile div
+		if (profileRef.current) {
+			const profileWidth = profileRef.current.offsetWidth;
+			console.log(profileWidth);
+			const userMenu = document.querySelector(".user-menu") as HTMLDivElement;
+			if (userMenu) {
+				userMenu.style.width = `${profileWidth}px`;
+			}
+		}
+
+
+	}, [profileRef])
+
 
 	// copilot how do I make the selectorStyles object have a type of string?
 	// A: You can use a type annotation to specify the type of a parameter
@@ -95,11 +119,42 @@ const NavBar = () => {
 					</li>
 				</ul>
 			</div>
+			{/* Check if userdata is empty */}
+			<>
+				{Object.keys(userData).length === 0 ? (
+					<motion.div key="sign-in"
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
 
-			<div className="login-button">
-				<button>Sign in</button>
-			</div>
-		</div>
+						className="sign-in-button">
+						<button
+							onClick={() => {
+								window.location.href =
+									"http://localhost:8000/login";
+							}}
+						>
+							Sign in
+						</button>
+					</motion.div>
+				) : (
+					<motion.div key="profile"
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}>
+						<Profile userData={userData} dropdownOpen={dropdownOpen} setDropdownOpen={setDropdownOpen} profileRef={profileRef} />
+						<AnimatePresence>
+							{/* DROPDOWN COMPONENT */}
+							{dropdownOpen && (
+								<Dropdown setUserData={setUserData} setOpen={setDropdownOpen} opened={dropdownOpen} />
+							)}
+						</AnimatePresence>
+
+					</motion.div>
+				)}
+			</>
+
+		</div >
 	);
 };
 
