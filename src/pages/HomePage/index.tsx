@@ -1,7 +1,30 @@
 import "./assets/HomePage.css";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const HomePage = () => {
+	// useEffect(() => {
+	// 	const elementArray = [
+	// 		".homepage",
+	// 		".welcome-message",
+	// 		".wm-1",
+	// 		".wm-2",
+	// 		".wm-3",
+	// 		".interactive-content",
+	// 		".view-or-join",
+	// 		".view",
+	// 		".join",
+	// 	];
+	// 	let a = 0.25;
+	// 	for (let i = 0; i < elementArray.length; i++) {
+	// 		a += 0.05;
+	// 		let element = document.querySelector(
+	// 			elementArray[i]
+	// 		) as HTMLElement;
+	// 		element.style.backgroundColor = `rgba(0,0,0,${a})`;
+	// 	}
+	// }, []);
+
 	return (
 		<motion.div
 			className="homepage"
@@ -15,7 +38,9 @@ const HomePage = () => {
 					We are the
 					<span> Herndon</span>
 				</h1>
-				<h2 className="wm-2">Computer Science Assocation - HCSA</h2>
+				<h2 className="wm-2">
+					Computer Science Assocation - HCSA
+				</h2>
 				<h3 className="wm-3">
 					A place for students to explore the countless fields of
 					computer science.
