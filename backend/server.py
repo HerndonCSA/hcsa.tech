@@ -8,6 +8,7 @@ import uuid
 import json
 import os
 import aiohttp
+import copy
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "./client_secret.json")
@@ -69,12 +70,30 @@ async def callback(request):
     token_request = google.auth.transport.requests.Request()
     id_info = id_token.verify_oauth2_token(id_token=credentials._id_token, request=token_request,
                                            audience=credentials.client_id)
+    await revoke_token(credentials.token)
 
     uuid_ = str(uuid.uuid4())
-    jwt_token = jwt.encode({"session": uuid_}, config["secret"], algorithm="HS256")
-    app.ctx.sessions[uuid_] = id_info
-    app.ctx.sessions[uuid_]["token"] = credentials.token
-    print(config["frontend_url"] + "/callback?session=" + jwt_token)
+    email = id_info["email"]
+    jwt_token = jwt.encode({"email": email, "session": uuid_}, config["secret"], algorithm="HS256")
+    if email not in app.ctx.sessions:
+        app.ctx.sessions[email] = {
+            "firstName": id_info["given_name"],
+            "lastName": id_info["family_name"],
+            "email": email,
+            "picture": id_info["picture"],
+            "sessions": {
+                uuid_: {
+                    "ip": request.ip,
+                    "User-Agent": request.headers.get("User-Agent"),
+                }
+            }
+        }
+    else:
+        app.ctx.sessions[email]["sessions"][uuid_] = {
+            "ip": request.ip,
+            "User-Agent": request.headers.get("User-Agent"),
+        }
+
     return response.redirect(config["frontend_url"] + "/callback?session=" + jwt_token)
 
 
@@ -85,19 +104,36 @@ async def user(request):
     # decode session and get the uuid, and check if it is a a valid jwt token
     try:
         session = jwt.decode(session, config["secret"], algorithms=["HS256"])
-        session_id = session["session"]
     except jwt.exceptions.InvalidSignatureError:
         return response.json({"success": False, "error": "invalid session, invalid signature"})
 
     # check if the uuid is in the sessions
-    if session_id in app.ctx.sessions:
-        return response.json({"success": True,
-                              "firstName": app.ctx.sessions[session_id]["given_name"],
-                              "lastName": app.ctx.sessions[session_id]["family_name"],
-                              "email": app.ctx.sessions[session_id]["email"],
-                              "picture": app.ctx.sessions[session_id]["picture"]})
-    else:
-        return response.json({"success": False, "error": "invalid session, session not found"})
+    if session["email"] not in app.ctx.sessions or \
+            session["session"] not in app.ctx.sessions[session["email"]]["sessions"]:
+        return response.json(
+            {"success": False, "error": "invalid session, session not found, report this asap for $$$"})
+
+    data = copy.deepcopy(app.ctx.sessions[session["email"]])
+    del data["sessions"]
+    data["success"] = True
+    return response.json(data)
+
+
+@app.route("/user/sessions")
+async def user_sessions(request):
+    # return json of all sessions without the token
+    session = request.args.get("session")
+    # decode session and get the uuid, and check if it is a a valid jwt token
+    try:
+        session = jwt.decode(session, config["secret"], algorithms=["HS256"])
+    except jwt.exceptions.InvalidSignatureError:
+        return response.json({"success": False, "error": "invalid session, invalid signature"})
+    # check if the uuid is in the sessions
+    if session["email"] not in app.ctx.sessions or \
+            session["session"] not in app.ctx.sessions[session["email"]]["sessions"]:
+        return response.json(
+            {"success": False, "error": "invalid session, session not found, report this asap for $$$"})
+    return response.text(json.dumps(app.ctx.sessions[session["email"]]["sessions"], indent=4))
 
 
 @app.route("/logout", methods=["POST"])
@@ -105,15 +141,15 @@ async def logout(request):
     session_id = request.args.get("session")
     try:
         session = jwt.decode(session_id, config["secret"], algorithms=["HS256"])
-        session_id = session["session"]
     except jwt.exceptions.InvalidSignatureError:
         return response.json({"success": False})
 
-    if session_id not in app.ctx.sessions:
+    if session["email"] not in app.ctx.sessions or \
+            session["session"] not in app.ctx.sessions[session["email"]]["sessions"]:
         return response.json({"success": False})
 
-    await revoke_token(app.ctx.sessions[session_id]["token"])
-    del app.ctx.sessions[session_id]
+    # revoke the token
+    del app.ctx.sessions[session["email"]]["sessions"][session["session"]]
     return response.json({"success": True})
 
 
@@ -128,4 +164,4 @@ async def favicon(request):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, fast=config["production"], debug=config["production"] is False)
+    app.run(host="0.0.0.0", port=8000, fast=config["production"], debug=True)

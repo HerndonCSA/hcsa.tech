@@ -36,7 +36,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 10%;
-  border: 0.01vw solid rgb(255, 255, 255);
+  box-shadow: 0 0 0 0.1vw #fff;
 }
 .nav-bar .nav-links {
   width: 100vw;
@@ -55,11 +55,6 @@
   align-items: center;
   cursor: pointer;
 }
-.nav-bar .nav-links ul li:hover {
-  transform: scale(1.1);
-  border-radius: 8px;
-  transition: 0.5s;
-}
 .nav-bar .nav-links ul li img {
   min-width: 2.5vw;
   width: 2.5vw;
@@ -77,14 +72,8 @@
 }
 .nav-bar .sign-in-button {
   margin-right: 1vw;
-  min-width: -webkit-fit-content !important;
-  min-width: -moz-fit-content !important;
   min-width: fit-content !important;
-  width: -webkit-fit-content !important;
-  width: -moz-fit-content !important;
   width: fit-content !important;
-  max-width: -webkit-fit-content !important;
-  max-width: -moz-fit-content !important;
   max-width: fit-content !important;
   min-height: 5vh;
   height: 5vh;
@@ -119,34 +108,23 @@
   transition: 0.5s ease;
   border-radius: 0.25vw;
   cursor: pointer;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
+  min-width: 11vw;
   margin-right: 1vw;
   height: 6vh;
   padding: 0.9vw !important;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 .nav-bar .profile:hover {
   background: rgb(150, 0, 0);
 }
 .nav-bar .profile img[alt=profile] {
-  box-shadow: 0 0 0vw 0.05vw white;
-  min-width: -webkit-fit-content;
-  min-width: -moz-fit-content;
-  min-width: fit-content;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  max-width: -webkit-fit-content;
-  max-width: -moz-fit-content;
-  max-width: fit-content;
+  min-width: 4vh;
+  width: 4vh;
+  max-width: 4vh;
   min-height: 4vh;
   height: 4vh;
   max-height: 4vh;
@@ -203,4 +181,6 @@
 }
 .nav-bar .userMenu .userMenuList .userMenuListItem[id="sign out"] {
   justify-content: center;
-}/*# sourceMappingURL=NavBar.css.map */
+}
+
+/*# sourceMappingURL=NavBar.css.map */
