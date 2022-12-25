@@ -18,13 +18,17 @@ const App = () => {
 	useEffect(() => {
 		let session = localStorage.getItem("session");
 		if (session) {
-			fetch("https://api.hcsa.tech/user?session=" + session)
+			fetch("http://localhost:8000/user?session=" + session)
 				.then((res) => res.json())
 				.then((data) => {
 					if (data.success) {
 						console.log(data);
 						setUserData(data);
-					} else localStorage.removeItem("session");
+					} else {
+						console.log("error");
+						console.log(data);
+						localStorage.removeItem("session");
+					}
 				});
 		}
 	}, []);

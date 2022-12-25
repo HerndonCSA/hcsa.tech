@@ -1,0 +1,6 @@
+{
+  "name": STRING,
+  "secret": STRING,
+  "frontend_url": STRING,
+  "production": BOOLEAN
+}
