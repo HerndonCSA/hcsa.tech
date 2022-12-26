@@ -10,8 +10,6 @@ import ContactIcon from "./assets/images/contact.svg";
 import Logo from "./assets/images/logo.png";
 import React from "react";
 
-// userdata is like
-// {"firstName":"Sudarshan","lastName":"Lamichhane (Student)","email":"1559020@fcpsschools.net","picture":"https:\/\/lh3.googleusercontent.com\/a\/AEdFTp4QRSTIIf1H3O31JODtNiKM9nuQvxnswCg37bUA4A=s96-c"}
 
 const NavBar = ({ userData, setUserData }: any) => {
   const profileRef = useRef<HTMLDivElement>(null);
@@ -101,6 +99,7 @@ const NavBar = ({ userData, setUserData }: any) => {
           </li>
         </ul>
       </div>
+
       {/* Check if userdata is empty */}
       <>
         {Object.keys(userData).length === 0 ? (
@@ -113,7 +112,8 @@ const NavBar = ({ userData, setUserData }: any) => {
           >
             <button
               onClick={() => {
-                window.location.href = "http://localhost:8000/login";
+                window.location.href =
+                  "https://api.hcsa.tech/login";
               }}
             >
               Sign in

@@ -60,7 +60,7 @@ const HomePage = () => {
 					<button className="join">Join Us</button>
 				</div>
 			</div>
-		</motion.div>
+		</motion.div >
 	);
 };
 
