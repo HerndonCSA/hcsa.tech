@@ -72,8 +72,14 @@
 }
 .nav-bar .sign-in-button {
   margin-right: 1vw;
+  min-width: -webkit-fit-content !important;
+  min-width: -moz-fit-content !important;
   min-width: fit-content !important;
+  width: -webkit-fit-content !important;
+  width: -moz-fit-content !important;
   width: fit-content !important;
+  max-width: -webkit-fit-content !important;
+  max-width: -moz-fit-content !important;
   max-width: fit-content !important;
   min-height: 5vh;
   height: 5vh;
@@ -108,6 +114,8 @@
   transition: 0.5s ease;
   border-radius: 0.25vw;
   cursor: pointer;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   min-width: 11vw;
   margin-right: 1vw;
@@ -116,7 +124,10 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 .nav-bar .profile:hover {
   background: rgb(150, 0, 0);
@@ -181,6 +192,4 @@
 }
 .nav-bar .userMenu .userMenuList .userMenuListItem[id="sign out"] {
   justify-content: center;
-}
-
-/*# sourceMappingURL=NavBar.css.map */
+}/*# sourceMappingURL=NavBar.css.map */

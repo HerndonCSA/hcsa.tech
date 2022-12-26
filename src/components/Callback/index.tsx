@@ -7,6 +7,7 @@ function Callback() {
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const session = urlParams.get('session') as string;
+        console.log(session);
         localStorage.setItem('session', session);
         navigate.current('/');
     }, [])
