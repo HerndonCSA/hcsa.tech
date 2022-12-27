@@ -16,16 +16,24 @@ from user_agents import parse
 from SessionManager import SessionManager
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "./client_secret.json")
+client_secrets_file = os.path.join(
+    pathlib.Path(__file__).parent, "./client_secret.json"
+)
 config = json.load(open(os.path.join(pathlib.Path(__file__).parent, "./config.json")))
 
 # create random secret
 
-flow = Flow.from_client_secrets_file(client_secrets_file=client_secrets_file,
-                                     scopes=["https://www.googleapis.com/auth/userinfo.profile",
-                                             "https://www.googleapis.com/auth/userinfo.email", "openid"],
-                                     redirect_uri="https://api.hcsa.tech/callback" if config[
-                                         "production"] else "http://localhost:8000/callback")
+flow = Flow.from_client_secrets_file(
+    client_secrets_file=client_secrets_file,
+    scopes=[
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+        "openid",
+    ],
+    redirect_uri="https://api.hcsa.tech/callback"
+    if config["production"]
+    else "http://localhost:8000/callback",
+)
 
 app = Sanic(config["name"])
 
@@ -44,11 +52,14 @@ def session_handler():
                         request.ctx.user["session"] = decoded["session"]
                         return await f(request, *args, **kwargs)
                     else:
-                        return response.json({"error": "session deleted from another device"},
-                                             status=401)
+                        return response.json(
+                            {"error": "session deleted from another device"}, status=401
+                        )
                 except jwt.ExpiredSignatureError:
                     # remove from app.session
-                    del app.ctx.sessions[session["email"]]["sessions"][session["session"]]
+                    del app.ctx.sessions[session["email"]]["sessions"][
+                        session["session"]
+                    ]
                     return response.json({"error": "Session expired"}, status=401)
                 except jwt.InvalidTokenError:
                     return response.json({"error": "Invalid token"}, status=401)
@@ -64,14 +75,21 @@ def session_handler():
 
 async def revoke_token(token):
     async with aiohttp.ClientSession() as session:
-        async with session.post("https://oauth2.googleapis.com/revoke", data={"token": token}) as resp:
+        async with session.post(
+            "https://oauth2.googleapis.com/revoke", data={"token": token}
+        ) as resp:
             return await resp.json()
 
 
 @app.middleware("response")
 async def cors(_, resp):
-    resp.headers.update({"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "*",
-                         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"})
+    resp.headers.update(
+        {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        }
+    )
 
 
 @app.listener("before_server_start")
@@ -103,46 +121,81 @@ async def callback(request):
 
     if not cookie or not cookie == request.args.get("state"):
         # return response.redirect(config["frontend_url"] + "/state_mismatch")
-        return response.json({"error": "state mismatch", "State was": request.cookies.get("state"),
-                              "and was supposed to be ": request.args.get("state")})
+        return response.json(
+            {
+                "error": "state mismatch",
+                "State was": request.cookies.get("state"),
+                "and was supposed to be ": request.args.get("state"),
+            }
+        )
 
     credentials = flow.credentials
     token_request = google.auth.transport.requests.Request()
     # noinspection PyProtectedMember
-    id_info = id_token.verify_oauth2_token(id_token=credentials._id_token, request=token_request,
-                                           audience=credentials.client_id)
+    id_info = id_token.verify_oauth2_token(
+        id_token=credentials._id_token,
+        request=token_request,
+        audience=credentials.client_id,
+    )
     await revoke_token(credentials.token)
 
     session_creation_token = uuid.uuid4().hex
-    app.ctx.session_creation_tokens[session_creation_token] = {"email": id_info["email"],
-                                                               "first_name": id_info["given_name"],
-                                                               "last_name": id_info["family_name"],
-                                                               "picture": id_info["picture"].replace("\\", "")}
-    return response.redirect(config["frontend_url"] + "/callback?session_creation_token=" + session_creation_token)
+    app.ctx.session_creation_tokens[session_creation_token] = {
+        "email": id_info["email"],
+        "first_name": id_info["given_name"],
+        "last_name": id_info["family_name"],
+        "picture": id_info["picture"].replace("\\", ""),
+    }
+    return response.redirect(
+        config["frontend_url"]
+        + "/callback?session_creation_token="
+        + session_creation_token
+    )
 
 
 @app.route("/create_session", methods=["OPTIONS"])
 async def create_session_preflight(_):
-    resp = response.text("", headers={"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "*",
-                                      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"})
+    resp = response.text(
+        "",
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        },
+    )
     return resp
 
 
 @app.route("/create_session", methods=["POST"])
 async def create_session(request):
     session_creation_token = request.headers.get("session_creation_token")
-    if session_creation_token and session_creation_token in app.ctx.session_creation_tokens:
+    if (
+        session_creation_token
+        and session_creation_token in app.ctx.session_creation_tokens
+    ):
         data = app.ctx.session_creation_tokens[session_creation_token]
         del app.ctx.session_creation_tokens[session_creation_token]
         session_id = uuid.uuid4().hex
         # if production, ip is from cloudflare, otherwise use request.ip
-        app.ctx.session_manager.add_session(data, {"session_id": session_id,
-                                                   "ip": request.headers.get("CF-Connecting-IP") if config[
-                                                       "production"] else request.ip,
-                                                   "user_agent": str(parse(request.headers.get("User-Agent")))})
+        app.ctx.session_manager.add_session(
+            data,
+            {
+                "session_id": session_id,
+                "ip": request.headers.get("CF-Connecting-IP")
+                if config["production"]
+                else request.ip,
+                "user_agent": str(parse(request.headers.get("User-Agent"))),
+            },
+        )
         return response.json(
-            {"session": jwt.encode({"session": session_id}, app.ctx.secret, algorithm='HS256'), "user": data,
-             "success": True})
+            {
+                "session": jwt.encode(
+                    {"session": session_id}, app.ctx.secret, algorithm="HS256"
+                ),
+                "user": data,
+                "success": True,
+            }
+        )
     else:
         return response.json({"error": "invalid session_creation_token"}, status=401)
 
@@ -154,9 +207,14 @@ async def everything(_):
 
 @app.route("/user", methods=["OPTIONS"])
 async def user_preflight(request):
-    resp = response.text("", headers={"Access-Control-Allow-Origin": "*",
-                                      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Auth-Token, X-Requested-With",
-                                      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"})
+    resp = response.text(
+        "",
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Auth-Token, X-Requested-With",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        },
+    )
     return resp
 
 
@@ -170,25 +228,36 @@ async def get_user(request):
 
 @app.route("/user/sessions", methods=["OPTIONS"])
 async def user_sessions_preflight(_):
-    resp = response.text("", headers={"Access-Control-Allow-Origin": "*",
-                                      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Auth-Token, X-Requested-With",
-                                      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"})
+    resp = response.text(
+        "",
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Auth-Token, X-Requested-With",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        },
+    )
     return resp
 
 
 @app.route("/user/sessions")
 @session_handler()
 async def user_sessions(request):
-    sessions = app.ctx.session_manager.list_sessions(request.ctx.user["email"],
-                                                     request.ctx.user["session"])
+    sessions = app.ctx.session_manager.list_sessions(
+        request.ctx.user["email"], request.ctx.user["session"]
+    )
     return response.json({"sessions": sessions, "success": True})
 
 
 @app.route("/delete_session", methods=["OPTIONS"])
 async def delete_session_preflight(_):
-    resp = response.text("", headers={"Access-Control-Allow-Origin": "*",
-                                      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Auth-Token, X-Requested-With",
-                                      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"})
+    resp = response.text(
+        "",
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Auth-Token, X-Requested-With",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        },
+    )
     return resp
 
 
@@ -198,18 +267,29 @@ async def delete_session(request):
     data = request.json
     if "session" in data:
         app.ctx.session_manager.delete_session(data["session"])
-        return response.json({"success": True, "sessions": app.ctx.session_manager.list_sessions(
-            request.ctx.user["email"], request.ctx.user["session"])})
+        return response.json(
+            {
+                "success": True,
+                "sessions": app.ctx.session_manager.list_sessions(
+                    request.ctx.user["email"], request.ctx.user["session"]
+                ),
+            }
+        )
     else:
         return response.json({"error": "invalid session"}, status=401)
 
 
 @app.route("/user/logout", methods=["OPTIONS"])
 async def logout_preflight(request):
-    resp = response.text("", headers={"Access-Control-Allow-Origin": "*",
-                                      "Access-Control-Allow-Headers": "Content-Type, Authorization, "
-                                                                      "X-Auth-Token, X-Requested-With",
-                                      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"})
+    resp = response.text(
+        "",
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization, "
+            "X-Auth-Token, X-Requested-With",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        },
+    )
     return resp
 
 
@@ -227,8 +307,15 @@ async def index(_):
 
 @app.route("/favicon.ico")
 async def favicon(_):
-    return await response.file(os.path.join(pathlib.Path(__file__).parent, "./favicon.ico"))
+    return await response.file(
+        os.path.join(pathlib.Path(__file__).parent, "./favicon.ico")
+    )
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, fast=config["production"], debug=not config["production"])
+    app.run(
+        host="0.0.0.0",
+        port=8000,
+        fast=config["production"],
+        debug=not config["production"],
+    )

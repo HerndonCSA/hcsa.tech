@@ -1,4 +1,4 @@
-import "./assets/Waves.css";
+import "./assets/Waves.scss";
 
 import { useLocation } from "react-router-dom";
 
@@ -11,7 +11,7 @@ const Waves = () => {
 			className={
 				"waves " +
 				(location.pathname === "/members" ||
-				location.pathname === "/contact"
+					location.pathname === "/contact"
 					? "high"
 					: "")
 			}

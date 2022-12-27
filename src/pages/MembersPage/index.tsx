@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import "./assets/MembersPage.css";
+import "./assets/MembersPage.scss";
 import GithubIcon from "./assets/github.svg";
 import users from "./data.js";
 

@@ -1,4 +1,4 @@
-import "./assets/HomePage.css";
+import "./assets/HomePage.scss";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 
