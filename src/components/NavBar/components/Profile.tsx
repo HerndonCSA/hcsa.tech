@@ -22,7 +22,7 @@ const Profile = ({
       ref={profileRef}
     >
       <img src={userData.picture} alt="profile" referrerPolicy="no-referrer" />
-      <p>{userData.firstName}</p>
+      <p>{userData.first_name}</p>
       <img src={ArrowIcon} alt="arrow icon" />
     </div>
   );

@@ -7,6 +7,7 @@ import Callback from "./components/Callback";
 import { AnimatePresence } from "framer-motion";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useState, lazy, useEffect } from "react";
+import SessionManager from "./components/SessionManager";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const MembersPage = lazy(() => import("./pages/MembersPage"));
@@ -16,10 +17,12 @@ const App = () => {
     const location = useLocation();
     const [userData, setUserData] = useState({});
     useEffect(() => {
+
         let session = localStorage.getItem("session");
         if (session) {
+            console.log("PREVIOUS SESSION FOUND")
             // -H "Authorization: Token [token]"
-            fetch("https://api.hcsa.tech/user", {
+            fetch("http://localhost:8000/user", {
                 method: "GET", headers: {
                     "Authorization": "Token " + session,
                 },
@@ -30,24 +33,33 @@ const App = () => {
                         console.log(data);
                         setUserData(data);
                     } else {
-                        console.log(data);
-                        console.log("error");
+                        // console log in red
+                        console.log(data)
+                        console.log("%c" + data.error, "color: red");
+                        localStorage.removeItem("session");
                     }
                 });
+        }
+
+
+        else {
+            console.log("NO PREVIOUS SESSION FOUND")
 
         }
 
     }, []);
     return (<>
-        <Waves />
+        {location.pathname !== "/sessions" && <Waves />}
         <div className="app">
-            <NavBar userData={userData} setUserData={setUserData} />
+            {location.pathname !== "/sessions" && <NavBar userData={userData} setUserData={setUserData} />}
             <AnimatePresence initial={false} mode="wait">
                 <Routes key={location.pathname} location={location}>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/members" element={<MembersPage />} />
                     <Route path="/contact" element={<ContactPage />} />
-                    <Route path="/callback" element={<Callback />} />
+                    <Route path="/callback" element={<Callback setUserData={setUserData} />} />
+                    <Route path="/sessions" element={<SessionManager/>} />
+                    <Route path="*" element={<h1>404</h1>} />
                 </Routes>
             </AnimatePresence>
             <Footer />

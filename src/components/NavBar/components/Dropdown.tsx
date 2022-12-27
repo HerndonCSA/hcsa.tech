@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Dropdown = ({ setUserData, dropDownRef, profileRef }: any) => {
+    const navigate = useNavigate();
     return <motion.div
         key="userMenu"
         ref={dropDownRef}
@@ -18,17 +19,20 @@ const Dropdown = ({ setUserData, dropDownRef, profileRef }: any) => {
         exit={{ maxHeight: "0vh" }}
     >
         <ul className="userMenuList">
-            <li className="userMenuListItem">Dashboard</li>
             <li className="userMenuListItem"
                 onClick={() => {
-                    // open link in new tab
-                    window.open("https://api.hcsa.tech/user/sessions?session=" + localStorage.getItem("session"), "_blank");
+                    alert("Not implemented yet");
                 }}
-            >Account Settings</li>
+            >Dashboard</li>
+            <li className="userMenuListItem"
+                onClick={() => {
+                    navigate("/sessions")
+                }}
+            >Account Sessions</li>
             <hr />
             <li
                 onClick={() => {
-                    fetch("https://api.hcsa.tech/user/logout", {
+                    fetch("http://localhost:8000/user/logout", {
                         method: "POST",
                         headers: {
                             "Authorization": "Token " + localStorage.getItem("session"),
