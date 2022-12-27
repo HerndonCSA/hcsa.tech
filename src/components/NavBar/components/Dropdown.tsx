@@ -32,7 +32,7 @@ const Dropdown = ({ setUserData, dropDownRef, profileRef }: any) => {
             <hr />
             <li
                 onClick={() => {
-                    fetch("http://localhost:8000/user/logout", {
+                    fetch("https://api.hcsa.tech/logout", {
                         method: "POST",
                         headers: {
                             "Authorization": "Token " + localStorage.getItem("session"),

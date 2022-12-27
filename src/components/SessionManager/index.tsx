@@ -5,7 +5,7 @@ const SessionManager = () => {
 
     useEffect(() => {
         const session = localStorage.getItem("session");
-        fetch("http://localhost:8000/user/sessions", {
+        fetch("https://api.hcsa.tech/user/sessions", {
             method: "GET", headers: {
                 "Authorization": "Token " + session,
             },
@@ -17,14 +17,14 @@ const SessionManager = () => {
                     setSessions(data.sessions);
                 } else {
                     alert(data.error);
-                    window.location.href = "http://localhost:8000/login";
+                    window.location.href = "https://api.hcsa.tech/login";
                 }
             });
     }, [])
 
     const deleteSession = (session_id: string) => {
         const session = localStorage.getItem("session");
-        fetch("http://localhost:8000/delete_session", {
+        fetch("https://api.hcsa.tech/delete_session", {
             method: "POST", headers: {
                 "Authorization": "Token " + session,
                 "Content-Type": "application/json"
