@@ -25,8 +25,10 @@ rsa==4.9
 sanic==22.9.1
 sanic-routing==22.8.0
 six==1.16.0
+ua-parser==0.16.1
 ujson==5.6.0
 urllib3==1.26.13
+user-agents==2.2.0
 uvloop==0.17.0
 websockets==10.4
 yarl==1.8.2

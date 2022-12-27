@@ -1,4 +1,4 @@
-import "./assets/App.css";
+import "./assets/App.scss";
 import NavBar from "./components/NavBar";
 import Waves from "./components/Waves";
 import Footer from "./components/Footer";

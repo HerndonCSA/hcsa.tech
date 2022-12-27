@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import "./assets/SessionManager.css";
+import "./assets/SessionManager.scss";
 const SessionManager = () => {
     const [sessions, setSessions] = useState([]);
 

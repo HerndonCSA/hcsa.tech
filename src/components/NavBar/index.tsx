@@ -1,4 +1,4 @@
-import "./assets/NavBar.css";
+import "./assets/NavBar.scss";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
