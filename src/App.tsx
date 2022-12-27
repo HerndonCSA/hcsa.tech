@@ -22,7 +22,7 @@ const App = () => {
         if (session) {
             console.log("PREVIOUS SESSION FOUND")
             // -H "Authorization: Token [token]"
-            fetch("http://localhost:8000/user", {
+            fetch("https://api.hcsa.tech/user", {
                 method: "GET", headers: {
                     "Authorization": "Token " + session,
                 },

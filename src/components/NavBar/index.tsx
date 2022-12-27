@@ -113,7 +113,7 @@ const NavBar = ({ userData, setUserData }: any) => {
             <button
               onClick={() => {
                 window.location.href =
-                  "http://localhost:8000/login";
+                  "http://https://api.hcsa.tech/login";
               }}
             >
               Sign in
