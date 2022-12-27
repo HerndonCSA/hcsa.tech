@@ -7,7 +7,7 @@ function Callback( { setUserData }: any) {
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const session = urlParams.get('session_creation_token') as string;
-        fetch('http://localhost:8000/create_session', {
+        fetch('https://api.hcsa.tech/create_session', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
