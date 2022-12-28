@@ -1,5 +1,3 @@
-old_src
-
 # dependencies
 /node_modules
 /.pnp
@@ -24,3 +22,4 @@ yarn-error.log*
 
 .idea
 backend/client_secret.json
+backend/__pycache__

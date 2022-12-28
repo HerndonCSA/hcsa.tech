@@ -107,7 +107,7 @@ async def login(_):
     authorization_url, state = flow.authorization_url()
     resp = response.redirect(authorization_url)
     resp.cookies["state"] = state
-    resp.cookies["state"]["httponly"] = False
+    resp.cookies["state"]["httponly"] = True
 
     # what type of cookie should I use for state?
     return resp  # maybe could use &hd=fcpsschools.net
