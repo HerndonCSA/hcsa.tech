@@ -12,7 +12,7 @@ We are an unoffical club @ herndon highschool
 
 ## Project Details
 
-### Reactjs with create-react-app
+### Reactjs with Typescript created with vite
 
 #### Major Dependencies:
 
