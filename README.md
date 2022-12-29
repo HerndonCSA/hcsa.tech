@@ -29,3 +29,7 @@ We are an unoffical club @ herndon highschool
 -   src/components houses components for every single page, such as nav, footer etc
 -   index.js renders App.js to the page
 -   app.js manages state for components from src/components and the entire pages router.
+
+## Backend 
+
+- You do not want to know
