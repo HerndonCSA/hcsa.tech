@@ -6,6 +6,7 @@
     h1 {
       font-size: 2em;
       margin-bottom: 1em;
+      margin-top: 1em;
     }
   
     .sessions {
@@ -36,6 +37,17 @@
       }
 
     
+    }
+
+    .back {
+      margin-top: 1em;
+      background-color: #000000; /* Green */
+      border: none;
+      color: white;
+      padding: 0.7vw 2vw;
+      text-align: center;
+      border-radius: 0.5vw;
+      cursor: pointer;
     }
   }
   
