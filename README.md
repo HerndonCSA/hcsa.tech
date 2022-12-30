@@ -1,7 +1,7 @@
 # HCSA.TECH
 
 This is the main website for our club, the Herndon Computer Science Association.
-We are an unoffical club @ herndon highschool
+We are an unoffical club @ Herndon High School
 
 **_This project is unstable and is still under development_**
 <br>
