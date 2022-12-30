@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 import Callback from "./components/Callback";
 
 import { AnimatePresence } from "framer-motion";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useState, lazy, useEffect } from "react";
 import SessionManager from "./components/SessionManager";
 
@@ -15,6 +15,7 @@ const ContactPage = lazy(() => import("./pages/ContactPage"));
 
 const App = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({});
     useEffect(() => {
 
@@ -48,21 +49,31 @@ const App = () => {
         }
 
     }, []);
+    // if path is /, /members, or /contact, render navbar and waves
     return (<>
-        {location.pathname !== "/sessions" && <Waves />}
+        {["/", "/members", "/contact"].includes(location.pathname) && <Waves />}
         <div className="app">
-            {location.pathname !== "/sessions" && <NavBar userData={userData} setUserData={setUserData} />}
+            {["/", "/members", "/contact"].includes(location.pathname) && <NavBar userData={userData} setUserData={setUserData} />}
             <AnimatePresence initial={false} mode="wait">
                 <Routes key={location.pathname} location={location}>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/members" element={<MembersPage />} />
                     <Route path="/contact" element={<ContactPage />} />
                     <Route path="/callback" element={<Callback setUserData={setUserData} />} />
-                    <Route path="/sessions" element={<SessionManager/>} />
-                    <Route path="*" element={<h1>404</h1>} />
+                    <Route path="/sessions" element={<SessionManager />} />
+                    <Route path="*" element={
+                        <>
+                            <h1>404 - Page Not Found</h1>
+                            <p>Sorry, the page you are looking for does not exist.</p>
+                            <p
+                                style={{ cursor: "pointer" }}
+
+                                onClick={() => navigate("/")}>Go Home</p>
+                        </>
+                    } />
                 </Routes>
             </AnimatePresence>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     </>);
 };

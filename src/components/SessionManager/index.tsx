@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import "./assets/SessionManager.scss";
+import { useNavigate } from 'react-router-dom';
 const SessionManager = () => {
     const [sessions, setSessions] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const session = localStorage.getItem("session");
@@ -61,6 +63,10 @@ const SessionManager = () => {
                     })
                 }
             </div>
+
+            <button className="back" onClick={() => navigate("/")}>
+                Return Home
+            </button>
         </div>
     )
 
