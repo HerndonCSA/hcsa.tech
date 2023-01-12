@@ -4,7 +4,7 @@ const users = [
         userNameL: "Lamichhane",
         discord: "soos#6008",
         github: "@sooswastaken",
-        email: "soos@hcsa.tech"
+        email: "sudarshan.lamichhane@hcsa.tech"
     },
     {
         userNameF: "Sachin",
@@ -25,7 +25,7 @@ const users = [
         userNameL: "Ayala-Dubon",
         discord: "JonathanA12345#7795",
         github: "@Johnathan2022",
-        email: "Jonathan@hcsa.tech"
+        email: "jonathan.ayala@hcsa.tech"
     },
     {
         userNameF: "Evan",
@@ -33,6 +33,13 @@ const users = [
         discord: "Retroneek#7096",
         github: "@Retroneek",
         email: "evan.sanchez@hcsa.tech"
+    },
+    {
+        userNameF: "Utsav",
+        userNameL: "Dhungana",
+        discord: "ud savage#9559",
+        github: "?",
+        email: "utsav.dhungana@hcsa.tech"
     }
 ]
 
