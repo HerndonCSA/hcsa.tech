@@ -4,7 +4,7 @@ const users = [
         userNameL: "Lamichhane",
         discord: "soos#6008",
         github: "@sooswastaken",
-        email: "sudarshan.lamichhane@hcsa.tech"
+        email: "soos@hcsa.tech"
     },
     {
         userNameF: "Sachin",
