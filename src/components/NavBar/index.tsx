@@ -8,7 +8,8 @@ import HomeIcon from "./assets/images/home.svg";
 import MembersIcon from "./assets/images/members.svg";
 import ContactIcon from "./assets/images/contact.svg";
 import Logo from "./assets/images/logo.png";
-import React from "react";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 const NavBar = ({ userData, setUserData }: any) => {
@@ -113,7 +114,7 @@ const NavBar = ({ userData, setUserData }: any) => {
             <button
               onClick={() => {
                 window.location.href =
-                  "https://api.hcsa.tech/login";
+                API_URL + "/login";
               }}
             >
               Sign in

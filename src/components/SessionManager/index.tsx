@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import "./assets/SessionManager.scss";
 import { useNavigate } from 'react-router-dom';
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 const SessionManager = () => {
     const [sessions, setSessions] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         const session = localStorage.getItem("session");
-        fetch("https://api.hcsa.tech/user/sessions", {
+        fetch(API_URL + "/user/sessions", {
             method: "GET", headers: {
                 "Authorization": "Token " + session,
             },
@@ -19,14 +22,14 @@ const SessionManager = () => {
                     setSessions(data.sessions);
                 } else {
                     alert(data.error);
-                    window.location.href = "https://api.hcsa.tech/login";
+                    window.location.href = API_URL + "/login";
                 }
             });
     }, [])
 
     const deleteSession = (session_id: string) => {
         const session = localStorage.getItem("session");
-        fetch("https://api.hcsa.tech/delete_session", {
+        fetch(API_URL + "/delete_session", {
             method: "POST", headers: {
                 "Authorization": "Token " + session,
                 "Content-Type": "application/json"
