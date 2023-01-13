@@ -1,5 +1,5 @@
 {
     "name": "HCSA",
-    "frontend_url": "http://localhost:3000",
-    "production": false
+    "frontend_url": "https://api.hcsa.tech",
+    "production": true
 }
