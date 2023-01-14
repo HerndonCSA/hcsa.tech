@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useRef } from 'react';
 
-function Callback( { setUserData }: any) {
+const API_URL = import.meta.env.VITE_API_URL;
+
+function Callback({ setUserData }: any) {
     const navigate = useRef(useNavigate());
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const session = urlParams.get('session_creation_token') as string;
-        fetch('https://api.hcsa.tech/create_session', {
+        fetch(API_URL + '/create_session', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

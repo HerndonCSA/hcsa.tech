@@ -34,7 +34,7 @@ const Dropdown = ({ setUserData, dropDownRef, profileRef }: any) => {
             <hr />
             <li
                 onClick={() => {
-                    fetch(API_URL + "/logout", {
+                    fetch(API_URL + "/user/logout", {
                         method: "POST",
                         headers: {
                             "Authorization": "Token " + localStorage.getItem("session"),
