@@ -3,7 +3,6 @@ import NavBar from "./components/NavBar";
 import Waves from "./components/Waves";
 import Footer from "./components/Footer";
 import Callback from "./components/Callback";
-
 import { AnimatePresence } from "framer-motion";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useState, lazy, useEffect } from "react";
@@ -12,6 +11,8 @@ import SessionManager from "./components/SessionManager";
 const HomePage = lazy(() => import("./pages/HomePage"));
 const MembersPage = lazy(() => import("./pages/MembersPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const App = () => {
     const location = useLocation();
@@ -23,7 +24,7 @@ const App = () => {
         if (session) {
             console.log("PREVIOUS SESSION FOUND")
             // -H "Authorization: Token [token]"
-            fetch("https://api.hcsa.tech/user", {
+            fetch(API_URL + "/user", {
                 method: "GET", headers: {
                     "Authorization": "Token " + session,
                 },

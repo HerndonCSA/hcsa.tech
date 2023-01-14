@@ -13,303 +13,401 @@
 // 6. inset
 
 .nav-bar {
-  position: fixed;
-  top: 0;
+	position: fixed;
+	top: 0;
 
-  // dimension properties
-  $width: 100vw;
-  $height: 10vh;
-  min-width: $width;
-  width: $width;
-  max-width: $width;
-  min-height: $height;
-  height: $height;
-  max-height: $height;
+	// dimension properties
+	$width: 100vw;
+	$height: 10vh;
+	min-width: $width;
+	width: $width;
+	max-width: $width;
+	min-height: $height;
+	height: $height;
+	max-height: $height;
 
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), #b01515);
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), #b01515);
 
-  // makes navbar go on top of every other element
-  z-index: 1000;
+	// makes navbar go on top of every other element
+	z-index: 10;
 
-  // display all direct children of the navbar horizontally
-  display: flex;
+	// display all direct children of the navbar horizontally
+	display: flex;
 
-  // center all direct children of the navbar vertically
-  align-items: center;
+	// center all direct children of the navbar vertically
+	align-items: center;
 
-  // add even space between the direct children of the navbar
-  justify-content: space-between;
+	// add even space between the direct children of the navbar
+	justify-content: space-between;
 
-  overflow: visible;
+	overflow: visible;
 
-  // LOGO
-  .nav-logo {
-    margin-left: 1vw;
+	// LOGO
+	.nav-logo {
+		margin-left: 1vw;
 
-    // Lock aspect ratio
-    $width: 7.5vh;
-    $height: 7.5vh;
-    min-width: $width;
-    width: $width;
-    max-width: $width;
-    min-height: $height;
-    height: $height;
-    max-height: $height;
+		// Lock aspect ratio
+		$width: 7.5vh;
+		$height: 7.5vh;
+		min-width: $width;
+		width: $width;
+		max-width: $width;
+		min-height: $height;
+		height: $height;
+		max-height: $height;
 
-    img {
-      // Lock aspect ratio
-      $width: 7.5vh;
-      $height: 7.5vh;
-      min-width: $width;
-      width: $width;
-      max-width: $width;
-      min-height: $height;
-      height: $height;
-      max-height: $height;
+		img {
+			// Lock aspect ratio
+			$width: 7.5vh;
+			$height: 7.5vh;
+			min-width: $width;
+			width: $width;
+			max-width: $width;
+			min-height: $height;
+			height: $height;
+			max-height: $height;
 
-      // center the image inside of the div
-      display: flex;
-      align-items: center;
-      justify-content: center;
+			// center the image inside of the div
+			display: flex;
+			align-items: center;
+			justify-content: center;
 
-      // border properties
-      border-radius: 10%;
-      box-shadow:0 0 0 .1vw #fff;
-    }
-  }
+			// border properties
+			border-radius: 10%;
+			box-shadow: 0 0 0 0.1vw #fff;
+		}
+	}
 
-  // NAV LINKS
-  .nav-links {
-    width: 100vw;
-    height: 100%;
+	.burger-container {
+		display: none;
+		margin-left: 1em;
+	}
 
-    // center the direct children of nav-links horizontally
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	// NAV LINKS
+	.nav-links {
+		width: 100vw;
+		height: 100%;
 
-    ul {
-      display: flex;
+		// center the direct children of nav-links horizontally
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
-      li {
-        display: flex;
-        margin: 0 5vw;
-        transition: 0.5s ease;
+		ul {
+			display: flex;
 
-        // center all children vertically
-        align-items: center;
+			li {
+				display: flex;
+				margin: 0 5vw;
+				transition: 0.5s ease;
 
-        cursor: pointer;
+				// center all children vertically
+				align-items: center;
 
-        img {
-          $width: 2.5vw;
-          $height: 4.5vh;
-          min-width: $width;
-          width: $width;
-          max-width: $width;
-          min-height: $height;
-          height: $height;
-          max-height: $height;
+				cursor: pointer;
 
-          padding: 0.5vw;
-          border-radius: 10%;
-          // make the border of the image have a bigger radius than the image itself
-          // so that the border is not visible on the corners of the image
-          margin: 0.25vw !important;
-          // &[alt="home icon"] {
-          // 	width: 3vw;
-          // 	max-width: 3vw;
-          // 	height: 3vh;
-          // 	max-height: 3vh;
-          // }
-        }
+				img {
+					$width: 2.5vw;
+					$height: 4.5vh;
+					min-width: $width;
+					width: $width;
+					max-width: $width;
+					min-height: $height;
+					height: $height;
+					max-height: $height;
 
-        p {
-          font-size: 1.5vw;
-          margin-left: 0.5vw;
-        }
-      }
-    }
-  }
+					padding: 0.5vw;
+					border-radius: 10%;
+					// make the border of the image have a bigger radius than the image itself
+					// so that the border is not visible on the corners of the image
+					margin: 0.25vw !important;
+					// &[alt="home icon"] {
+					// 	width: 3vw;
+					// 	max-width: 3vw;
+					// 	height: 3vh;
+					// 	max-height: 3vh;
+					// }
+				}
 
-  // LOGIN BUTTON
-  .sign-in-button {
-    // Lock aspect ratio
-    margin-right: 1vw;
-    $width: fit-content !important;
-    $height: 5vh;
-    min-width: $width;
-    width: $width;
-    max-width: $width;
-    min-height: $height;
-    height: $height;
-    max-height: $height;
+				p {
+					font-size: 1.5vw;
+					margin-left: 0.5vw;
+				}
+			}
+		}
+	}
 
-    ul {
-      li {
-        list-style: none;
-      }
-    }
+	// LOGIN BUTTON
+	.sign-in-button {
+		// Lock aspect ratio
+		margin-right: 2vh;
+		$width: fit-content !important;
+		$height: 5vh;
+		min-width: $width;
+		width: $width;
+		max-width: $width;
+		min-height: $height;
+		height: $height;
+		max-height: $height;
 
-    button {
-      // Lock aspect ratio
-      $width: 7.5vw !important;
-      $height: 5vh;
-      min-width: $width;
-      width: $width;
-      max-width: $width;
-      min-height: $height;
-      height: $height;
-      max-height: $height;
+		ul {
+			li {
+				list-style: none;
+			}
+		}
 
-      white-space: no-wrap;
-      text-align: center;
+		button {
+			// Lock aspect ratio
+			$width: 15vh !important;
+			$height: 5vh;
+			min-width: $width;
+			width: $width;
+			max-width: $width;
+			min-height: $height;
+			height: $height;
+			max-height: $height;
 
-      border: none;
-      border-radius: 0.25vw;
+			white-space: no-wrap;
+			text-align: center;
 
-      // list box-shadow values in order
-      // 1. horizontal offset
-      // 2. vertical offset
-      // 3. blur radius
-      // 4. spread radius
-      // 5. color
-      // 6. inset
+			border: none;
+			border-radius: 0.25vh;
 
-      box-shadow: 0px 0px 20px 0.2px rgba(0, 0, 0, 0.305);
+			// list box-shadow values in order
+			// 1. horizontal offset
+			// 2. vertical offset
+			// 3. blur radius
+			// 4. spread radius
+			// 5. color
+			// 6. inset
 
-      background: rgb(175, 0, 0);
+			box-shadow: 0px 0px 20px 0.2px rgba(0, 0, 0, 0.305);
 
-      padding: 1vw;
-      font-size: 2vh;
+			background: rgb(175, 0, 0);
 
-      // align the text vertically inside of the button
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-  }
+			padding: 1vw;
+			font-size: 2vh;
 
-  /* PROFILE COMPONENT STYLING */
-  .profile {
-    box-shadow: 0px 0px 20px 0.2px rgba(0, 0, 0, 0.305);
-    background: rgb(160, 0, 0);
-    transition: 0.5s ease;
+			// align the text vertically inside of the button
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+		}
+	}
 
-    &:hover {
-      background: rgb(150, 0, 0);
-    }
+	/* PROFILE COMPONENT STYLING */
+	.profile {
+		box-shadow: 0px 0px 20px 0.2px rgba(0, 0, 0, 0.305);
+		background: rgb(160, 0, 0);
+		transition: 0.5s ease;
 
-    border-radius: 0.25vw;
-    cursor: pointer;
-    width: fit-content;
-    min-width: 11vw;
-    margin-right: 1vw;
+		&:hover {
+			background: rgb(150, 0, 0);
+		}
 
-    height: 6vh;
+		border-radius: 0.25vw;
+		cursor: pointer;
+		width: fit-content;
+		min-width: 11vw;
+		margin-right: 1.7vh;
 
-    padding: 0.9vw !important;
+		height: 6vh;
 
-    // display all direct children horizontally and center them vertically
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+		padding: 0.9vh !important;
 
-    user-select: none;
+		// display all direct children horizontally and center them vertically
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
 
-    img {
-      &[alt="profile"] {
-        // make a border with a box shadow so the image is not cut off
-        $width: 4vh;
-        $height: 4vh;
-        min-width: $width;
-        width: $width;
-        max-width: $width;
-        min-height: $height;
-        height: $height;
-        max-height: $height;
+		user-select: none;
 
-        border-radius: 50%;
-        background: #252525;
-        margin-right: 0.5vw;
-      }
+		img {
+			&[alt="profile"] {
+				// make a border with a box shadow so the image is not cut off
+				$width: 4vh;
+				$height: 4vh;
+				min-width: $width;
+				width: $width;
+				max-width: $width;
+				min-height: $height;
+				height: $height;
+				max-height: $height;
 
-      &[alt="arrow icon"] {
-        $width: 2vw;
-        $height: 2vh;
-        min-width: $width;
-        width: $width;
-        max-width: $width;
-        min-height: $height;
-        height: $height;
-        max-height: $height;
+				border-radius: 50%;
+				background: #252525;
+				margin-right: 0.5vw;
+			}
 
-        // colors the image white
-        filter: invert(98%) sepia(100%) saturate(9%) hue-rotate(154deg) brightness(103%) contrast(103%);
-      }
-    }
+			&[alt="arrow icon"] {
+				$width: 4vw;
+				$height: 2vh;
+				min-width: $width;
+				width: $width;
+				max-width: $width;
+				min-height: $height;
+				height: $height;
+				max-height: $height;
 
-    p {
-      font-size: 2vh;
-    }
-  }
+				// colors the image white
+				filter: invert(98%) sepia(100%) saturate(9%) hue-rotate(154deg)
+					brightness(103%) contrast(103%);
+			}
+		}
 
-  /* LOGGED IN COMPONENT STYLING */
+		p {
+			font-size: 2vh;
+		}
+	}
 
-  .userMenu {
-    background: rgb(154, 0, 0);
-    // add border radius only to bottom left and right
-    border-radius: 0 0 0.25vw 0.25vw;
+	/* LOGGED IN COMPONENT STYLING */
 
-    right: 1vw;
-    overflow: hidden;
-    position: absolute;
-    top: 8vh;
-    overflow: hidden;
+	.userMenu {
+		background: rgb(154, 0, 0);
+		// add border radius only to bottom left and right
+		border-radius: 0 0 0.25vw 0.25vw;
 
-    align-items: center;
-    justify-content: center;
+		right: 1vw;
+		overflow: hidden;
+		position: absolute;
+		top: 8vh;
+		overflow: hidden;
 
-    width: auto;
+		align-items: center;
+		justify-content: center;
 
-    .userMenuList {
-      display: flex;
-      flex-direction: column;
+		width: auto;
 
-      hr {
-        width: 90%;
-        border: 0.5px solid rgb(125, 0, 0);
+		.userMenuList {
+			display: flex;
+			flex-direction: column;
 
-        // center the hr
-        margin: 0 auto;
-      }
+			hr {
+				width: 90%;
+				border: 0.5px solid rgb(125, 0, 0);
 
-      .userMenuListItem {
-        height: 4vh;
-        padding: 0.5vw;
+				// center the hr
+				margin: 0 auto;
+			}
 
-        // align text vertically
-        display: flex;
-        align-items: center;
-        transition: 0.2s;
+			.userMenuListItem {
+				height: 4vh;
+				padding: 0.5vw;
 
-        // on hover
-        &:hover {
-          background: #700000;
-        }
+				// align text vertically
+				display: flex;
+				align-items: center;
+				transition: 0.2s;
 
-        margin: 0.5vh;
-        cursor: pointer;
-        list-style: none !important;
-        font-size: 2vh;
+				// on hover
+				&:hover {
+					background: #700000;
+				}
 
-        // selects only the sign out button
-        &[id="sign out"] {
-          // center the text
-          justify-content: center;
-        }
-      }
-    }
-  }
+				margin: 0.5vh;
+				cursor: pointer;
+				list-style: none !important;
+				font-size: 2vh;
+				// selects only the sign out button
+				&[id="sign out"] {
+					// center the text
+					justify-content: center;
+				}
+			}
+		}
+	}
 }
+
+.mobile-navbar {
+	z-index: 100;
+	position: fixed;
+	height: 100vh;
+	width: 60vw;
+	background: rgb(28, 28, 28);
+	// align content in the middle of the div horizontally and vertically
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	ul {
+		li {
+			display: flex;
+			// align items vertically
+			align-items: center;
+			img {
+				margin: 0 1vw;
+				width: 4.5vw;
+				height: 4.5vh;
+			}
+			p {
+				font-size: 3.5vh;
+				// margin top and bottom to center the text
+				margin: 2vh 0;
+			}
+		}
+	}
+
+	.close-btn {
+		position: absolute;
+		top: 2vh;
+		right: 2vw;
+		width: 4vw;
+		height: 4vh;
+		cursor: pointer;
+		border: none;
+		
+	}
+}
+
+.burger {
+	z-index: 9999;
+	width: 50px;
+	height: 6px;
+	background: rgb(223, 223, 223);
+	border-radius: 5px;
+	transition: all 0.25s ease-in-out;
+
+	&::before,
+	&::after {
+		z-index: 9999;
+		content: "";
+		position: absolute;
+		width: 50px;
+		height: 6px;
+		background: rgb(223, 223, 223);
+		border-radius: 5px;
+		transition: all 0.25s ease-in-out;
+	}
+	&::before {
+		z-index: 9999;
+		transform: translateY(-16px);
+	}
+
+	&::after {
+		transform: translateY(16px);
+	}
+}
+
+// responsive styling
+
+// when screen is smaller than 1000px
+@media only screen and (max-width: 1000px) {
+	.nav-links {
+		// hide the nav-links
+		display: none !important;
+	}
+	// hide nav-logo
+	.nav-logo {
+		display: none;
+	}
+	// display the burger
+	.burger-container {
+		display: block !important;
+	}
+}
+// Q: why do I have to add !important to the display property for it to work?
+// A: because the display property is set to flex in the .nav-links class
+// Q: Why wouldn't it be overridden by the media query?
+// A: because the media query is below the .nav-links class
+// Q: That should be fine, but it isn't. I have to add !important to the display property for it to work
+//

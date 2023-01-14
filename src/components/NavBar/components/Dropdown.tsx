@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Dropdown = ({ setUserData, dropDownRef, profileRef }: any) => {
     const navigate = useNavigate();
     return <motion.div
@@ -32,7 +34,7 @@ const Dropdown = ({ setUserData, dropDownRef, profileRef }: any) => {
             <hr />
             <li
                 onClick={() => {
-                    fetch("https://api.hcsa.tech/user/logout", {
+                    fetch(API_URL + "/user/logout", {
                         method: "POST",
                         headers: {
                             "Authorization": "Token " + localStorage.getItem("session"),

@@ -8,18 +8,21 @@ import HomeIcon from "./assets/images/home.svg";
 import MembersIcon from "./assets/images/members.svg";
 import ContactIcon from "./assets/images/contact.svg";
 import Logo from "./assets/images/logo.png";
-import React from "react";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 const NavBar = ({ userData, setUserData }: any) => {
   const profileRef = useRef<HTMLDivElement>(null);
   const dropDownRef = useRef<HTMLDivElement>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   const navLinkClickEvent = (location: string) => {
     navigate(location);
+    if (mobileMenuOpen) setMobileMenuOpen(false);
   };
 
   const clickOutSideToCloseDropdown = useCallback(
@@ -55,26 +58,15 @@ const NavBar = ({ userData, setUserData }: any) => {
       userMenu.style.width = profile.offsetWidth + "px";
     }
   }
-
+  // if mobileMenuOpen, animate to right: 0, else animate to right: -60hw
   return (
-    <div className="nav-bar">
-      <div className="nav-logo">
-        <img src={Logo} alt="" />
-      </div>
+    <>
+      <motion.div
+        animate={{ left: mobileMenuOpen ? "0" : "-60vw" }}
 
-      <div className="nav-links">
-        <motion.div
-          className="selector"
-          style={selectorStyles[location.pathname]}
-          animate={{ ...selectorStyles[location.pathname] }}
-          transition={{
-            duration: 0.1,
-            type: "spring",
-            stiffness: 60,
-            damping: 15,
-          }}
-          initial={false}
-        />
+        className="mobile-navbar">
+        <button className="close-btn" onClick={() => setMobileMenuOpen(false)}>X</button>
+
         <ul>
           <li
             onClick={() => navLinkClickEvent("/")}
@@ -98,57 +90,104 @@ const NavBar = ({ userData, setUserData }: any) => {
             <p>Contact Us</p>
           </li>
         </ul>
-      </div>
+      </motion.div>
+      <div className="nav-bar">
+        <div className="nav-logo">
+          <img src={Logo} alt="" />
+        </div>
+        <div className="burger-container"
+          onClick={() => setMobileMenuOpen(true)}>
+          <div className="burger" />
+        </div>
 
-      {/* Check if userdata is empty */}
-      <>
-        {Object.keys(userData).length === 0 ? (
+        <div className="nav-links">
           <motion.div
-            key="sign-in"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="sign-in-button"
-          >
-            <button
-              onClick={() => {
-                window.location.href =
-                  "https://api.hcsa.tech/login";
-              }}
+            className="selector"
+            style={selectorStyles[location.pathname]}
+            animate={{ ...selectorStyles[location.pathname] }}
+            transition={{
+              duration: 0.1,
+              type: "spring",
+              stiffness: 60,
+              damping: 15,
+            }}
+            initial={false}
+          />
+          <ul>
+            <li
+              onClick={() => navLinkClickEvent("/")}
+              className={location.pathname === "/" ? "selected" : ""}
             >
-              Sign in
-            </button>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="profile"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <Profile
-              userData={userData}
-              dropdownOpen={dropdownOpen}
-              setDropdownOpen={setDropdownOpen}
-              profileRef={profileRef}
-              dropdownRef={dropDownRef}
-            />
-            <AnimatePresence>
-              {/* DROPDOWN COMPONENT */}
-              {dropdownOpen && (
-                <Dropdown
-                  dropDownRef={dropDownRef}
-                  profileRef={profileRef}
-                  setUserData={setUserData}
-                  setOpen={setDropdownOpen}
-                  opened={dropdownOpen}
-                />
-              )}
-            </AnimatePresence>
-          </motion.div>
-        )}
-      </>
-    </div>
+              <img src={HomeIcon} alt="home icon" />
+              <p>Home</p>
+            </li>
+            <li
+              onClick={() => navLinkClickEvent("/members")}
+              className={location.pathname === "/members" ? "selected" : ""}
+            >
+              <img src={MembersIcon} alt="members icon" />
+              <p>Members</p>
+            </li>
+            <li
+              onClick={() => navLinkClickEvent("/contact")}
+              className={location.pathname === "/contact" ? "selected" : ""}
+            >
+              <img src={ContactIcon} alt="contact icon" />
+              <p>Contact Us</p>
+            </li>
+          </ul>
+        </div>
+
+        {/* Check if userdata is empty */}
+        <>
+          {Object.keys(userData).length === 0 ? (
+            <motion.div
+              key="sign-in"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="sign-in-button"
+            >
+              <button
+                onClick={() => {
+                  window.location.href =
+                    API_URL + "/login";
+                }}
+              >
+                Sign in
+              </button>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="profile"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <Profile
+                userData={userData}
+                dropdownOpen={dropdownOpen}
+                setDropdownOpen={setDropdownOpen}
+                profileRef={profileRef}
+                dropdownRef={dropDownRef}
+              />
+              <AnimatePresence>
+                {/* DROPDOWN COMPONENT */}
+                {dropdownOpen && (
+                  <Dropdown
+                    dropDownRef={dropDownRef}
+                    profileRef={profileRef}
+                    setUserData={setUserData}
+                    setOpen={setDropdownOpen}
+                    opened={dropdownOpen}
+                  />
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </>
+      </div>
+    </>
   );
 };
 
