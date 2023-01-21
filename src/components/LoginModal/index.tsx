@@ -1,9 +1,7 @@
 import "./assets/LoginModal.scss";
 
 const LoginModal = () => {
-    return (
-        null
-    )
-}
+  return null;
+};
 
-export default LoginModal
+export default LoginModal;

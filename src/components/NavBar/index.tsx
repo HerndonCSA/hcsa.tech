@@ -11,7 +11,6 @@ import Logo from "./assets/images/logo.png";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-
 const NavBar = ({ userData, setUserData }: any) => {
   const profileRef = useRef<HTMLDivElement>(null);
   const dropDownRef = useRef<HTMLDivElement>(null);
@@ -63,9 +62,11 @@ const NavBar = ({ userData, setUserData }: any) => {
     <>
       <motion.div
         animate={{ left: mobileMenuOpen ? "0" : "-60vw" }}
-
-        className="mobile-navbar">
-        <button className="close-btn" onClick={() => setMobileMenuOpen(false)}>X</button>
+        className="mobile-navbar"
+      >
+        <button className="close-btn" onClick={() => setMobileMenuOpen(false)}>
+          X
+        </button>
 
         <ul>
           <li
@@ -95,8 +96,10 @@ const NavBar = ({ userData, setUserData }: any) => {
         <div className="nav-logo">
           <img src={Logo} alt="" />
         </div>
-        <div className="burger-container"
-          onClick={() => setMobileMenuOpen(true)}>
+        <div
+          className="burger-container"
+          onClick={() => setMobileMenuOpen(true)}
+        >
           <div className="burger" />
         </div>
 
@@ -150,8 +153,7 @@ const NavBar = ({ userData, setUserData }: any) => {
             >
               <button
                 onClick={() => {
-                  window.location.href =
-                    API_URL + "/login";
+                  window.location.href = API_URL + "/login";
                 }}
               >
                 Sign in
