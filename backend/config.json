@@ -1,5 +1,5 @@
 {
   "name": "HCSA",
-  "frontend_url": "http://127.0.0.1:5174",
+  "frontend_url": "http://localhost:5174",
   "production": false
 }
