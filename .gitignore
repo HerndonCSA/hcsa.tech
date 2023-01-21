@@ -24,4 +24,3 @@ yarn-error.log*
 backend/client_secret.json
 backend/__pycache__
 .gitpod.yml
-backend/config.json
