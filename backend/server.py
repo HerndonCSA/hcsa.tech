@@ -1,3 +1,7 @@
+## 1. Make sure you have python and pip installed `python --version` and `pip --version`
+## 2. Install the dependencies `pip install -r requirements.txt`
+## 3. Run the server `python server.py`
+
 import pathlib
 from sanic import Sanic, response
 from google_auth_oauthlib.flow import Flow
