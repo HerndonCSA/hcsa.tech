@@ -1,17 +1,3 @@
-// SHORTHAND PROPERTY ORDER
-// 1 value property: (top & right & bottom & left);
-// 2 values property: (top & bottom), (left & right);
-// 3 values property: top, (right & left), bottom;
-// 4 values property: top, right, bottom, left;
-
-// LIST BOX SHADOW VALUES IN ORDER
-// 1. horizontal offset
-// 2. vertical offset
-// 3. blur radius
-// 4. spread radius
-// 5. color
-// 6. inset
-
 .nav-bar {
   position: fixed;
   top: 0;
@@ -76,11 +62,6 @@
       border-radius: 10%;
       box-shadow: 0 0 0 0.1vw #fff;
     }
-  }
-
-  .burger-container {
-    display: none;
-    margin-left: 1em;
   }
 
   // NAV LINKS
@@ -272,6 +253,7 @@
     position: absolute;
     top: 8vh;
     overflow: hidden;
+    float: right;
 
     align-items: center;
     justify-content: center;
@@ -317,57 +299,51 @@
       }
     }
   }
+
+  .burger-container {
+    cursor: pointer;
+    display: none;
+    margin-left: 1em;
+  }
 }
 
-.mobile-navbar {
-  z-index: 100;
-  position: fixed;
-  height: 100vh;
-  width: 60vw;
-  background: rgb(28, 28, 28);
-  // align content in the middle of the div horizontally and vertically
+/* RESPONSIVE STYLING [MOBILE] */
+.burger-container {
+  z-index: 9999;
+  position: absolute;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  ul {
-    li {
-      display: flex;
-      // align items vertically
-      align-items: center;
-
-      img {
-        margin: 0 1vw;
-        width: 4.5vw;
-        height: 4.5vh;
-      }
-
-      p {
-        font-size: 3.5vh;
-        // margin top and bottom to center the text
-        margin: 2vh 0;
-      }
-    }
-  }
-
-  .close-btn {
-    position: absolute;
-    top: 2vh;
-    right: 2vw;
-    width: 4vw;
-    height: 4vh;
-    cursor: pointer;
-    border: none;
-  }
+  height: fit-content;
+  width: fit-content;
+  transition: all 0.25s ease-in-out;
 }
 
 .burger {
+  position: absolute !important;
   z-index: 9999;
   width: 50px;
   height: 6px;
   background: rgb(223, 223, 223);
   border-radius: 5px;
   transition: all 0.25s ease-in-out;
+  cursor: pointer;
+
+
+  &.open {
+    background: transparent;
+    box-shadow: none;
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+
+  }
 
   &::before,
   &::after {
@@ -387,11 +363,45 @@
   }
 
   &::after {
+    z-index: 9999;
     transform: translateY(16px);
   }
 }
 
-// responsive styling
+.mobile-navbar {
+  z-index: 10;
+  position: absolute;
+  height: 100vh;
+  width: 60vw;
+  background: rgb(28, 28, 28);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ul {
+    li {
+      display: flex;
+      // align items vertically
+      align-items: center;
+      margin: 10vh 0;
+      cursor: pointer;
+
+      img {
+        margin: 0 1vw;
+        width: 5vw;
+        height: 5vh;
+      }
+
+      p {
+        font-size: 3.5vh;
+        // margin top and bottom to center the text
+        margin: 2vh 0;
+      }
+    }
+  }
+}
+
 
 // when screen is smaller than 1000px
 @media only screen and (max-width: 1000px) {
@@ -410,10 +420,3 @@
     display: block !important;
   }
 }
-
-// Q: why do I have to add !important to the display property for it to work?
-// A: because the display property is set to flex in the .nav-links class
-// Q: Why wouldn't it be overridden by the media query?
-// A: because the media query is below the .nav-links class
-// Q: That should be fine, but it isn't. I have to add !important to the display property for it to work
-//

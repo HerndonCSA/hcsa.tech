@@ -1,7 +1,9 @@
 import "./assets/NavBar.scss";
+
 import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
+
 import Profile from "./components/Profile";
 import Dropdown from "./components/Dropdown";
 import HomeIcon from "./assets/images/home.svg";
@@ -14,6 +16,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const NavBar = ({ userData, setUserData }: any) => {
   const profileRef = useRef<HTMLDivElement>(null);
   const dropDownRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<any>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -22,6 +25,7 @@ const NavBar = ({ userData, setUserData }: any) => {
   const navLinkClickEvent = (location: string) => {
     navigate(location);
     if (mobileMenuOpen) setMobileMenuOpen(false);
+    if (mobileMenuRef.current) mobileMenuRef.current.classList.remove("open");
   };
 
   const clickOutSideToCloseDropdown = useCallback(
@@ -64,10 +68,6 @@ const NavBar = ({ userData, setUserData }: any) => {
         animate={{ left: mobileMenuOpen ? "0" : "-60vw" }}
         className="mobile-navbar"
       >
-        <button className="close-btn" onClick={() => setMobileMenuOpen(false)}>
-          X
-        </button>
-
         <ul>
           <li
             onClick={() => navLinkClickEvent("/")}
@@ -92,15 +92,19 @@ const NavBar = ({ userData, setUserData }: any) => {
           </li>
         </ul>
       </motion.div>
+
       <div className="nav-bar">
         <div className="nav-logo">
           <img src={Logo} alt="" />
         </div>
-        <div
-          className="burger-container"
-          onClick={() => setMobileMenuOpen(true)}
-        >
-          <div className="burger" />
+
+        <div>
+          <div className="burger-container">
+            <div className="burger" ref={mobileMenuRef} onClick={() => {
+              setMobileMenuOpen(!mobileMenuOpen)
+              mobileMenuRef.current?.classList.toggle("open");
+            }} />
+          </div>
         </div>
 
         <div className="nav-links">
@@ -116,6 +120,7 @@ const NavBar = ({ userData, setUserData }: any) => {
             }}
             initial={false}
           />
+
           <ul>
             <li
               onClick={() => navLinkClickEvent("/")}
@@ -139,9 +144,10 @@ const NavBar = ({ userData, setUserData }: any) => {
               <p>Contact Us</p>
             </li>
           </ul>
+
         </div>
 
-        {/* Check if userdata is empty */}
+        {/* Check if userdata is empty, if true return sign in button, else return profile component */}
         <>
           {Object.keys(userData).length === 0 ? (
             <motion.div

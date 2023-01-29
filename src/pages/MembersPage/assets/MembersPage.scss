@@ -11,65 +11,73 @@
 .contains-all-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 60px;
+  grid-gap: 16px;
 
-  .user-card {
-    width: 18em;
-    height: 16em;
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-    /* Rectangle 32 */
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.585);
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
 
-    /* Note: backdrop-filter has minimal browser support */
-    background: rgba(0, 0, 0, 0.06);
-    backdrop-filter: blur(20px);
+.user-card {
+  width: 18em;
+  height: 16em;
 
-    border-radius: 10px;
-    text-align: left;
+  /* Rectangle 32 */
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.585);
 
-    .card-content {
-      padding: 15px;
+  /* Note: backdrop-filter has minimal browser support */
+  background: rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(20px);
 
-      >* {
-        margin: 15px;
+  border-radius: 10px;
+  text-align: left;
+
+  .card-content {
+    padding: 15px;
+
+    >* {
+      margin: 15px;
+    }
+
+    .user-name {
+      .username-F {
+        font-weight: bold;
       }
 
-      .user-name {
-        .username-F {
-          font-weight: bold;
-        }
-
-        .username-L {
-          color: #ccc;
-        }
+      .username-L {
+        color: #ccc;
       }
+    }
 
-      .connections {
-        .connection {
-          display: flex;
-          font-size: 0.9em;
+    .connections {
+      .connection {
+        display: flex;
+        font-size: 0.9em;
 
-          .connection-icon {
-            img {
-              height: 25px;
-              width: 25px;
-              margin-right: 0.5vw;
-            }
+        .connection-icon {
+          img {
+            height: 25px;
+            width: 25px;
+            margin-right: 0.5vw;
           }
         }
       }
+    }
 
-      .email {
-        // position: absolute;
-        max-width: inherit;
-        top: 100%;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: 0 auto 1em;
+    .email {
+      // position: absolute;
+      max-width: inherit;
+      top: 100%;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: 0 auto 1em;
 
-        text-align: center;
-      }
+      text-align: center;
     }
   }
 }

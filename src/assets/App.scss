@@ -12,3 +12,10 @@
 body {
   background-color: #1e1e1e;
 }
+
+// Hide scroll bar if screen smaller than 1000px
+@media screen and (max-width: 1000px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
