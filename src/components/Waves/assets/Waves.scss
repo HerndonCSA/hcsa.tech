@@ -36,6 +36,7 @@
     &:before {
       bottom: 66vh;
     }
+
     &:after {
       bottom: 60vh;
     }
@@ -46,9 +47,11 @@
   0% {
     transform: translate(-50%, 0) rotateZ(0deg);
   }
+
   50% {
     transform: translate(-50%, -0.2%) rotateZ(100deg);
   }
+
   100% {
     transform: translate(-50%, 0%) rotateZ(200deg);
   }

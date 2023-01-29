@@ -251,8 +251,7 @@
         max-height: $height;
 
         // colors the image white
-        filter: invert(98%) sepia(100%) saturate(9%) hue-rotate(154deg)
-          brightness(103%) contrast(103%);
+        filter: invert(98%) sepia(100%) saturate(9%) hue-rotate(154deg) brightness(103%) contrast(103%);
       }
     }
 
@@ -309,6 +308,7 @@
         cursor: pointer;
         list-style: none !important;
         font-size: 2vh;
+
         // selects only the sign out button
         &[id="sign out"] {
           // center the text
@@ -329,16 +329,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   ul {
     li {
       display: flex;
       // align items vertically
       align-items: center;
+
       img {
         margin: 0 1vw;
         width: 4.5vw;
         height: 4.5vh;
       }
+
       p {
         font-size: 3.5vh;
         // margin top and bottom to center the text
@@ -377,6 +380,7 @@
     border-radius: 5px;
     transition: all 0.25s ease-in-out;
   }
+
   &::before {
     z-index: 9999;
     transform: translateY(-16px);
@@ -395,15 +399,18 @@
     // hide the nav-links
     display: none !important;
   }
+
   // hide nav-logo
   .nav-logo {
     display: none;
   }
+
   // display the burger
   .burger-container {
     display: block !important;
   }
 }
+
 // Q: why do I have to add !important to the display property for it to work?
 // A: because the display property is set to flex in the .nav-links class
 // Q: Why wouldn't it be overridden by the media query?

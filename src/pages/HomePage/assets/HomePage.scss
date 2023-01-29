@@ -24,8 +24,7 @@
       font-size: 3vh;
       font-weight: 400;
 
-      p {
-      }
+      p {}
     }
 
     .wm-3 {
@@ -37,6 +36,7 @@
 
   .interactive-content {
     margin-top: 30vh;
+
     .view-or-join {
       button {
         font-size: 1.25vh;
@@ -150,6 +150,7 @@
           z-index: 1;
           transform: skewX(-45deg);
         }
+
         &:before {
           transform: translateX(-500%) skewX(-45deg);
         }
@@ -177,9 +178,11 @@
           0% {
             transform: translateX(-500) skewX(-45deg);
           }
+
           40% {
             transform: translateX(1000%) skewX(-45deg);
           }
+
           100% {
             transform: translateX(1000%) skewX(-45deg);
           }
@@ -189,9 +192,11 @@
           0% {
             transform: translateX(-450%) skewX(-45deg);
           }
+
           40% {
             transform: translateX(1050%) skewX(-45deg);
           }
+
           100% {
             transform: translateX(1050%) skewX(-45deg);
           }
