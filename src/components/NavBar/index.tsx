@@ -14,189 +14,201 @@ import Logo from "./assets/images/logo.png";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const NavBar = ({ userData, setUserData }: any) => {
-  const profileRef = useRef<HTMLDivElement>(null);
-  const dropDownRef = useRef<HTMLDivElement>(null);
-  const mobileMenuRef = useRef<any>(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+	const profileRef = useRef<HTMLDivElement>(null);
+	const dropDownRef = useRef<HTMLDivElement>(null);
+	const mobileMenuRef = useRef<any>(null);
 
-  const navLinkClickEvent = (location: string) => {
-    navigate(location);
-    if (mobileMenuOpen) setMobileMenuOpen(false);
-    if (mobileMenuRef.current) mobileMenuRef.current.classList.remove("open");
-  };
+	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const clickOutSideToCloseDropdown = useCallback(
-    (nativeEvent: any) => {
-      if (
-        profileRef.current &&
-        !profileRef.current.contains(nativeEvent.target)
-      ) {
-        setDropdownOpen(false);
-      }
-    },
-    [profileRef]
-  );
+	const navigate = useNavigate();
+	const location = useLocation();
 
-  useEffect(() => {
-    document.addEventListener("click", clickOutSideToCloseDropdown);
+	const navLinkClickEvent = (location: string) => {
+		navigate(location);
+		if (mobileMenuOpen) setMobileMenuOpen(false);
+		if (mobileMenuRef.current)
+			mobileMenuRef.current.classList.remove("open");
+	};
 
-    return function cleanup() {
-      document.removeEventListener("click", clickOutSideToCloseDropdown);
-    };
-  }, [clickOutSideToCloseDropdown]);
+	const clickOutSideToCloseDropdown = useCallback(
+		(nativeEvent: any) => {
+			if (
+				profileRef.current &&
+				!profileRef.current.contains(nativeEvent.target)
+			) {
+				setDropdownOpen(false);
+			}
+		},
+		[profileRef]
+	);
 
-  const selectorStyles: { [key: string]: { [key: string]: string } } = {
-    "/": {},
-    "/members": {},
-    "/contact": {},
-  };
+	useEffect(() => {
+		document.addEventListener("click", clickOutSideToCloseDropdown);
 
-  {
-    const userMenu = document.querySelector(".userMenu") as HTMLDivElement;
-    const profile = document.querySelector(".profile") as HTMLDivElement;
-    if (userMenu != null && profile != null) {
-      userMenu.style.width = profile.offsetWidth + "px";
-    }
-  }
-  // if mobileMenuOpen, animate to right: 0, else animate to right: -60hw
-  return (
-    <>
-      <motion.div
-        animate={{ left: mobileMenuOpen ? "0" : "-60vw" }}
-        className="mobile-navbar"
-      >
-        <ul>
-          <li
-            onClick={() => navLinkClickEvent("/")}
-            className={location.pathname === "/" ? "selected" : ""}
-          >
-            <img src={HomeIcon} alt="home icon" />
-            <p>Home</p>
-          </li>
-          <li
-            onClick={() => navLinkClickEvent("/members")}
-            className={location.pathname === "/members" ? "selected" : ""}
-          >
-            <img src={MembersIcon} alt="members icon" />
-            <p>Members</p>
-          </li>
-          <li
-            onClick={() => navLinkClickEvent("/contact")}
-            className={location.pathname === "/contact" ? "selected" : ""}
-          >
-            <img src={ContactIcon} alt="contact icon" />
-            <p>Contact Us</p>
-          </li>
-        </ul>
-      </motion.div>
+		return function cleanup() {
+			document.removeEventListener("click", clickOutSideToCloseDropdown);
+		};
+	}, [clickOutSideToCloseDropdown]);
 
-      <div className="nav-bar">
-        <div className="nav-logo">
-          <img src={Logo} alt="" />
-        </div>
+	const selectorStyles: { [key: string]: { [key: string]: string } } = {
+		"/": {},
+		"/members": {},
+		"/contact": {},
+	};
 
-        <div>
-          <div className="burger-container">
-            <div className="burger" ref={mobileMenuRef} onClick={() => {
-              setMobileMenuOpen(!mobileMenuOpen)
-              mobileMenuRef.current?.classList.toggle("open");
-            }} />
-          </div>
-        </div>
+	return (
+		<div className="navBar-container">
+			{/* REGULAR NAVBAR */}
 
-        <div className="nav-links">
-          <motion.div
-            className="selector"
-            style={selectorStyles[location.pathname]}
-            animate={{ ...selectorStyles[location.pathname] }}
-            transition={{
-              duration: 0.1,
-              type: "spring",
-              stiffness: 60,
-              damping: 15,
-            }}
-            initial={false}
-          />
+			<div className="burger-container">
+				<div
+					className="burger"
+					ref={mobileMenuRef}
+					onClick={() => {
+						setMobileMenuOpen(!mobileMenuOpen);
+						mobileMenuRef.current?.classList.toggle("open");
+					}}
+				/>
+			</div>
 
-          <ul>
-            <li
-              onClick={() => navLinkClickEvent("/")}
-              className={location.pathname === "/" ? "selected" : ""}
-            >
-              <img src={HomeIcon} alt="home icon" />
-              <p>Home</p>
-            </li>
-            <li
-              onClick={() => navLinkClickEvent("/members")}
-              className={location.pathname === "/members" ? "selected" : ""}
-            >
-              <img src={MembersIcon} alt="members icon" />
-              <p>Members</p>
-            </li>
-            <li
-              onClick={() => navLinkClickEvent("/contact")}
-              className={location.pathname === "/contact" ? "selected" : ""}
-            >
-              <img src={ContactIcon} alt="contact icon" />
-              <p>Contact Us</p>
-            </li>
-          </ul>
+			<motion.div
+				animate={{ left: mobileMenuOpen ? "0" : "-60vw" }}
+				className="mobile-navbar"
+			>
+				<ul>
+					<li
+						onClick={() => navLinkClickEvent("/")}
+						className={location.pathname === "/" ? "selected" : ""}
+					>
+						<img src={HomeIcon} alt="home icon" />
+						<p>Home</p>
+					</li>
+					<li
+						onClick={() => navLinkClickEvent("/members")}
+						className={
+							location.pathname === "/members" ? "selected" : ""
+						}
+					>
+						<img src={MembersIcon} alt="members icon" />
+						<p>Members</p>
+					</li>
+					<li
+						onClick={() => navLinkClickEvent("/contact")}
+						className={
+							location.pathname === "/contact" ? "selected" : ""
+						}
+					>
+						<img src={ContactIcon} alt="contact icon" />
+						<p>Contact Us</p>
+					</li>
+				</ul>
+			</motion.div>
 
-        </div>
+			<div className="nav-bar">
+				<div className="nav-logo">
+					<img src={Logo} alt="" />
+				</div>
 
-        {/* Check if userdata is empty, if true return sign in button, else return profile component */}
-        <>
-          {Object.keys(userData).length === 0 ? (
-            <motion.div
-              key="sign-in"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="sign-in-button"
-            >
-              <button
-                onClick={() => {
-                  window.location.href = API_URL + "/login";
-                }}
-              >
-                Sign in
-              </button>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="profile"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <Profile
-                userData={userData}
-                dropdownOpen={dropdownOpen}
-                setDropdownOpen={setDropdownOpen}
-                profileRef={profileRef}
-                dropdownRef={dropDownRef}
-              />
-              <AnimatePresence>
-                {/* DROPDOWN COMPONENT */}
-                {dropdownOpen && (
-                  <Dropdown
-                    dropDownRef={dropDownRef}
-                    profileRef={profileRef}
-                    setUserData={setUserData}
-                    setOpen={setDropdownOpen}
-                    opened={dropdownOpen}
-                  />
-                )}
-              </AnimatePresence>
-            </motion.div>
-          )}
-        </>
-      </div>
-    </>
-  );
+				<div className="nav-links">
+					<motion.div
+						className="selector"
+						style={selectorStyles[location.pathname]}
+						animate={{ ...selectorStyles[location.pathname] }}
+						transition={{
+							duration: 0.1,
+							type: "spring",
+							stiffness: 60,
+							damping: 15,
+						}}
+						initial={false}
+					/>
+
+					<ul>
+						<li
+							onClick={() => navLinkClickEvent("/")}
+							className={
+								location.pathname === "/" ? "selected" : ""
+							}
+						>
+							<img src={HomeIcon} alt="home icon" />
+							<p>Home</p>
+						</li>
+						<li
+							onClick={() => navLinkClickEvent("/members")}
+							className={
+								location.pathname === "/members"
+									? "selected"
+									: ""
+							}
+						>
+							<img src={MembersIcon} alt="members icon" />
+							<p>Members</p>
+						</li>
+						<li
+							onClick={() => navLinkClickEvent("/contact")}
+							className={
+								location.pathname === "/contact"
+									? "selected"
+									: ""
+							}
+						>
+							<img src={ContactIcon} alt="contact icon" />
+							<p>Contact Us</p>
+						</li>
+					</ul>
+				</div>
+
+				{/* USERDATA AND PROFILE COMPONENTS */}
+				{/* Check if userdata is empty, if true return sign in button, else return profile component */}
+				{Object.keys(userData).length === 0 ? (
+					<motion.div
+						key="sign-in"
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						className="sign-in-button"
+					>
+						<button
+							onClick={() => {
+								window.location.href = API_URL + "/login";
+							}}
+						>
+							Sign in
+						</button>
+					</motion.div>
+				) : (
+					<motion.div
+						key="profile"
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+            className="profile-and-dropdown"
+					>
+						<Profile
+							userData={userData}
+							dropdownOpen={dropdownOpen}
+							setDropdownOpen={setDropdownOpen}
+							profileRef={profileRef}
+							dropdownRef={dropDownRef}
+						/>
+						<AnimatePresence>
+							{/* DROPDOWN COMPONENT */}
+							{dropdownOpen && (
+								<Dropdown
+									dropDownRef={dropDownRef}
+									profileRef={profileRef}
+									setUserData={setUserData}
+									setOpen={setDropdownOpen}
+									opened={dropdownOpen}
+								/>
+							)}
+						</AnimatePresence>
+					</motion.div>
+				)}
+			</div>
+		</div>
+	);
 };
 
 export default NavBar;
