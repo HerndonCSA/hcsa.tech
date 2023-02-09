@@ -38,7 +38,7 @@ const users = [
     userNameF: "Utsav",
     userNameL: "Dhungana",
     discord: "ud savage#9559",
-    github: "?",
+    github: "@udhungana2156",
     email: "utsav.dhungana@hcsa.tech",
   },
 ];
