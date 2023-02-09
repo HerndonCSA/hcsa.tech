@@ -202,7 +202,22 @@
 @media screen and (max-width: 1000px) {
 	.welcome-message {
 		.wm-1 {
-			font-size: 5vh !important;
+			font-size: 4vh !important;
 		}
+		.wm-2 {
+			font-size: 2.3vh !important;
+			// increase font weight
+			font-weight: 100000 !important;
+		}
+		.wm-3 {
+			font-size: 2vh !important;
+			margin-left: 1em;
+			margin-right: 1em;
+		}
+	}
+
+	.interactive-content {
+		// move up
+		margin-top: 21vh !important;
 	}
 }
