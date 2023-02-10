@@ -41,6 +41,39 @@ flow = Flow.from_client_secrets_file(
 
 app = Sanic(config["name"])
 
+async def notify_email(email, name):
+    url = "https://api.sendinblue.com/v3/smtp/email"
+    payload = {
+    "sender": {
+        "email": "hello@hcsa.tech",
+        "name": "HCSA Support"
+    },
+    "to": [
+        {
+            "email": email
+        }
+    ],
+    "subject": "Account Notification",
+    "htmlContent": "<html><head></head><body>"
+                   "<h4>[New Sign in]</h4>"
+                   f"<p>{name.title()}, someone signed in your email ({email}) to HCSA. "
+                   " If you did not authorize this, please secure your google account.</p>"
+                   "<p>Alternatively, you can view and manage your active sessions <a href='https://hcsa.tech/sessions/?refer=notification'>here.</a></p>"
+                   "<br/><br/><br/><br/><br/><br/>"
+                   "<p><small>You received this email because of an interaction with our services.<small/></p>"
+                   "</body></html>"
+    }
+    headers = {
+        'accept': 'application/json',
+        'api-key': app.ctx.sendinblue_key,
+        'content-type': 'application/json'
+    }
+    # post to the url with the payload and headers
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, data=json.dumps(payload), headers=headers) as resp:
+            return await resp.json()
+
+
 
 def session_handler():
     def decorator(f):
@@ -101,6 +134,7 @@ async def setup(app_, _):
     app_.ctx.session_manager = SessionManager()
     app_.ctx.session_creation_tokens = {}
     app_.ctx.secret = os.urandom(32)
+    app_.ctx.sendinblue_key = json.load(open(os.path.join(pathlib.Path(__file__).parent, "./secrets.json")))["sendinblue_key"]
 
 
 app.register_listener(setup, "before_server_start")
@@ -196,6 +230,8 @@ async def create_session(request):
                 "user_agent": str(parse(request.headers.get("User-Agent"))),
             },
         )
+        # notify email
+        await notify_email(data["email"], data["first_name"])
         return response.json(
             {
                 "session": jwt.encode(
