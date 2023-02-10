@@ -107,11 +107,16 @@ app.register_listener(setup, "before_server_start")
 
 
 @app.route("/login")
-async def login(_):
+async def login(request):
     authorization_url, state = flow.authorization_url()
     resp = response.redirect(authorization_url)
     resp.cookies["state"] = state
     resp.cookies["state"]["httponly"] = True
+
+    # set redirect if it exists
+    if request.args.get("continue"):
+        resp.cookies["continue"] = request.args.get("continue")
+        resp.cookies["continue"]["httponly"] = True
 
     # what type of cookie should I use for state?
     return resp  # maybe could use &hd=fcpsschools.net
