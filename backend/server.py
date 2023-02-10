@@ -2,6 +2,7 @@
 ## 2. Install the dependencies `pip install -r requirements.txt`
 ## 3. Run the server `python server.py`
 
+import datetime
 import pathlib
 from sanic import Sanic, response
 from google_auth_oauthlib.flow import Flow
@@ -56,11 +57,11 @@ async def notify_email(email, name):
     "subject": "Account Notification",
     "htmlContent": "<html><head></head><body>"
                    "<h4>[New Sign in]</h4>"
-                   f"<p>{name.title()}, someone signed in your email ({email}) to HCSA. "
-                   " If you did not authorize this, please secure your google account.</p>"
+                   f"<p>{name.title()}, your email ({email}) was used to sign in to <a href='https://hcsa.tech'>hcsa.tech</a> on {datetime.datetime.now().strftime('%A, %B %d, %Y at %I:%M %p')}.</p>"
+                   "<p>If you did not authorize this, please secure your google account.</p>"
                    "<p>Alternatively, you can view and manage your active sessions <a href='https://hcsa.tech/sessions/?refer=notification'>here.</a></p>"
-                   "<br/><br/><br/><br/><br/><br/>"
-                   "<p><small>You received this email because of an interaction with our services.<small/></p>"
+                   "<br/><br/><br/>"
+                   "<p><small>Any questions or comments? You can reply to this email to create a ticket. || You received this message because your email interacted with our services.<small/></p>"
                    "</body></html>"
     }
     headers = {
