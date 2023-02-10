@@ -57,7 +57,7 @@ async def notify_email(email, name):
     "subject": "Account Notification",
     "htmlContent": "<html><head></head><body>"
                    "<h4>[New Sign in]</h4>"
-                   f"<p>{name.title()}, your email ({email}) was used to sign in to <a href='https://hcsa.tech'>hcsa.tech</a> on {datetime.datetime.now().strftime('%A, %B %d, %Y at %I:%M %p')}.</p>"
+                   f"<p>{name.title()}, your email ({email}) was used to sign in to <a href='https://hcsa.tech'>hcsa.tech</a> on {datetime.datetime.now().strftime('%A, %B %d, %Y at %I:%M %p')} (GMT).</p>"
                    "<p>If you did not authorize this, please secure your google account.</p>"
                    "<p>Alternatively, you can view and manage your active sessions <a href='https://hcsa.tech/sessions/?refer=notification'>here.</a></p>"
                    "<br/><br/><br/>"
