@@ -74,6 +74,12 @@ async def notify_email(email, name):
         async with session.post(url, data=json.dumps(payload), headers=headers) as resp:
             return await resp.json()
 
+async def location_from_ip(ip):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(f"http://ip-api.com/json/{ip}") as resp:
+            resp = await resp.json()
+            return f"{resp['city']}, {resp['regionName']}" if resp["status"] == "success" else f"Unknown ({ip})"
+
 
 
 def session_handler():
@@ -209,7 +215,6 @@ async def create_session_preflight(_):
     )
     return resp
 
-
 @app.route("/create_session", methods=["POST"])
 async def create_session(request):
     session_creation_token = request.headers.get("session_creation_token")
@@ -229,6 +234,7 @@ async def create_session(request):
                 if config["production"]
                 else request.ip,
                 "user_agent": str(parse(request.headers.get("User-Agent"))),
+                "location": await location_from_ip(request.headers.get("CF-Connecting-IP") if config["production"] else request.ip),
             },
         )
         # notify email
@@ -267,7 +273,8 @@ async def user_preflight(request):
 @app.route("/user", methods=["GET"])
 @session_handler()
 async def get_user(request):
-    data = request.ctx.user
+    # deep copy, add success field and return
+    data = copy.deepcopy(request.ctx.user)
     data["success"] = True
     return response.json(data)
 
