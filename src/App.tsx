@@ -13,6 +13,7 @@ import NotFound404 from "./components/HTTPErrors/NotFound404";
 const HomePage = lazy(() => import("./pages/HomePage"));
 const MembersPage = lazy(() => import("./pages/MembersPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
+const InterestMeeting = lazy(() => import("./pages/InterestMeeting"));
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -60,6 +61,7 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/members" element={<MembersPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/interest-meeting" element={<InterestMeeting></InterestMeeting>} />
             <Route
               path="/callback"
               element={<Callback setUserData={setUserData} />}
