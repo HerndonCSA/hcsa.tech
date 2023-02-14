@@ -1,1 +1,21 @@
-// Comment
+// Import fonts Roboto, Poppins, Montserrat from google fonts
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;600;700;800;900&display=swap');
+
+.logo {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: #252525;
+    letter-spacing: 5px;
+    font-family: "Poppins", sans-serif;
+}
+
+
+h1 {
+    color: red;
+}
+
+button {
+    background: #505050;
+}
