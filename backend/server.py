@@ -1,9 +1,15 @@
-## 1. Make sure you have python and pip installed `python --version` and `pip --version`
-## 2. Install the dependencies `pip install -r requirements.txt`
-## 3. Run the server `python server.py`
+"""
+1. Make sure you have python and pip installed using`python --version` and `pip --version`
+2. Install the dependencies `pip install -r requirements.txt`
+3. Get the configuration files (secrets.json and client_secret.json)
+4. Make sure that config.json has the correct info such as production and the frontend url
+5. Run the server `python server.py` (make sure to be in the correct dir)
+"""
 
 import datetime
 import pathlib
+
+import aiosqlite
 from sanic import Sanic, response
 from google_auth_oauthlib.flow import Flow
 import google.auth.transport.requests
@@ -42,27 +48,28 @@ flow = Flow.from_client_secrets_file(
 
 app = Sanic(config["name"])
 
+
 async def notify_email(email, name):
     url = "https://api.sendinblue.com/v3/smtp/email"
     payload = {
-    "sender": {
-        "email": "hello@hcsa.tech",
-        "name": "HCSA Support"
-    },
-    "to": [
-        {
-            "email": email
-        }
-    ],
-    "subject": "Account Notification",
-    "htmlContent": "<html><head></head><body>"
-                   "<h4>[New Sign in]</h4>"
-                   f"<p>{name.title()}, your email ({email}) was used to sign in to <a href='https://hcsa.tech'>hcsa.tech</a> on {datetime.datetime.now().strftime('%A, %B %d, %Y at %I:%M %p')} (GMT).</p>"
-                   "<p>If you did not authorize this, please secure your google account.</p>"
-                   "<p>Alternatively, you can view and manage your active sessions <a href='https://hcsa.tech/sessions/?refer=notification'>here.</a></p>"
-                   "<br/><br/><br/>"
-                   "<p><small>Any questions or comments? You can reply to this email to create a ticket. || You received this message because your email interacted with our services.<small/></p>"
-                   "</body></html>"
+        "sender": {
+            "email": "hello@hcsa.tech",
+            "name": "HCSA Support"
+        },
+        "to": [
+            {
+                "email": email
+            }
+        ],
+        "subject": "Account Notification",
+        "htmlContent": "<html><head></head><body>"
+                       "<h4>[New Sign in]</h4>"
+                       f"<p>{name.title()}, your email ({email}) was used to sign in to <a href='https://hcsa.tech'>hcsa.tech</a> on {datetime.datetime.now().strftime('%A, %B %d, %Y at %I:%M %p')}.</p>"
+                       "<p>If you did not authorize this, please secure your google account.</p>"
+                       "<p>Alternatively, you can view and manage your active sessions <a href='https://hcsa.tech/sessions/?refer=notification'>here.</a></p>"
+                       "<br/><br/><br/>"
+                       "<p><small>Any questions or comments? You can reply to this email to create a ticket. || You received this message because your email interacted with our services.<small/></p>"
+                       "</body></html>"
     }
     headers = {
         'accept': 'application/json',
@@ -74,12 +81,12 @@ async def notify_email(email, name):
         async with session.post(url, data=json.dumps(payload), headers=headers) as resp:
             return await resp.json()
 
+
 async def location_from_ip(ip):
     async with aiohttp.ClientSession() as session:
-        async with session.get(f"http://ip-api.com/json/{ip}") as resp:
+        async with session.get(f"https://ip-api.com/json/{ip}") as resp:
             resp = await resp.json()
             return f"{resp['city']}, {resp['regionName']}" if resp["status"] == "success" else f"Unknown ({ip})"
-
 
 
 def session_handler():
@@ -120,7 +127,7 @@ def session_handler():
 async def revoke_token(token):
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            "https://oauth2.googleapis.com/revoke", data={"token": token}
+                "https://oauth2.googleapis.com/revoke", data={"token": token}
         ) as resp:
             return await resp.json()
 
@@ -141,7 +148,15 @@ async def setup(app_, _):
     app_.ctx.session_manager = SessionManager()
     app_.ctx.session_creation_tokens = {}
     app_.ctx.secret = os.urandom(32)
-    app_.ctx.sendinblue_key = json.load(open(os.path.join(pathlib.Path(__file__).parent, "./secrets.json")))["sendinblue_key"]
+    app_.ctx.sendinblue_key = json.load(open(os.path.join(pathlib.Path(__file__).parent, "./secrets.json")))[
+        "sendinblue_key"]
+    app_.ctx.db = await aiosqlite.connect(os.path.join(pathlib.Path(__file__).parent, "./database.db"))
+    await create_database_tables()
+
+
+async def create_database_tables():
+    await app.ctx.db.execute("CREATE TABLE IF NOT EXISTS interested_people "
+                             "(first_name TEXT, last_name TEXT, email TEXT)")
 
 
 app.register_listener(setup, "before_server_start")
@@ -215,12 +230,13 @@ async def create_session_preflight(_):
     )
     return resp
 
+
 @app.route("/create_session", methods=["POST"])
 async def create_session(request):
     session_creation_token = request.headers.get("session_creation_token")
     if (
-        session_creation_token
-        and session_creation_token in app.ctx.session_creation_tokens
+            session_creation_token
+            and session_creation_token in app.ctx.session_creation_tokens
     ):
         data = app.ctx.session_creation_tokens[session_creation_token]
         del app.ctx.session_creation_tokens[session_creation_token]
@@ -234,7 +250,8 @@ async def create_session(request):
                 if config["production"]
                 else request.ip,
                 "user_agent": str(parse(request.headers.get("User-Agent"))),
-                "location": await location_from_ip(request.headers.get("CF-Connecting-IP") if config["production"] else request.ip),
+                "location": await location_from_ip(
+                    request.headers.get("CF-Connecting-IP") if config["production"] else request.ip),
             },
         )
         # notify email
@@ -339,7 +356,7 @@ async def logout_preflight(request):
         headers={
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Headers": "Content-Type, Authorization, "
-            "X-Auth-Token, X-Requested-With",
+                                            "X-Auth-Token, X-Requested-With",
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
         },
     )
@@ -351,6 +368,51 @@ async def logout_preflight(request):
 async def logout(request):
     app.ctx.session_manager.delete_session(request.ctx.user["session"])
     return response.json({"success": True})
+
+
+@app.route("/user/is_interested", methods=["OPTIONS"])
+async def is_interested_preflight(request):
+    resp = response.text(
+        "",
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization, "
+                                            "X-Auth-Token, X-Requested-With",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        },
+    )
+    return resp
+
+
+@app.route("/user/update_interested", methods=["POST"])
+@session_handler()
+async def is_interested(request):
+    interested = request.json.get("interested")
+    interested = bool(interested) if interested is not None else None
+    # check if user is already interested
+    cursor = await app.ctx.db.execute("SELECT interested FROM users WHERE email = ?", (request.ctx.user["email"],))
+    row = await cursor.fetchone()
+    if row:
+        # update
+        await app.ctx.db.execute("UPDATE users SET interested = ? WHERE email = ?",
+                                 (interested, request.ctx.user["email"]))
+    else:
+        # insert
+        await app.ctx.db.execute("INSERT INTO users (email, interested) VALUES (?, ?)",
+                                 (request.ctx.user["email"], interested))
+    await app.ctx.db.commit()
+    return response.json({"success": True})
+
+
+@app.route("/user/interested", methods=["GET"])
+@session_handler()
+async def is_interested(request):
+    cursor = await app.ctx.db.execute("SELECT interested FROM users WHERE email = ?", (request.ctx.user["email"],))
+    row = await cursor.fetchone()
+    if row:
+        return response.json({"success": True, "interested": row["interested"]})
+    else:
+        return response.json({"success": True, "interested": None})
 
 
 @app.route("/")

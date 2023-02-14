@@ -26,3 +26,4 @@ backend/__pycache__
 .gitpod.yml
 
 secrets.json
+backend/database.db
