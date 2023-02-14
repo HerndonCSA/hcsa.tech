@@ -23,12 +23,12 @@ We are an unoffical club @ Herndon High School
 
 ### File structure
 
-- Pages are in seperate folders in src/pages.
+- Pages are in separate folders in src/pages.
   - Each Page has [PageName].scss for styling.
   - Each Page has /components for components in each page.
 - src/components houses components for every single page, such as nav, footer etc
 - index.js renders App.js to the page
-- app.js manages state for components from src/components and the entire pages router.
+- app.js manages the state for components from src/components and the entire pages router.
 
 ## Backend
 
