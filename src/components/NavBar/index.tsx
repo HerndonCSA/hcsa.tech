@@ -10,6 +10,8 @@ import Dropdown from "./components/Dropdown";
 import DesktopNavBar from "./components/DesktopNavBar";
 import MobileNavBar from "./components/MobileNavBar";
 
+import { Button } from "@mui/material";
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 const NavBar = ({ userData, setUserData }: any) => {
@@ -68,13 +70,13 @@ const NavBar = ({ userData, setUserData }: any) => {
 					exit={{ opacity: 0 }}
 					className="sign-in-button"
 				>
-					<button
+					<Button
 						onClick={() => {
 							window.location.href = API_URL + "/login";
 						}}
 					>
 						Sign in
-					</button>
+					</Button>
 				</motion.div>
 			) : (
 				<motion.div

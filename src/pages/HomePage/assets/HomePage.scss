@@ -41,9 +41,11 @@
 			button {
 				width: 100%;
 				height: 100%;
-				font-size: 2.5vh;
+				font-size: 2.5vh !important;
+				font-weight: 100 !important;
 				text-overflow: ellipsis;
 				background-color: none;
+				text-transform: none !important;
 			}
 
 			.join,
@@ -57,10 +59,10 @@
 				background-color: #de0000;
 				color: white;
 				border: none;
-				border-radius: 0.5em;
+				border-radius: 0.3em !important;
 				cursor: pointer;
 
-				font-family: "Poppins", sans-serif;
+				font-family: "Poppins", sans-serif !important;
 				backdrop-filter: blur(1px);
 			}
 

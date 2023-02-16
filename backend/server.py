@@ -50,6 +50,10 @@ app = Sanic(config["name"])
 
 
 async def notify_email(email, name):
+    # return if in development environment
+    if not config["production"]:
+        return
+
     url = "https://api.sendinblue.com/v3/smtp/email"
     payload = {
         "sender": {
