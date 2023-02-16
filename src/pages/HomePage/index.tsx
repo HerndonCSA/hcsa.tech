@@ -1,6 +1,7 @@
 import "./assets/HomePage.scss";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
+import { Button } from "@mui/material";
 
 const HomePage = () => {
 	return (
@@ -25,7 +26,7 @@ const HomePage = () => {
 
 			<div className="interactive-content">
 				<div className="view-or-join">
-					<button className="view">View Our Ongoing Projects</button>
+					<Button className="view">View Our Ongoing Projects</Button>
 
 					<div className="or">
 						<div className="line"></div>
@@ -33,7 +34,7 @@ const HomePage = () => {
 						<div className="line"></div>
 					</div>
 
-					<button className="join">Join Us</button>
+					<Button className="join">Join Us</Button>
 				</div>
 			</div>
 		</motion.div>

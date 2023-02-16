@@ -310,7 +310,7 @@ a {
 			text-align: center;
 
 			border: none;
-			border-radius: 0.25vh;
+			border-radius: 0.25vh !important;
 
 			box-shadow: 0px 0px 20px 0.2px rgba(0, 0, 0, 0.305);
 
@@ -323,6 +323,8 @@ a {
 			align-items: center;
 			justify-content: center;
 			cursor: pointer;
+			text-transform: none !important;
+			color: white !important;
 		}
 	}
 }
