@@ -219,6 +219,7 @@ async def callback(request):
         config["frontend_url"]
         + "/callback?session_creation_token="
         + session_creation_token
+        + (f"&continue={request.cookies.get('continue')}" if request.cookies.get("continue") else "")
     )
 
 
