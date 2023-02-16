@@ -49,8 +49,9 @@ const InterstMeeting = ({ userData, setUserData }: any) => {
 			<div className="footnote">
 				{Object.keys(userData).length !== 0 ? (
 					<>
-						{`Logged in as soos. Not you? `}
-						<span
+						{`Logged in as ${userData.first_name}. Not you? `}
+						<Button
+							variant="text"
 							onClick={() => {
 								fetch(API_URL + "/user/logout", {
 									method: "POST",
@@ -72,12 +73,12 @@ const InterstMeeting = ({ userData, setUserData }: any) => {
 							}}
 						>
 							Sign out
-						</span>
+						</Button>
 					</>
 				) : (
 					`If you are interested in joining us for the meeting, click the
 					button above to verify that you are in High School. You
-					will need to use an @domain.net email.`
+					will need to use an @fcpsschools.net email.`
 				)}
 			</div>
 		</div>
