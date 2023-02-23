@@ -3,7 +3,7 @@ import GoogleLogo from "./assets/images/google.svg";
 import Button from "@mui/material/Button";
 const API_URL = import.meta.env.VITE_API_URL;
 
-const InterstMeeting = ({ userData, setUserData }: any) => {
+const InterestMeeting = ({ userData, setUserData }: any) => {
 	return (
 		<div className="interest-meeting">
 			<div className="header">
@@ -13,6 +13,7 @@ const InterstMeeting = ({ userData, setUserData }: any) => {
 				</div>
 
 				<hr />
+
 				<div className="title">
 					<h3>INTEREST MEETING</h3>
 				</div>
@@ -22,7 +23,9 @@ const InterstMeeting = ({ userData, setUserData }: any) => {
 				<div className="date">
 					March 1<sup>ST</sup>
 				</div>
+
 				<div className="location">Mr. Barber's Room (K200)</div>
+
 				<div className="time">3PM - 4PM</div>
 			</div>
 
@@ -85,4 +88,4 @@ const InterstMeeting = ({ userData, setUserData }: any) => {
 	);
 };
 
-export default InterstMeeting;
+export default InterestMeeting;
