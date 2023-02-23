@@ -72,7 +72,7 @@ async def notify_email(email, name):
                        "<p>If you did not authorize this, please secure your google account.</p>"
                        "<p>Alternatively, you can view and manage your active sessions <a href='https://hcsa.tech/sessions/?refer=notification'>here.</a></p>"
                        "<br/><br/><br/>"
-                       "<p><small>Any questions or comments? You can reply to this email to create a ticket. || You received this message because your email interacted with our services.<small/></p>"
+                       "<p><small>Any questions or comments? You can reply to this email to create a ticket.<small/></p>"
                        "</body></html>"
     }
     headers = {
@@ -81,16 +81,15 @@ async def notify_email(email, name):
         'content-type': 'application/json'
     }
     # post to the url with the payload and headers
-    async with aiohttp.ClientSession() as session:
-        async with session.post(url, data=json.dumps(payload), headers=headers) as resp:
-            return await resp.json()
+    async with app.aiohttp_session.post(url, data=json.dumps(payload), headers=headers) as resp:
+        return await resp.json()
 
 
 async def location_from_ip(ip):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(f"https://ip-api.com/json/{ip}") as resp:
-            resp = await resp.json()
-            return f"{resp['city']}, {resp['regionName']}" if resp["status"] == "success" else f"Unknown ({ip})"
+    # this api doesn't support ssl, so we can't use https
+    async with app.aiohttp_session.get(f"http://ip-api.com/json/{ip}") as resp:
+        resp = await resp.json()
+        return f"{resp['city']}, {resp['regionName']}" if resp["status"] == "success" else f"Unknown ({ip})"
 
 
 def session_handler():
@@ -129,11 +128,10 @@ def session_handler():
 
 
 async def revoke_token(token):
-    async with aiohttp.ClientSession() as session:
-        async with session.post(
-                "https://oauth2.googleapis.com/revoke", data={"token": token}
-        ) as resp:
-            return await resp.json()
+    async with app.aiohttp_session.post(
+            "https://oauth2.googleapis.com/revoke", data={"token": token}
+    ) as resp:
+        return await resp.json()
 
 
 @app.middleware("response")
@@ -155,7 +153,17 @@ async def setup(app_, _):
     app_.ctx.sendinblue_key = json.load(open(os.path.join(pathlib.Path(__file__).parent, "./secrets.json")))[
         "sendinblue_key"]
     app_.ctx.db = await aiosqlite.connect(os.path.join(pathlib.Path(__file__).parent, "./database.db"))
+    try:
+        app_.ctx.aiohttp_session = aiohttp.ClientSession()
+    except Exception as e:
+        print(e)
     await create_database_tables()
+
+
+@app.listener("after_server_stop")
+async def teardown(app_, _):
+    await app_.ctx.db.close()
+    await app_.ctx.aiohttp_session.close()
 
 
 async def create_database_tables():
@@ -169,17 +177,14 @@ app.register_listener(setup, "before_server_start")
 @app.route("/login")
 async def login(request):
     authorization_url, state = flow.authorization_url()
-    resp = response.redirect(authorization_url)
+    resp = response.redirect(authorization_url + "&hd=fcpsschools.net")
     resp.cookies["state"] = state
     resp.cookies["state"]["httponly"] = True
-
     # set redirect if it exists
     if request.args.get("continue"):
         resp.cookies["continue"] = request.args.get("continue")
         resp.cookies["continue"]["httponly"] = True
-
-    # what type of cookie should I use for state?
-    return resp  # maybe could use &hd=fcpsschools.net
+    return resp 
 
 
 @app.route("/callback")
@@ -215,12 +220,15 @@ async def callback(request):
         "last_name": id_info["family_name"],
         "picture": id_info["picture"].replace("\\", ""),
     }
-    return response.redirect(
-        config["frontend_url"]
-        + "/callback?session_creation_token="
-        + session_creation_token
-        + (f"&continue={request.cookies.get('continue')}" if request.cookies.get("continue") else "")
-    )
+    del request.cookies["state"]
+    resp = response.redirect(
+            config["frontend_url"]
+            + "/callback?session_creation_token="
+            + session_creation_token
+            + (f"&continue={request.cookies.get('continue')}" if request.cookies.get("continue") else "")
+        )
+    if request.cookies.get("continue"): del request.cookies["continue"]
+    return resp
 
 
 @app.route("/create_session", methods=["OPTIONS"])
@@ -391,7 +399,7 @@ async def is_interested_preflight(request):
 
 @app.route("/user/update_interested", methods=["POST"])
 @session_handler()
-async def is_interested(request):
+async def is_interested_update(request):
     interested = request.json.get("interested")
     interested = bool(interested) if interested is not None else None
     # check if user is already interested

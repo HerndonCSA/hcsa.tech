@@ -4,7 +4,7 @@ import Waves from "./components/Waves";
 // import Footer from "./components/Footer";
 import Callback from "./components/Callback";
 import { AnimatePresence } from "framer-motion";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { useState, lazy, useEffect } from "react";
 import SessionManager from "./components/SessionManager";
 
@@ -19,7 +19,6 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const App = () => {
 	const location = useLocation();
-	const navigate = useNavigate();
 	const [userData, setUserData] = useState({});
 	useEffect(() => {
 		let session = localStorage.getItem("session");
