@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-function Callback({ setUserData }: any) {
+function Callback({ setUserData, setIsInterested }: any) {
 	const navigate = useRef(useNavigate());
 
 	useEffect(() => {
@@ -21,6 +21,21 @@ function Callback({ setUserData }: any) {
 				if (data.success) {
 					localStorage.setItem("session", data.session);
 					setUserData(data.user);
+					fetch(API_URL + "/user/is_interested", {
+						method: "GET",
+						headers: {
+							Authorization: "Token " + data.session,
+						},
+					})
+						.then((response) => response.json())
+						.then((data) => {
+							console.log(data);
+							setIsInterested(data.interested);
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+
 					// check for continue query param
 					const urlParams = new URLSearchParams(
 						window.location.search

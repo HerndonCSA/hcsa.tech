@@ -20,6 +20,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const App = () => {
 	const location = useLocation();
 	const [userData, setUserData] = useState({});
+	const [is_interested, setIsInterested] = useState(null);
 	useEffect(() => {
 		let session = localStorage.getItem("session");
 		if (session) {
@@ -36,6 +37,17 @@ const App = () => {
 					if (data.success) {
 						console.log(data);
 						setUserData(data);
+						fetch(API_URL + "/user/is_interested", {
+							method: "GET",
+							headers: {
+								Authorization: "Token " + session,
+							},
+						})
+							.then((response) => response.json())
+							.then((data) => {
+								console.log(data);
+								setIsInterested(data.interested);
+							});
 					} else {
 						// console log in red
 						console.log(data);
@@ -68,12 +80,14 @@ const App = () => {
 								<InterestMeeting
 									userData={userData}
 									setUserData={setUserData}
+									is_interested={is_interested}
+									setIsInterested={setIsInterested}
 								/>
 							}
 						/>
 						<Route
 							path="/callback"
-							element={<Callback setUserData={setUserData} />}
+							element={<Callback setUserData={setUserData} is_interested={is_interested} setIsInterested={setIsInterested} />}
 						/>
 						<Route path="/sessions" element={<SessionManager />} />
 						<Route path="*" element={<NotFound404 />} />

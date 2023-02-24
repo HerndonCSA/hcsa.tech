@@ -1,5 +1,5 @@
 """
-1. Make sure you have python and pip installed using`python --version` and `pip --version`
+1. Make sure you have python and pip installed using `python --version` and `pip --version`
 2. Install the dependencies `pip install -r requirements.txt`
 3. Get the configuration files (secrets.json and client_secret.json)
 4. Make sure that config.json has the correct info such as production and the frontend url
@@ -81,13 +81,13 @@ async def notify_email(email, name):
         'content-type': 'application/json'
     }
     # post to the url with the payload and headers
-    async with app.aiohttp_session.post(url, data=json.dumps(payload), headers=headers) as resp:
+    async with app.ctx.aiohttp_session.post(url, data=json.dumps(payload), headers=headers) as resp:
         return await resp.json()
 
 
 async def location_from_ip(ip):
     # this api doesn't support ssl, so we can't use https
-    async with app.aiohttp_session.get(f"http://ip-api.com/json/{ip}") as resp:
+    async with app.ctx.aiohttp_session.get(f"http://ip-api.com/json/{ip}") as resp:
         resp = await resp.json()
         return f"{resp['city']}, {resp['regionName']}" if resp["status"] == "success" else f"Unknown ({ip})"
 
@@ -128,7 +128,7 @@ def session_handler():
 
 
 async def revoke_token(token):
-    async with app.aiohttp_session.post(
+    async with app.ctx.aiohttp_session.post(
             "https://oauth2.googleapis.com/revoke", data={"token": token}
     ) as resp:
         return await resp.json()
@@ -162,16 +162,17 @@ async def setup(app_, _):
 
 @app.listener("after_server_stop")
 async def teardown(app_, _):
+    print("closing database")
     await app_.ctx.db.close()
     await app_.ctx.aiohttp_session.close()
 
 
 async def create_database_tables():
     await app.ctx.db.execute("CREATE TABLE IF NOT EXISTS interested_people "
-                             "(first_name TEXT, last_name TEXT, email TEXT)")
-
+                             "(first_name TEXT, last_name TEXT, email TEXT, interested TEXT)")
 
 app.register_listener(setup, "before_server_start")
+app.register_listener(teardown, "after_server_stop")
 
 
 @app.route("/login")
@@ -184,7 +185,7 @@ async def login(request):
     if request.args.get("continue"):
         resp.cookies["continue"] = request.args.get("continue")
         resp.cookies["continue"]["httponly"] = True
-    return resp 
+    return resp
 
 
 @app.route("/callback")
@@ -222,11 +223,11 @@ async def callback(request):
     }
     del request.cookies["state"]
     resp = response.redirect(
-            config["frontend_url"]
-            + "/callback?session_creation_token="
-            + session_creation_token
-            + (f"&continue={request.cookies.get('continue')}" if request.cookies.get("continue") else "")
-        )
+        config["frontend_url"]
+        + "/callback?session_creation_token="
+        + session_creation_token
+        + (f"&continue={request.cookies.get('continue')}" if request.cookies.get("continue") else "")
+    )
     if request.cookies.get("continue"): del request.cookies["continue"]
     return resp
 
@@ -383,8 +384,8 @@ async def logout(request):
     return response.json({"success": True})
 
 
-@app.route("/user/is_interested", methods=["OPTIONS"])
-async def is_interested_preflight(request):
+@app.route("/user/update_interested", methods=["OPTIONS"])
+async def is_interested_update_preflight(request):
     resp = response.text(
         "",
         headers={
@@ -401,33 +402,76 @@ async def is_interested_preflight(request):
 @session_handler()
 async def is_interested_update(request):
     interested = request.json.get("interested")
-    interested = bool(interested) if interested is not None else None
+    # print(f"""
+    # -----------------
+    # UPADTTING INTERESTED TO: {interested}
+    # -----------------
+    # """)
+    # print(request.ctx.user["email"])
     # check if user is already interested
-    cursor = await app.ctx.db.execute("SELECT interested FROM users WHERE email = ?", (request.ctx.user["email"],))
+    cursor = await app.ctx.db.execute("SELECT interested FROM interested_people WHERE email = ?",
+                                      (request.ctx.user["email"],))
     row = await cursor.fetchone()
     if row:
         # update
-        await app.ctx.db.execute("UPDATE users SET interested = ? WHERE email = ?",
-                                 (interested, request.ctx.user["email"]))
+        await app.ctx.db.execute("UPDATE interested_people SET interested = ? WHERE email = ?",
+                                 (str(interested), request.ctx.user["email"]))
+        # what if they are already interested, and they want to uninterested? no, they would already be in the db
+        # reasons this couldn't work:
     else:
-        # insert
-        await app.ctx.db.execute("INSERT INTO users (email, interested) VALUES (?, ?)",
-                                 (request.ctx.user["email"], interested))
+        # insert add first name, last name, and email
+        await app.ctx.db.execute(
+            "INSERT INTO interested_people (first_name, last_name, email, interested) VALUES (?, ?, ?, ?)",
+            (request.ctx.user["first_name"], request.ctx.user["last_name"], request.ctx.user["email"], str(interested)))
     await app.ctx.db.commit()
     return response.json({"success": True})
 
 
-@app.route("/user/interested", methods=["GET"])
+@app.route("/user/is_interested", methods=["OPTIONS"])
+async def is_interested_preflight(_):
+    resp = response.text(
+        "",
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization, "
+                                            "X-Auth-Token, X-Requested-With",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        },
+    )
+    return resp
+
+
+@app.route("/user/is_interested", methods=["GET"])
 @session_handler()
 async def is_interested(request):
-    cursor = await app.ctx.db.execute("SELECT interested FROM users WHERE email = ?", (request.ctx.user["email"],))
+    cursor = await app.ctx.db.execute("SELECT interested FROM interested_people WHERE email = ?",
+                                      (request.ctx.user["email"],))
     row = await cursor.fetchone()
     if row:
-        return response.json({"success": True, "interested": row["interested"]})
+        # print(f"""
+        # ------------------
+        # USER"S EMAIL: {request.ctx.user["email"]}
+        # CURRENTLY INTERESTED: {bool(row[0])}
+        # ROW: {row}
+        # ------------------
+        # """)
+        return response.json({"success": True, "interested": row[0]})
     else:
-        return response.json({"success": True, "interested": None})
+        # by default, user is interested, update db with this
+        await app.ctx.db.execute(
+            "INSERT INTO interested_people (first_name, last_name, email, interested) VALUES (?, ?, ?, ?)",
+            (request.ctx.user["first_name"], request.ctx.user["last_name"], request.ctx.user["email"], "True"))
+        await app.ctx.db.commit()
+        return response.json({"success": True, "interested": "True"})
 
 
+@app.route("/interested_people")
+async def interested_people(request):
+    # get all interested people WHERE interested = True
+    cursor = await app.ctx.db.execute("SELECT * FROM interested_people WHERE interested = ?",
+                                        ("True",))
+    rows = await cursor.fetchall()
+    return response.json({"success": True, "interested_people": rows})
 @app.route("/")
 async def index(_):
     return response.redirect(config["frontend_url"])
@@ -438,6 +482,8 @@ async def favicon(_):
     return await response.file(
         os.path.join(pathlib.Path(__file__).parent, "./favicon.ico")
     )
+
+
 
 
 if __name__ == "__main__":
