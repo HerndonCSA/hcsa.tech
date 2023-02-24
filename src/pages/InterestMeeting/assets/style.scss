@@ -115,7 +115,7 @@ body {
 .interested-button,
 .not-interested-button {
 	all: unset;
-	transition: .5s !important;
+	transition: 0.5s !important;
 	// Override MUI
 	padding: 1.2em 0.2em !important;
 	width: 75vw !important;
@@ -138,12 +138,20 @@ body {
 	background: #db4343 !important;
 }
 .sign-out-button {
-
 	// Override MUI
 	margin-bottom: 0.1em;
 	text-decoration: underline !important;
 	text-transform: none !important;
 }
+
+.info {
+	margin-top: 1em;
+	font-family: "Roboto";
+	font-weight: 0;
+	font-size: 13px;
+	color: #d8d8d8;
+}
+
 .footnote {
 	margin-top: 4em;
 	width: 70vw;
