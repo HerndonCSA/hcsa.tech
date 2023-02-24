@@ -95,7 +95,7 @@ const InterestMeeting = ({
 									} interested`}
 								/>
 								{/* text, depends on if the user is interested or not */}
-								{`${
+								{`Currently ${
 									is_interested == "True" ? "" : "Not"
 								} Interested`}
 							</Button>
