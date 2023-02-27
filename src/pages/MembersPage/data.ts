@@ -14,6 +14,13 @@ const users = [
     email: "sachin.khanal@hcsa.tech",
   },
   {
+    userNameF: "Jacob",
+    userNameL: "James",
+    discord: "",
+    github: "@idwga",
+    email: "jacob.james@hcsa.tech",
+  },
+  {
     userNameF: "Bairon",
     userNameL: "Recinos-Monjaras",
     discord: "brn#5538",
