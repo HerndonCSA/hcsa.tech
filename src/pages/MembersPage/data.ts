@@ -48,6 +48,13 @@ const users = [
     github: "@udhungana2156",
     email: "utsav.dhungana@hcsa.tech",
   },
+  {
+    userNameF: "Olan",
+    userNameL: "Dewo",
+    discord: "insertusername#3098",
+    github: "?",
+    email: "olan.dewo@hcsa.tech",
+  }
 ];
 
 export default users;
