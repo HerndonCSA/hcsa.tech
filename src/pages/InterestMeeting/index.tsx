@@ -56,7 +56,7 @@ const InterestMeeting = ({
 				<hr />
 
 				<div className="title">
-					<h3>INTEREST MEETING</h3>
+					<h3>MEETINGS</h3>
 				</div>
 			</div>
 

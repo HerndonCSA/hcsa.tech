@@ -40,6 +40,14 @@ function Callback({ setUserData, setIsInterested }: any) {
 					const urlParams = new URLSearchParams(
 						window.location.search
 					);
+
+					const windowIsPopup = urlParams.get("popup");
+					if (windowIsPopup) {
+						window.close();
+						return;
+					}
+
+
 					const continueTo = urlParams.get("continue");
 					if (continueTo) {
 						switch (continueTo) {
