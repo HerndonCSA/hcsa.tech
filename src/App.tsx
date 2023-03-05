@@ -75,7 +75,7 @@ const App = () => {
 						<Route path="/members" element={<MembersPage />} />
 						<Route path="/contact" element={<ContactPage />} />
 						<Route
-							path="/interest-meeting"
+							path="/meetings"
 							element={
 								<InterestMeeting
 									userData={userData}
@@ -87,7 +87,13 @@ const App = () => {
 						/>
 						<Route
 							path="/callback"
-							element={<Callback setUserData={setUserData} is_interested={is_interested} setIsInterested={setIsInterested} />}
+							element={
+								<Callback
+									setUserData={setUserData}
+									is_interested={is_interested}
+									setIsInterested={setIsInterested}
+								/>
+							}
 						/>
 						<Route path="/sessions" element={<SessionManager />} />
 						<Route path="*" element={<NotFound404 />} />
