@@ -49,12 +49,25 @@ flow = Flow.from_client_secrets_file(
 app = Sanic(config["name"])
 
 
-async def notify_email(email, name):
+async def send_email(payload):
+    url = "https://api.sendinblue.com/v3/smtp/email"
+    
+    headers = {
+        'accept': 'application/json',
+        'api-key': app.ctx.sendinblue_key,
+        'content-type': 'application/json'
+    }
+
+    async with app.ctx.aiohttp_session.post(url, data=json.dumps(payload), headers=headers) as resp:
+        return await resp.json()
+
+
+
+async def notify_users_email(email, name):
     # return if in development environment
     if not config["production"]:
         return
 
-    url = "https://api.sendinblue.com/v3/smtp/email"
     payload = {
         "sender": {
             "email": "hello@hcsa.tech",
@@ -75,14 +88,8 @@ async def notify_email(email, name):
                        "<p><small>Any questions or comments? You can reply to this email to create a ticket.<small/></p>"
                        "</body></html>"
     }
-    headers = {
-        'accept': 'application/json',
-        'api-key': app.ctx.sendinblue_key,
-        'content-type': 'application/json'
-    }
-    # post to the url with the payload and headers
-    async with app.ctx.aiohttp_session.post(url, data=json.dumps(payload), headers=headers) as resp:
-        return await resp.json()
+
+    return await send_email(payload)
 
 
 async def location_from_ip(ip):
@@ -185,6 +192,9 @@ async def login(request):
     if request.args.get("continue"):
         resp.cookies["continue"] = request.args.get("continue")
         resp.cookies["continue"]["httponly"] = True
+    if request.args.get("popup"):
+        resp.cookies["popup"] = "true"
+        resp.cookies["popup"]["httponly"] = True
     return resp
 
 
@@ -227,8 +237,10 @@ async def callback(request):
         + "/callback?session_creation_token="
         + session_creation_token
         + (f"&continue={request.cookies.get('continue')}" if request.cookies.get("continue") else "")
+        + (f"&popup=true" if request.cookies.get("popup") else "")
     )
     if request.cookies.get("continue"): del request.cookies["continue"]
+    if request.cookies.get("popup"): del request.cookies["popup"]
     return resp
 
 
@@ -269,7 +281,7 @@ async def create_session(request):
             },
         )
         # notify email
-        await notify_email(data["email"], data["first_name"])
+        await notify_users_email(data["email"], data["first_name"])
         return response.json(
             {
                 "session": jwt.encode(
