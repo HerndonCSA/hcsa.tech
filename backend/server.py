@@ -117,10 +117,8 @@ def session_handler():
                             {"error": "session deleted from another device"}, status=401
                         )
                 except jwt.ExpiredSignatureError:
-                    # remove from app.session
-                    del app.ctx.sessions[session["email"]]["sessions"][
-                        session["session"]
-                    ]
+                    # remove from app.ctx.session_manager
+                    app.ctx.session_manager.delete_session(decoded["session"])
                     return response.json({"error": "Session expired"}, status=401)
                 except jwt.InvalidTokenError:
                     return response.json({"error": "Invalid token"}, status=401)
@@ -165,7 +163,6 @@ async def setup(app_, _):
     except Exception as e:
         print(e)
     await create_database_tables()
-
 
 @app.listener("after_server_stop")
 async def teardown(app_, _):
@@ -231,7 +228,6 @@ async def callback(request):
         "last_name": id_info["family_name"],
         "picture": id_info["picture"].replace("\\", ""),
     }
-    del request.cookies["state"]
     resp = response.redirect(
         config["frontend_url"]
         + "/callback?session_creation_token="
@@ -239,8 +235,9 @@ async def callback(request):
         + (f"&continue={request.cookies.get('continue')}" if request.cookies.get("continue") else "")
         + (f"&popup=true" if request.cookies.get("popup") else "")
     )
-    if request.cookies.get("continue"): del request.cookies["continue"]
-    if request.cookies.get("popup"): del request.cookies["popup"]
+    if request.cookies.get("continue"): del resp.cookies["continue"]
+    if request.cookies.get("popup"): del resp.cookies["popup"]
+    del resp.cookies["state"]
     return resp
 
 
