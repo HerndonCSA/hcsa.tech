@@ -12,6 +12,8 @@ const MembersPage = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
     >
+      <div className="members-page-title">Members</div>
+      
       <div className="contains-all-cards">
         {/*  map through the users array and return a div for each user */}
 
