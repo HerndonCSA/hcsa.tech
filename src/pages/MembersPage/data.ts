@@ -54,6 +54,13 @@ const users = [
     discord: "insertusername#3098",
     github: "?",
     email: "olan.dewo@hcsa.tech",
+  },
+  {
+    userNameF: "Joseph",
+    userNameL: "Attia",
+    discord: "JosephA#4677",
+    github: "@josephAttia",
+    email: "josephattia159@gmail.com",
   }
 ];
 

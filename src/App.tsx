@@ -7,7 +7,6 @@ import { AnimatePresence } from "framer-motion";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useState, lazy, useEffect } from "react";
 import SessionManager from "./components/SessionManager";
-
 import NotFound404 from "./components/HTTPErrors/NotFound404";
 
 const HomePage = lazy(() => import("./pages/HomePage"));

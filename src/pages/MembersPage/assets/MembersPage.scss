@@ -1,3 +1,10 @@
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
 .members-page {
   position: absolute;
   margin-top: 20vh;
@@ -7,6 +14,12 @@
   align-items: center;
   text-align: center;
 }
+
+.members-page-title {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 1em;
+} 
 
 .contains-all-cards {
   display: grid;
@@ -30,7 +43,7 @@
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.585);
 
   /* Note: backdrop-filter has minimal browser support */
-  background: rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
 
   border-radius: 10px;
