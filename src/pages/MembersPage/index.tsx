@@ -60,7 +60,7 @@ const MembersPage = () => {
 										className="connection-id"
 										onClick={() =>
 											window.open(
-												`https://github.com${user.github}`
+												`https://github.com/${user.github}`
 											)
 										}
 									>

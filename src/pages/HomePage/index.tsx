@@ -34,7 +34,14 @@ const HomePage = () => {
 						<div className="line"></div>
 					</div>
 
-					<Button className="join">Join Us</Button>
+					<Button
+						className="join"
+						onClick={() =>
+							(window.location.href = "https://join.hcsa.tech")
+						}
+					>
+						Join Us
+					</Button>
 				</div>
 			</div>
 		</motion.div>
