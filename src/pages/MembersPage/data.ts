@@ -21,6 +21,13 @@ const users = [
     email: "jacob.james@hcsa.tech",
   },
   {
+    userNameF: "Joseph",
+    userNameL: "Attia",
+    discord: "JosephA#4677",
+    github: "@josephAttia",
+    email: "josephattia159@gmail.com",
+  },
+  {
     userNameF: "Bairon",
     userNameL: "Recinos-Monjaras",
     discord: "brn#5538",
@@ -52,16 +59,9 @@ const users = [
     userNameF: "Olan",
     userNameL: "Dewo",
     discord: "insertusername#3098",
-    github: "?",
+    github: "1A56Y",
     email: "olan.dewo@hcsa.tech",
   },
-  {
-    userNameF: "Joseph",
-    userNameL: "Attia",
-    discord: "JosephA#4677",
-    github: "@josephAttia",
-    email: "josephattia159@gmail.com",
-  }
 ];
 
 export default users;

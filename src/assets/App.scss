@@ -1,42 +1,41 @@
-   @import url("https://fonts.googleapis.com/css2?family=Courgette&family=Nunito:wght@700&family=Poppins:ital,wght@0,400;0,500;0,600;1,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courgette&family=Nunito:wght@700&family=Poppins:ital,wght@0,400;0,500;0,600;1,600&display=swap");
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  outline: none;
-  font-family: "Poppins", sans-serif;
-  color: white;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	outline: none;
+	font-family: "Poppins", sans-serif;
+	color: white;
 }
 
 body {
-  background-color: #191919;
+	background-color: #191919;
 }
 
 // Hide scroll bar if screen smaller than 1000px
 @media screen and (max-width: 1000px) {
-  ::-webkit-scrollbar {
-    display: none;
-  }
+	::-webkit-scrollbar {
+		display: none;
+	}
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+	width: 10px;
+	height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e1e1e;
+	background: #1e1e1e;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #B01515;
-  // add inner shadow
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
+	background: #b01515;
+	// add inner shadow
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+	background: #555;
 }
-
