@@ -47,12 +47,11 @@ function Callback({ setUserData, setIsInterested }: any) {
 						return;
 					}
 
-
 					const continueTo = urlParams.get("continue");
 					if (continueTo) {
 						switch (continueTo) {
 							case "interest-meeting":
-								navigate.current("/interest-meeting");
+								navigate.current("/meetings");
 								break;
 							default:
 								navigate.current("/");
