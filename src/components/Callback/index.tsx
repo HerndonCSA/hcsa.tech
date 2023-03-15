@@ -53,6 +53,9 @@ function Callback({ setUserData, setIsInterested }: any) {
 							case "interest-meeting":
 								navigate.current("/meetings");
 								break;
+							case "sessions":
+								navigate.current("/sessions");
+								break;
 							default:
 								navigate.current("/");
 								break;

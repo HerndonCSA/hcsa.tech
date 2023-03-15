@@ -23,7 +23,7 @@ const SessionManager = () => {
 					setSessions(data.sessions);
 				} else {
 					alert(data.error);
-					window.location.href = API_URL + "/login";
+					window.location.href = API_URL + "/login?continue=sessions";
 				}
 			});
 	}, []);

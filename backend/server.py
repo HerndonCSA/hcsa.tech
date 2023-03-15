@@ -24,7 +24,7 @@ from functools import wraps
 
 from user_agents import parse
 
-from SessionManager import SessionManager
+from SessionManager import SessionManager, RedisSessionManager
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 client_secrets_file = os.path.join(
@@ -51,7 +51,7 @@ app = Sanic(config["name"])
 
 async def send_email(payload):
     url = "https://api.sendinblue.com/v3/smtp/email"
-    
+
     headers = {
         'accept': 'application/json',
         'api-key': app.ctx.sendinblue_key,
@@ -60,7 +60,6 @@ async def send_email(payload):
 
     async with app.ctx.aiohttp_session.post(url, data=json.dumps(payload), headers=headers) as resp:
         return await resp.json()
-
 
 
 async def notify_users_email(email, name):
@@ -107,7 +106,7 @@ def session_handler():
             if session:
                 try:
                     decoded = jwt.decode(session, app.ctx.secret, algorithms=["HS256"])
-                    user = app.ctx.session_manager.look_up(decoded["session"])
+                    user = await app.ctx.session_manager.look_up(decoded["session"])
                     if user:
                         request.ctx.user = user
                         request.ctx.user["session"] = decoded["session"]
@@ -118,7 +117,7 @@ def session_handler():
                         )
                 except jwt.ExpiredSignatureError:
                     # remove from app.ctx.session_manager
-                    app.ctx.session_manager.delete_session(decoded["session"])
+                    await app.ctx.session_manager.delete_session(decoded["session"])
                     return response.json({"error": "Session expired"}, status=401)
                 except jwt.InvalidTokenError:
                     return response.json({"error": "Invalid token"}, status=401)
@@ -152,9 +151,11 @@ async def cors(_, resp):
 
 @app.listener("before_server_start")
 async def setup(app_, _):
-    app_.ctx.session_manager = SessionManager()
+    # redis is running on localhost with port 6379, pass it into session manager (it accepts a url)
+    app_.ctx.session_manager = RedisSessionManager()
+    await app_.ctx.session_manager.connect()
     app_.ctx.session_creation_tokens = {}
-    app_.ctx.secret = os.urandom(32)
+    app_.ctx.secret = "iojasdfoiuaousdfljiasdfljasdff"
     app_.ctx.sendinblue_key = json.load(open(os.path.join(pathlib.Path(__file__).parent, "./secrets.json")))[
         "sendinblue_key"]
     app_.ctx.db = await aiosqlite.connect(os.path.join(pathlib.Path(__file__).parent, "./database.db"))
@@ -164,19 +165,17 @@ async def setup(app_, _):
         print(e)
     await create_database_tables()
 
+
 @app.listener("after_server_stop")
 async def teardown(app_, _):
-    print("closing database")
     await app_.ctx.db.close()
     await app_.ctx.aiohttp_session.close()
+    await app_.ctx.session_manager.disconnect()
 
 
 async def create_database_tables():
     await app.ctx.db.execute("CREATE TABLE IF NOT EXISTS interested_people "
                              "(first_name TEXT, last_name TEXT, email TEXT, interested TEXT)")
-
-app.register_listener(setup, "before_server_start")
-app.register_listener(teardown, "after_server_stop")
 
 
 @app.route("/login")
@@ -265,7 +264,7 @@ async def create_session(request):
         del app.ctx.session_creation_tokens[session_creation_token]
         session_id = uuid.uuid4().hex
         # if production, ip is from cloudflare, otherwise use request.ip
-        app.ctx.session_manager.add_session(
+        await app.ctx.session_manager.add_session(
             data,
             {
                 "session_id": session_id,
@@ -294,7 +293,7 @@ async def create_session(request):
 
 @app.route("/everything")
 async def everything(_):
-    return response.json(str(app.ctx.session_manager))
+    return response.text("Go away!")
 
 
 @app.route("/user", methods=["OPTIONS"])
@@ -335,7 +334,8 @@ async def user_sessions_preflight(_):
 @app.route("/user/sessions")
 @session_handler()
 async def user_sessions(request):
-    sessions = app.ctx.session_manager.list_sessions(
+    print(request.ctx.user)
+    sessions = await app.ctx.session_manager.list_sessions(
         request.ctx.user["email"], request.ctx.user["session"]
     )
     return response.json({"sessions": sessions, "success": True})
@@ -359,11 +359,11 @@ async def delete_session_preflight(_):
 async def delete_session(request):
     data = request.json
     if "session" in data:
-        app.ctx.session_manager.delete_session(data["session"])
+        await app.ctx.session_manager.delete_session(data["session"])
         return response.json(
             {
                 "success": True,
-                "sessions": app.ctx.session_manager.list_sessions(
+                "sessions": await app.ctx.session_manager.list_sessions(
                     request.ctx.user["email"], request.ctx.user["session"]
                 ),
             }
@@ -389,7 +389,7 @@ async def logout_preflight(request):
 @app.route("/user/logout", methods=["POST"])
 @session_handler()
 async def logout(request):
-    app.ctx.session_manager.delete_session(request.ctx.user["session"])
+    await app.ctx.session_manager.delete_session(request.ctx.user["session"])
     return response.json({"success": True})
 
 
@@ -476,11 +476,14 @@ async def is_interested(request):
 
 @app.route("/interested_people")
 async def interested_people(request):
+    print(request.ctx.user)
     # get all interested people WHERE interested = True
     cursor = await app.ctx.db.execute("SELECT * FROM interested_people WHERE interested = ?",
-                                        ("True",))
+                                      ("True",))
     rows = await cursor.fetchall()
     return response.json({"success": True, "interested_people": rows})
+
+
 @app.route("/")
 async def index(_):
     return response.redirect(config["frontend_url"])
@@ -491,8 +494,6 @@ async def favicon(_):
     return await response.file(
         os.path.join(pathlib.Path(__file__).parent, "./favicon.ico")
     )
-
-
 
 
 if __name__ == "__main__":
