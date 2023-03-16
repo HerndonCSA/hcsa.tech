@@ -62,7 +62,7 @@ const InterestMeeting = ({
 
 			<div className="meeting-time">
 				<div className="date">
-					March 15<sup>TH</sup>
+					March 22<sup>ND</sup>
 				</div>
 
 				<div className="location">Mr. Barber's Room (K200)</div>
