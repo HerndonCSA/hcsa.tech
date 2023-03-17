@@ -58,7 +58,9 @@ const DesktopNavBar = () => {
 					</li>
 
 					<li
-						onClick={() => navLinkClickEvent("/contact")}
+						onClick={() => {
+							window.open("mailto:hello@hcsa.tech");
+						}}
 						className={
 							location.pathname === "/contact" ? "selected" : ""
 						}

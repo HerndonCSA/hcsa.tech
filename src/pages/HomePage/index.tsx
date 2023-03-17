@@ -26,7 +26,17 @@ const HomePage = () => {
 
 			<div className="interactive-content">
 				<div className="view-or-join">
-					<Button className="view">View Our Ongoing Projects</Button>
+					<Button
+						className="view"
+						onClick={() => {
+							// open https://github.com/orgs/HerndonCSA/repositories in new tab
+							window.open(
+								"https://github.com/orgs/HerndonCSA/repositories"
+							);
+						}}
+					>
+						View Our Ongoing Projects
+					</Button>
 
 					<div className="or">
 						<div className="line"></div>
@@ -36,9 +46,9 @@ const HomePage = () => {
 
 					<Button
 						className="join"
-						onClick={() =>
-							(window.location.href = "https://join.hcsa.tech")
-						}
+						onClick={() => {
+							window.location.href = "https://join.hcsa.tech";
+						}}
 					>
 						Join Us
 					</Button>
