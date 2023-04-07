@@ -27,3 +27,6 @@ backend/__pycache__
 
 secrets.json
 backend/database.db
+/backend/database.db
+/backend/database.db-shm
+/backend/database.db-wal

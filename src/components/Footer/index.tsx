@@ -1,7 +1,7 @@
-import "./assets/Footer.scss";
+import './assets/Footer.scss';
 
 const Footer = () => {
-  return null;
+	return null;
 };
 
 export default Footer;

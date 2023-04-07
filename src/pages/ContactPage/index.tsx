@@ -1,7 +1,7 @@
-import "./assets/ContactPage.scss";
+import './assets/ContactPage.scss';
 
 const ContactPage = () => {
-  return null;
+	return null;
 };
 
 export default ContactPage;

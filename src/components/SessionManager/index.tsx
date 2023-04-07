@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import "./assets/SessionManager.scss";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import './assets/SessionManager.scss';
+import { useNavigate } from 'react-router-dom';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -9,11 +9,11 @@ const SessionManager = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		const session = localStorage.getItem("session");
-		fetch(API_URL + "/user/sessions", {
-			method: "GET",
+		const session = localStorage.getItem('session');
+		fetch(API_URL + '/user/sessions', {
+			method: 'GET',
 			headers: {
-				Authorization: "Token " + session,
+				Authorization: 'Token ' + session,
 			},
 		})
 			.then((response) => response.json())
@@ -23,18 +23,18 @@ const SessionManager = () => {
 					setSessions(data.sessions);
 				} else {
 					alert(data.error);
-					window.location.href = API_URL + "/login?continue=sessions";
+					window.location.href = API_URL + '/login?continue=sessions';
 				}
 			});
 	}, []);
 
 	const deleteSession = (session_id: string) => {
-		const session = localStorage.getItem("session");
-		fetch(API_URL + "/delete_session", {
-			method: "POST",
+		const session = localStorage.getItem('session');
+		fetch(API_URL + '/delete_session', {
+			method: 'POST',
 			headers: {
-				Authorization: "Token " + session,
-				"Content-Type": "application/json",
+				Authorization: 'Token ' + session,
+				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({ session: session_id }),
 		})
@@ -75,7 +75,7 @@ const SessionManager = () => {
 				})}
 			</div>
 
-			<button className="back" onClick={() => navigate("/")}>
+			<button className="back" onClick={() => navigate('/')}>
 				Return Home
 			</button>
 		</div>

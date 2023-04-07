@@ -24,7 +24,10 @@ from functools import wraps
 
 from user_agents import parse
 
-from SessionManager import SessionManager, RedisSessionManager
+from SessionManager import SessionManager
+
+from models import Users
+from tortoise.contrib.sanic import register_tortoise
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 client_secrets_file = os.path.join(
@@ -98,6 +101,25 @@ async def location_from_ip(ip):
         return f"{resp['city']}, {resp['regionName']}" if resp["status"] == "success" else f"Unknown ({ip})"
 
 
+async def sync_user(user):
+    # get the user from the db
+    db_user = await Users.filter(email=user["email"]).first()
+
+    # if the user doesn't exist, create it
+    if not db_user:
+        # Names are formatted as "First Last (Student)" remove the (Student) part, and split the names by the space.
+        # The first item is the first name, and the rest is the last name
+        # url is the stuff before the @ in the email
+        db_user = await Users.create(
+            email=user["email"],
+            first_name=user["first_name"],
+            last_name=user["last_name"].replace("(Student)", ""),
+            url=user["email"].split("@")[0],
+        )
+
+    return db_user
+
+
 def session_handler():
     def decorator(f):
         @wraps(f)
@@ -106,10 +128,11 @@ def session_handler():
             if session:
                 try:
                     decoded = jwt.decode(session, app.ctx.secret, algorithms=["HS256"])
-                    user = await app.ctx.session_manager.look_up(decoded["session"])
+                    user = app.ctx.session_manager.look_up(decoded["session"])
                     if user:
                         request.ctx.user = user
                         request.ctx.user["session"] = decoded["session"]
+                        await sync_user(user)
                         return await f(request, *args, **kwargs)
                     else:
                         return response.json(
@@ -117,7 +140,7 @@ def session_handler():
                         )
                 except jwt.ExpiredSignatureError:
                     # remove from app.ctx.session_manager
-                    await app.ctx.session_manager.delete_session(decoded["session"])
+                    app.ctx.session_manager.delete_session(decoded["session"])
                     return response.json({"error": "Session expired"}, status=401)
                 except jwt.InvalidTokenError:
                     return response.json({"error": "Invalid token"}, status=401)
@@ -152,8 +175,7 @@ async def cors(_, resp):
 @app.listener("before_server_start")
 async def setup(app_, _):
     # redis is running on localhost with port 6379, pass it into session manager (it accepts a url)
-    app_.ctx.session_manager = RedisSessionManager()
-    await app_.ctx.session_manager.connect()
+    app_.ctx.session_manager = SessionManager()
     app_.ctx.session_creation_tokens = {}
     app_.ctx.secret = "iojasdfoiuaousdfljiasdfljasdff"
     app_.ctx.sendinblue_key = json.load(open(os.path.join(pathlib.Path(__file__).parent, "./secrets.json")))[
@@ -163,19 +185,12 @@ async def setup(app_, _):
         app_.ctx.aiohttp_session = aiohttp.ClientSession()
     except Exception as e:
         print(e)
-    await create_database_tables()
 
 
 @app.listener("after_server_stop")
 async def teardown(app_, _):
-    await app_.ctx.db.close()
     await app_.ctx.aiohttp_session.close()
     await app_.ctx.session_manager.disconnect()
-
-
-async def create_database_tables():
-    await app.ctx.db.execute("CREATE TABLE IF NOT EXISTS interested_people "
-                             "(first_name TEXT, last_name TEXT, email TEXT, interested TEXT)")
 
 
 @app.route("/login")
@@ -264,7 +279,7 @@ async def create_session(request):
         del app.ctx.session_creation_tokens[session_creation_token]
         session_id = uuid.uuid4().hex
         # if production, ip is from cloudflare, otherwise use request.ip
-        await app.ctx.session_manager.add_session(
+        app.ctx.session_manager.add_session(
             data,
             {
                 "session_id": session_id,
@@ -335,7 +350,7 @@ async def user_sessions_preflight(_):
 @session_handler()
 async def user_sessions(request):
     print(request.ctx.user)
-    sessions = await app.ctx.session_manager.list_sessions(
+    sessions = app.ctx.session_manager.list_sessions(
         request.ctx.user["email"], request.ctx.user["session"]
     )
     return response.json({"sessions": sessions, "success": True})
@@ -359,11 +374,11 @@ async def delete_session_preflight(_):
 async def delete_session(request):
     data = request.json
     if "session" in data:
-        await app.ctx.session_manager.delete_session(data["session"])
+        app.ctx.session_manager.delete_session(data["session"])
         return response.json(
             {
                 "success": True,
-                "sessions": await app.ctx.session_manager.list_sessions(
+                "sessions": app.ctx.session_manager.list_sessions(
                     request.ctx.user["email"], request.ctx.user["session"]
                 ),
             }
@@ -389,99 +404,8 @@ async def logout_preflight(request):
 @app.route("/user/logout", methods=["POST"])
 @session_handler()
 async def logout(request):
-    await app.ctx.session_manager.delete_session(request.ctx.user["session"])
+    app.ctx.session_manager.delete_session(request.ctx.user["session"])
     return response.json({"success": True})
-
-
-@app.route("/user/update_interested", methods=["OPTIONS"])
-async def is_interested_update_preflight(request):
-    resp = response.text(
-        "",
-        headers={
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization, "
-                                            "X-Auth-Token, X-Requested-With",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        },
-    )
-    return resp
-
-
-@app.route("/user/update_interested", methods=["POST"])
-@session_handler()
-async def is_interested_update(request):
-    interested = request.json.get("interested")
-    # print(f"""
-    # -----------------
-    # UPADTTING INTERESTED TO: {interested}
-    # -----------------
-    # """)
-    # print(request.ctx.user["email"])
-    # check if user is already interested
-    cursor = await app.ctx.db.execute("SELECT interested FROM interested_people WHERE email = ?",
-                                      (request.ctx.user["email"],))
-    row = await cursor.fetchone()
-    if row:
-        # update
-        await app.ctx.db.execute("UPDATE interested_people SET interested = ? WHERE email = ?",
-                                 (str(interested), request.ctx.user["email"]))
-        # what if they are already interested, and they want to uninterested? no, they would already be in the db
-        # reasons this couldn't work:
-    else:
-        # insert add first name, last name, and email
-        await app.ctx.db.execute(
-            "INSERT INTO interested_people (first_name, last_name, email, interested) VALUES (?, ?, ?, ?)",
-            (request.ctx.user["first_name"], request.ctx.user["last_name"], request.ctx.user["email"], str(interested)))
-    await app.ctx.db.commit()
-    return response.json({"success": True})
-
-
-@app.route("/user/is_interested", methods=["OPTIONS"])
-async def is_interested_preflight(_):
-    resp = response.text(
-        "",
-        headers={
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization, "
-                                            "X-Auth-Token, X-Requested-With",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        },
-    )
-    return resp
-
-
-@app.route("/user/is_interested", methods=["GET"])
-@session_handler()
-async def is_interested(request):
-    cursor = await app.ctx.db.execute("SELECT interested FROM interested_people WHERE email = ?",
-                                      (request.ctx.user["email"],))
-    row = await cursor.fetchone()
-    if row:
-        # print(f"""
-        # ------------------
-        # USER"S EMAIL: {request.ctx.user["email"]}
-        # CURRENTLY INTERESTED: {bool(row[0])}
-        # ROW: {row}
-        # ------------------
-        # """)
-        return response.json({"success": True, "interested": row[0]})
-    else:
-        # by default, user is interested, update db with this
-        await app.ctx.db.execute(
-            "INSERT INTO interested_people (first_name, last_name, email, interested) VALUES (?, ?, ?, ?)",
-            (request.ctx.user["first_name"], request.ctx.user["last_name"], request.ctx.user["email"], "True"))
-        await app.ctx.db.commit()
-        return response.json({"success": True, "interested": "True"})
-
-
-@app.route("/interested_people")
-async def interested_people(request):
-    print(request.ctx.user)
-    # get all interested people WHERE interested = True
-    cursor = await app.ctx.db.execute("SELECT * FROM interested_people WHERE interested = ?",
-                                      ("True",))
-    rows = await cursor.fetchall()
-    return response.json({"success": True, "interested_people": rows})
 
 
 @app.route("/")
@@ -495,6 +419,33 @@ async def favicon(_):
         os.path.join(pathlib.Path(__file__).parent, "./favicon.ico")
     )
 
+
+async def get_google_profile_picture(email):
+    # get google profile picture from app.ctx.session_manager
+    return (app.ctx.session_manager.lookup_by_email(email))["picture"]
+
+
+@app.route("/view_users")
+async def view_users(_):
+    # return all data from Users table
+    users = []
+    async for user in Users.all():
+        user = dict(user)
+        # convert to epoch time
+        user["date_joined"] = user["date_joined"].timestamp()
+        users.append(user)
+        # grab user's google profile picture
+        user["picture"] = await get_google_profile_picture(user["email"])
+
+    return response.json(users)
+
+
+register_tortoise(
+    app,
+    db_url="sqlite://database.db",
+    modules={"models": ["models"]},
+    generate_schemas=True,
+)
 
 if __name__ == "__main__":
     app.run(

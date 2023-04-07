@@ -1,12 +1,12 @@
-import "./assets/style.scss";
-import GoogleLogo from "./assets/images/google.svg";
-import InterestedImage from "./assets/images/interested.svg";
-import NotInterestedImage from "./assets/images/not-interested.svg";
-import Button from "@mui/material/Button";
+import './assets/style.scss';
+import GoogleLogo from './assets/images/google.svg';
+import InterestedImage from './assets/images/interested.svg';
+import NotInterestedImage from './assets/images/not-interested.svg';
+import Button from '@mui/material/Button';
 
 const API_URL = import.meta.env.VITE_API_URL;
 // import useEffect, and useState
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const InterestMeeting = ({
 	userData,
@@ -20,23 +20,23 @@ const InterestMeeting = ({
 	}, [is_interested]);
 
 	function toggleInterested() {
-		const session = localStorage.getItem("session");
+		const session = localStorage.getItem('session');
 
-		fetch(API_URL + "/user/update_interested", {
-			method: "POST",
+		fetch(API_URL + '/user/update_interested', {
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Token " + session,
+				'Content-Type': 'application/json',
+				Authorization: 'Token ' + session,
 			},
 			body: JSON.stringify({
 				interested:
-					is_interested == "True" ? "False" : ("True" as string),
+					is_interested == 'True' ? 'False' : ('True' as string),
 			}),
 		})
 			.then((response) => {
 				if (response.status === 200) {
 					setIsInterested(
-						is_interested == "True" ? "False" : ("True" as string)
+						is_interested == 'True' ? 'False' : ('True' as string)
 					);
 				}
 			})
@@ -79,24 +79,24 @@ const InterestMeeting = ({
 								// add a "not" in front of the button class & text if the user is not interested
 								variant="contained"
 								className={`${
-									is_interested == "True" ? "" : "not-"
+									is_interested == 'True' ? '' : 'not-'
 								}interested-button`}
 								onClick={toggleInterested}
 							>
 								{/* image, depends on if the user is interested or not */}
 								<img
 									src={
-										is_interested == "True"
+										is_interested == 'True'
 											? InterestedImage
 											: NotInterestedImage
 									}
 									alt={`${
-										is_interested ? "" : "Not"
+										is_interested ? '' : 'Not'
 									} interested`}
 								/>
 								{/* text, depends on if the user is interested or not */}
 								{`Currently ${
-									is_interested == "True" ? "" : "Not"
+									is_interested == 'True' ? '' : 'Not'
 								} Interested`}
 							</Button>
 						)}
@@ -109,7 +109,7 @@ const InterestMeeting = ({
 						className="sign-in-button"
 						onClick={() => {
 							window.location.href =
-								API_URL + "/login?continue=interest-meeting";
+								API_URL + '/login?continue=interest-meeting';
 						}}
 					>
 						<img src={GoogleLogo} alt="Google Logo" />
@@ -125,21 +125,21 @@ const InterestMeeting = ({
 						variant="text"
 						className="sign-out-button"
 						onClick={() => {
-							fetch(API_URL + "/user/logout", {
-								method: "POST",
+							fetch(API_URL + '/user/logout', {
+								method: 'POST',
 								headers: {
 									Authorization:
-										"Token " +
-										localStorage.getItem("session"),
+										'Token ' +
+										localStorage.getItem('session'),
 								},
 							})
 								.then((res) => res.json())
 								.then((data) => {
 									if (data.success) {
-										localStorage.removeItem("session");
+										localStorage.removeItem('session');
 										setUserData({});
 									} else {
-										alert("Error logging out");
+										alert('Error logging out');
 									}
 								});
 						}}

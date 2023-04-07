@@ -1,5 +1,5 @@
-import ArrowIcon from "../assets/images/arrow-down.svg";
-import { motion } from "framer-motion";
+import ArrowIcon from '../assets/images/arrow-down.svg';
+import { motion } from 'framer-motion';
 
 const Profile = ({
 	userData,
@@ -32,7 +32,7 @@ const Profile = ({
 				src={ArrowIcon}
 				alt="arrow icon"
 				animate={{ rotate: dropdownOpen ? 180 : 0 }}
-				transition={{ type: "tween" }}
+				transition={{ type: 'tween' }}
 			/>
 		</div>
 	);
