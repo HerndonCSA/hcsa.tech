@@ -1,10 +1,10 @@
-import HomeIcon from "../assets/images/home.svg";
-import MembersIcon from "../assets/images/members.svg";
-import ContactIcon from "../assets/images/contact.svg";
-import { useLocation, useNavigate } from "react-router-dom";
+import HomeIcon from '../assets/images/home.svg';
+import MembersIcon from '../assets/images/members.svg';
+import ContactIcon from '../assets/images/contact.svg';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 const MobileNavBar = ({
 	setMobileMenuOpen,
@@ -26,7 +26,7 @@ const MobileNavBar = ({
 		<>
 			<div className="burger-container">
 				<div
-					className={"burger " + (mobileMenuOpen ? " open" : "")}
+					className={'burger ' + (mobileMenuOpen ? ' open' : '')}
 					onClick={() => {
 						setMobileMenuOpen(!mobileMenuOpen);
 					}}
@@ -35,21 +35,21 @@ const MobileNavBar = ({
 
 			{/* SIDEBAR */}
 			<motion.div
-				animate={{ left: mobileMenuOpen ? "0" : "-60vw" }}
+				animate={{ left: mobileMenuOpen ? '0' : '-60vw' }}
 				className="side-navbar"
 			>
 				<ul>
 					<li
-						onClick={() => navLinkClickEvent("/")}
+						onClick={() => navLinkClickEvent('/')}
 						// className={location.pathname === "/" ? "selected" : ""}
 					>
 						<img src={HomeIcon} alt="home icon" />
 						<p>Home</p>
 					</li>
 					<li
-						onClick={() => navLinkClickEvent("/members")}
+						onClick={() => navLinkClickEvent('/members')}
 						className={
-							location.pathname === "/members" ? "selected" : ""
+							location.pathname === '/members' ? 'selected' : ''
 						}
 					>
 						<img src={MembersIcon} alt="members icon" />
@@ -57,10 +57,10 @@ const MobileNavBar = ({
 					</li>
 					<li
 						onClick={() => {
-							window.open("mailto:hello@hcsa.tech");
+							window.open('mailto:hello@hcsa.tech');
 						}}
 						className={
-							location.pathname === "/contact" ? "selected" : ""
+							location.pathname === '/contact' ? 'selected' : ''
 						}
 					>
 						<img src={ContactIcon} alt="contact icon" />

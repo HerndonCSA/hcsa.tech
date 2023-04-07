@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -8,23 +8,23 @@ function Callback({ setUserData, setIsInterested }: any) {
 
 	useEffect(() => {
 		const urlParams = new URLSearchParams(window.location.search);
-		const session = urlParams.get("session_creation_token") as string;
-		fetch(API_URL + "/create_session", {
-			method: "POST",
+		const session = urlParams.get('session_creation_token') as string;
+		fetch(API_URL + '/create_session', {
+			method: 'POST',
 			headers: {
-				"Content-Type": "application/json",
+				'Content-Type': 'application/json',
 				session_creation_token: session,
 			},
 		})
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.success) {
-					localStorage.setItem("session", data.session);
+					localStorage.setItem('session', data.session);
 					setUserData(data.user);
-					fetch(API_URL + "/user/is_interested", {
-						method: "GET",
+					fetch(API_URL + '/user/is_interested', {
+						method: 'GET',
 						headers: {
-							Authorization: "Token " + data.session,
+							Authorization: 'Token ' + data.session,
 						},
 					})
 						.then((response) => response.json())
@@ -41,30 +41,30 @@ function Callback({ setUserData, setIsInterested }: any) {
 						window.location.search
 					);
 
-					const windowIsPopup = urlParams.get("popup");
+					const windowIsPopup = urlParams.get('popup');
 					if (windowIsPopup) {
 						window.close();
 						return;
 					}
 
-					const continueTo = urlParams.get("continue");
+					const continueTo = urlParams.get('continue');
 					if (continueTo) {
 						switch (continueTo) {
-							case "interest-meeting":
-								navigate.current("/meetings");
+							case 'interest-meeting':
+								navigate.current('/meetings');
 								break;
-							case "sessions":
-								navigate.current("/sessions");
+							case 'sessions':
+								navigate.current('/sessions');
 								break;
 							default:
-								navigate.current("/");
+								navigate.current('/');
 								break;
 						}
 					} else {
-						navigate.current("/");
+						navigate.current('/');
 					}
 				} else {
-					alert("error");
+					alert('error');
 				}
 			});
 	}, []);

@@ -1,8 +1,8 @@
-import HomeIcon from "../assets/images/home.svg";
-import MembersIcon from "../assets/images/members.svg";
-import ContactIcon from "../assets/images/contact.svg";
-import Logo from "../assets/images/logo.png";
-import { useLocation, useNavigate } from "react-router-dom";
+import HomeIcon from '../assets/images/home.svg';
+import MembersIcon from '../assets/images/members.svg';
+import ContactIcon from '../assets/images/contact.svg';
+import Logo from '../assets/images/logo.png';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const DesktopNavBar = () => {
 	const location = useLocation();
@@ -16,17 +16,17 @@ const DesktopNavBar = () => {
 
 	function updatePageTitle(location_: string) {
 		switch (location_) {
-			case "/":
-				document.title = "Herndon Computer Science Association";
+			case '/':
+				document.title = 'Herndon Computer Science Association';
 				break;
-			case "/members":
-				document.title = "Members | HCSA";
+			case '/members':
+				document.title = 'Members | HCSA';
 				break;
-			case "/contact":
-				document.title = "Contact Us | HCSA";
+			case '/contact':
+				document.title = 'Contact Us | HCSA';
 				break;
 			default:
-				document.title = "Herndon Computer Science Association";
+				document.title = 'Herndon Computer Science Association';
 				break;
 		}
 	}
@@ -40,17 +40,17 @@ const DesktopNavBar = () => {
 			<div className="nav-links">
 				<ul>
 					<li
-						onClick={() => navLinkClickEvent("/")}
-						className={location.pathname === "/" ? "selected" : ""}
+						onClick={() => navLinkClickEvent('/')}
+						className={location.pathname === '/' ? 'selected' : ''}
 					>
 						<img src={HomeIcon} alt="home icon" />
 						<p>Home</p>
 					</li>
 
 					<li
-						onClick={() => navLinkClickEvent("/members")}
+						onClick={() => navLinkClickEvent('/members')}
 						className={
-							location.pathname === "/members" ? "selected" : ""
+							location.pathname === '/members' ? 'selected' : ''
 						}
 					>
 						<img src={MembersIcon} alt="members icon" />
@@ -59,10 +59,10 @@ const DesktopNavBar = () => {
 
 					<li
 						onClick={() => {
-							window.open("mailto:hello@hcsa.tech");
+							window.open('mailto:hello@hcsa.tech');
 						}}
 						className={
-							location.pathname === "/contact" ? "selected" : ""
+							location.pathname === '/contact' ? 'selected' : ''
 						}
 					>
 						<img src={ContactIcon} alt="contact icon" />

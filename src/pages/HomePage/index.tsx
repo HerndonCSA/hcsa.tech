@@ -1,7 +1,7 @@
-import "./assets/HomePage.scss";
-import { motion } from "framer-motion";
-import { useEffect } from "react";
-import { Button } from "@mui/material";
+import './assets/HomePage.scss';
+import { motion } from 'framer-motion';
+import { useEffect } from 'react';
+import { Button } from '@mui/material';
 
 const HomePage = () => {
 	return (
@@ -31,7 +31,7 @@ const HomePage = () => {
 						onClick={() => {
 							// open https://github.com/orgs/HerndonCSA/repositories in new tab
 							window.open(
-								"https://github.com/orgs/HerndonCSA/repositories"
+								'https://github.com/orgs/HerndonCSA/repositories'
 							);
 						}}
 					>
@@ -47,7 +47,7 @@ const HomePage = () => {
 					<Button
 						className="join"
 						onClick={() => {
-							window.location.href = "https://join.hcsa.tech";
+							window.location.href = 'https://join.hcsa.tech';
 						}}
 					>
 						Join Us

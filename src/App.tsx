@@ -1,18 +1,19 @@
-import "./assets/App.scss";
-import NavBar from "./components/NavBar";
-import Waves from "./components/Waves";
+import './assets/App.scss';
+import NavBar from './components/NavBar';
+import Waves from './components/Waves';
 // import Footer from "./components/Footer";
-import Callback from "./components/Callback";
-import { AnimatePresence } from "framer-motion";
-import { Route, Routes, useLocation } from "react-router-dom";
-import { useState, lazy, useEffect } from "react";
-import SessionManager from "./components/SessionManager";
-import NotFound404 from "./components/HTTPErrors/NotFound404";
+import Callback from './components/Callback';
+import { AnimatePresence } from 'framer-motion';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { useState, lazy, useEffect } from 'react';
+import SessionManager from './components/SessionManager';
+import NotFound404 from './components/HTTPErrors/NotFound404';
 
-const HomePage = lazy(() => import("./pages/HomePage"));
-const MembersPage = lazy(() => import("./pages/MembersPage"));
-const ContactPage = lazy(() => import("./pages/ContactPage"));
-const InterestMeeting = lazy(() => import("./pages/InterestMeeting"));
+const HomePage = lazy(() => import('./pages/HomePage'));
+const MembersPage = lazy(() => import('./pages/MembersPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const InterestMeeting = lazy(() => import('./pages/InterestMeeting'));
+const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -21,14 +22,14 @@ const App = () => {
 	const [userData, setUserData] = useState({});
 	const [is_interested, setIsInterested] = useState(null);
 	useEffect(() => {
-		let session = localStorage.getItem("session");
+		let session = localStorage.getItem('session');
 		if (session) {
-			console.log("PREVIOUS SESSION FOUND");
+			console.log('PREVIOUS SESSION FOUND');
 			// -H "Authorization: Token [token]"
-			fetch(API_URL + "/user", {
-				method: "GET",
+			fetch(API_URL + '/user', {
+				method: 'GET',
 				headers: {
-					Authorization: "Token " + session,
+					Authorization: 'Token ' + session,
 				},
 			})
 				.then((response) => response.json())
@@ -36,10 +37,10 @@ const App = () => {
 					if (data.success) {
 						console.log(data);
 						setUserData(data);
-						fetch(API_URL + "/user/is_interested", {
-							method: "GET",
+						fetch(API_URL + '/user/is_interested', {
+							method: 'GET',
 							headers: {
-								Authorization: "Token " + session,
+								Authorization: 'Token ' + session,
 							},
 						})
 							.then((response) => response.json())
@@ -50,22 +51,22 @@ const App = () => {
 					} else {
 						// console log in red
 						console.log(data);
-						console.log("%c" + data.error, "color: red");
-						localStorage.removeItem("session");
+						console.log('%c' + data.error, 'color: red');
+						localStorage.removeItem('session');
 					}
 				});
 		} else {
-			console.log("NO PREVIOUS SESSION FOUND");
+			console.log('NO PREVIOUS SESSION FOUND');
 		}
 	}, []);
 	// if path is /, /members, or /contact, render navbar and waves
 	return (
 		<>
-			{["/", "/members", "/contact"].includes(location.pathname) && (
+			{['/', '/members', '/contact'].includes(location.pathname) && (
 				<Waves />
 			)}
 			<div className="app">
-				{["/", "/members", "/contact"].includes(location.pathname) && (
+				{['/', '/members', '/contact'].includes(location.pathname) && (
 					<NavBar userData={userData} setUserData={setUserData} />
 				)}
 				<AnimatePresence initial={false} mode="wait">

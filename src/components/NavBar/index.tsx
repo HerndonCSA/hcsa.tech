@@ -1,16 +1,16 @@
-import "./assets/NavBar.scss";
+import './assets/NavBar.scss';
 
-import { useNavigate, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-import Profile from "./components/Profile";
-import Dropdown from "./components/Dropdown";
+import Profile from './components/Profile';
+import Dropdown from './components/Dropdown';
 
-import DesktopNavBar from "./components/DesktopNavBar";
-import MobileNavBar from "./components/MobileNavBar";
+import DesktopNavBar from './components/DesktopNavBar';
+import MobileNavBar from './components/MobileNavBar';
 
-import { Button } from "@mui/material";
+import { Button } from '@mui/material';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -30,7 +30,7 @@ const NavBar = ({ userData, setUserData }: any) => {
 		navigate(location);
 		if (mobileMenuOpen) setMobileMenuOpen(false);
 		if (mobileMenuRef.current)
-			mobileMenuRef.current.classList.remove("open");
+			mobileMenuRef.current.classList.remove('open');
 	};
 
 	const clickOutSideToCloseDropdown = useCallback(
@@ -46,10 +46,10 @@ const NavBar = ({ userData, setUserData }: any) => {
 	);
 
 	useEffect(() => {
-		document.addEventListener("click", clickOutSideToCloseDropdown);
+		document.addEventListener('click', clickOutSideToCloseDropdown);
 
 		return function cleanup() {
-			document.removeEventListener("click", clickOutSideToCloseDropdown);
+			document.removeEventListener('click', clickOutSideToCloseDropdown);
 		};
 	}, [clickOutSideToCloseDropdown]);
 
@@ -81,19 +81,19 @@ const NavBar = ({ userData, setUserData }: any) => {
 							const x =
 								window.outerWidth / 2 + window.screenX - 300;
 							const popup = window.open(
-								API_URL + "/login?popup=true",
-								"Login",
+								API_URL + '/login?popup=true',
+								'Login',
 								`width=600,height=600,top=${y},left=${x}`
 							);
 
 							// add event listener to listen to changes in localstorage
-							window.addEventListener("storage", (e) => {
-								if (e.key === "session") {
+							window.addEventListener('storage', (e) => {
+								if (e.key === 'session') {
 									// update user data
 									const token =
-										localStorage.getItem("session");
-									fetch(API_URL + "/user", {
-										method: "GET",
+										localStorage.getItem('session');
+									fetch(API_URL + '/user', {
+										method: 'GET',
 										headers: {
 											Authorization: `Bearer ${token}`,
 										},
